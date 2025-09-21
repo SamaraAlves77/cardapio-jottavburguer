@@ -1,19 +1,16 @@
 /* ==================================== */
-/* 1. PERSONALIZAÇÃO DE TEMA: Altere aqui para mudar as cores e fontes! */
+/* 1. PERSONALIZAÇÃO DE TEMA */
 /* ==================================== */
 :root {
-    /* Tema: JottaV Burguer - Cores e Estilo da Imagem */
-    --cor-fundo-principal: #3B6B3D; /* Verde escuro */
-    --cor-fundo-secundario: #E8DCC9; /* Creme claro, quase branco para detalhes */
-    --cor-destaque-laranja: #F29541; /* Laranja da imagem */
-    --cor-texto-claro: #FFFFFF; /* Branco para textos em fundos escuros */
-    --cor-texto-escuro: #333333; /* Cinza escuro para legibilidade */
-    --cor-cinza-suave: #A0A0A0; /* Um cinza mais suave para descrições */
-
-    /* Fontes inspiradas no design */
-    --fonte-titulo-principal: 'Bangers', cursive; /* Fonte impactante para JOTTAV BURGUER */
-    --fonte-chamada: 'Oswald', sans-serif; /* Fonte para "VAI UM AÍ?", "PARA VOCÊ", "VAMOS PEDIR?" */
-    --fonte-geral: 'Montserrat', sans-serif; /* Para o corpo do texto e menus */
+    --cor-fundo-principal: #3B6B3D;
+    --cor-fundo-secundario: #E8DCC9;
+    --cor-destaque-laranja: #F29541;
+    --cor-texto-claro: #FFFFFF;
+    --cor-texto-escuro: #333333;
+    --cor-cinza-suave: #A0A0A0;
+    --fonte-titulo-principal: 'Bangers', cursive;
+    --fonte-chamada: 'Oswald', sans-serif;
+    --fonte-geral: 'Montserrat', sans-serif;
 }
 
 /* ==================================== */
@@ -41,6 +38,7 @@ body {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center; align-items: center; z-index: 1001;
+    overflow-y: auto;
 }
 .modal-conteudo {
     background-color: var(--cor-fundo-secundario);
@@ -54,6 +52,8 @@ body {
     animation: fadeIn 0.4s ease-out;
     max-height: 90vh;
     overflow-y: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 .modal-conteudo h2 {
     font-family: var(--fonte-chamada);
@@ -75,9 +75,7 @@ body {
 }
 
 
-/* ==================================== */
-/* 2.1. TELA DE BOAS-VINDAS - NOVO LAYOUT */
-/* ==================================== */
+/* TELA DE BOAS-VINDAS */
 .boas-vindas-overlay {
     background-color: var(--cor-fundo-principal);
     display: flex;
@@ -190,9 +188,7 @@ body {
     box-shadow: 0 0 20px #1DA851;
 }
 
-/* ==================================== */
-/* 2.2. NAVBAR PRINCIPAL (SEM MUDANÇAS) */
-/* ==================================== */
+/* NAVBAR PRINCIPAL */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -317,9 +313,7 @@ body {
 }
 
 
-/* ==================================== */
-/* 2.3. SEÇÕES DE MENU E CARDS DE ITENS (SEM MUDANÇAS) */
-/* ==================================== */
+/* SEÇÕES DE MENU E CARDS DE ITENS */
 .menu-container {
     padding: 2rem;
     max-width: 1200px;
@@ -412,9 +406,7 @@ body {
 }
 
 
-/* ==================================== */
-/* 2.4. ESTILOS DO CARRINHO E FORMULÁRIOS (SEM MUDANÇAS) */
-/* ==================================== */
+/* ESTILOS DO CARRINHO E FORMULÁRIOS */
 #carrinho-vazio {
     text-align: center;
     font-style: italic;
@@ -582,9 +574,7 @@ body {
 }
 
 
-/* ==================================== */
-/* 2.5. MODAL DE ADICIONAIS (SEM MUDANÇAS) */
-/* ==================================== */
+/* MODAL DE ADICIONAIS */
 .adicionais-grid {
     display: flex;
     flex-direction: column;
@@ -663,9 +653,7 @@ body {
 }
 
 
-/* ==================================== */
-/* 3. ANIMAÇÕES */
-/* ==================================== */
+/* ANIMAÇÕES */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -683,9 +671,7 @@ body {
 }
 
 
-/* ==================================== */
-/* 4. RESPONSIVIDADE (MOBILE FIRST) */
-/* ==================================== */
+/* RESPONSIVIDADE (MOBILE FIRST) */
 @media (max-width: 768px) {
     .titulo-principal-boas-vindas {
         font-size: 3rem;
@@ -799,7 +785,6 @@ body {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
         max-height: 250px;
     }
-
 }
 
 @keyframes slideDown {

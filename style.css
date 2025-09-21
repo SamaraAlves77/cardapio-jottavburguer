@@ -4,7 +4,7 @@
 :root {
     /* Tema: JottaV Burguer - Moderno, Convidativo, Simples e Belo */
     --cor-primaria: #B83B3B; /* Vermelho/Borgonha da logo */
-    --cor-secundaria: #F5F5DC; /* Creme/Bege da logo (fundo suave) */
+    --cor-secundaria: #F5F5DC; /* Creme/Beige da logo (fundo suave) */
     --cor-fundo-destaque: #E0D3C4; /* Um tom mais escuro de bege para destaque */
     --cor-texto-principal: #333333; /* Cinza escuro para boa legibilidade */
     --cor-texto-secundario: #666666; /* Cinza médio */
@@ -45,6 +45,8 @@ body {
     background-color: white; padding: 2rem; border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); text-align: center; max-width: 450px; width: 90%;
     animation: fadeIn 0.4s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 .boas-vindas-card .logo-boas-vindas { max-width: 200px; margin-bottom: 1.5rem; }
 .boas-vindas-card h2 { font-family: var(--fonte-destaque); font-size: 2.2rem; color: var(--cor-primaria); margin-bottom: 0.5rem; }
@@ -104,8 +106,8 @@ body {
 .resumo-pedido { margin-top: 1.5rem; border-top: 2px solid var(--cor-fundo-destaque); padding-top: 1.5rem; }
 .resumo-pedido h3 { font-size: 1.8rem; color: var(--cor-primaria); }
 .resumo-pedido h4 { font-size: 1.2rem; margin-top: 1rem; }
-.campo-selecao, #observacoes-pedido { width: 100%; padding: 0.7rem; margin-top: 0.8rem; border: 1px solid #ccc; border-radius: 5px; font-family: var(--fonte-principal); font-size: 1rem; background-color: var(--cor-fundo-destaque); }
-#observacoes-pedido { resize: vertical; min-height: 100px; }
+.campo-selecao, #observacoes-pedido, #endereco-pedido { width: 100%; padding: 0.7rem; margin-top: 0.8rem; border: 1px solid #ccc; border-radius: 5px; font-family: var(--fonte-principal); font-size: 1rem; background-color: var(--cor-fundo-destaque); }
+#observacoes-pedido, #endereco-pedido { resize: vertical; min-height: 80px; }
 #finalizar-pedido-whatsapp { width: 100%; margin-top: 2rem; padding: 1.2rem; font-size: 1.2rem; }
 
 /* Animações */
@@ -114,6 +116,7 @@ body {
 /* ==================================== */
 /* 3. RESPONSIVIDADE (MOBILE FIRST) */
 /* ==================================== */
+/* Telas de até 768px (Celulares) */
 @media (max-width: 768px) {
     .navbar { flex-direction: column; padding: 1rem; }
     .navbar .nav-links { margin-top: 1rem; display: flex; flex-wrap: wrap; justify-content: center; }
@@ -129,4 +132,22 @@ body {
     .carrinho-actions { width: 100%; justify-content: space-between; margin-top: 5px; }
     .carrinho-actions .total-item { order: -1; margin-right: auto; }
     .remover-item { margin-left: 0; }
+    #finalizar-pedido-whatsapp { padding: 1rem; font-size: 1rem; }
+}
+
+/* Telas de 769px a 1024px (Tablets e alguns laptops) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .navbar { padding: 1rem 1.5rem; }
+    .navbar .nav-links { margin-left: auto; }
+    .item-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+    .menu-container { padding: 1.5rem; }
+    .menu-section h2 { font-size: 2.5rem; }
+}
+
+/* Telas de 1025px ou mais (Desktops) */
+@media (min-width: 1025px) {
+    .navbar { padding: 1rem 4rem; }
+    .menu-container { max-width: 1200px; margin: auto; padding: 2rem; }
+    .menu-section h2 { font-size: 3rem; }
+    .item-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 }

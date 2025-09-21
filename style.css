@@ -2,195 +2,913 @@
 /* 1. PERSONALIZAÇÃO DE TEMA: Altere aqui para mudar as cores e fontes! */
 /* ==================================== */
 :root {
-    /* Tema: JottaV Burguer - Moderno, Convidativo, Simples e Belo */
-    --cor-primaria: #B83B3B; /* Vermelho/Borgonha da logo */
-    --cor-secundaria: #F5F5DC; /* Creme/Beige da logo (fundo suave) */
-    --cor-fundo-destaque: #E0D3C4; /* Um tom mais escuro de bege para destaque */
-    --cor-texto-principal: #333333; /* Cinza escuro para boa legibilidade */
-    --cor-texto-secundario: #666666; /* Cinza médio */
-    --cor-detalhe-verde: #6B8E23; /* Verde para alface/detalhes naturais */
-    --fonte-principal: 'Montserrat', sans-serif; /* Mais limpa e moderna */
-    --fonte-destaque: 'Playfair Display', serif; /* Fonte para títulos */
+    /* Tema: JottaV Burguer - Cores e Estilo da Imagem */
+    --cor-fundo-principal: #3B6B3D; /* Verde escuro */
+    --cor-fundo-secundario: #E8DCC9; /* Creme claro, quase branco para detalhes */
+    --cor-destaque-laranja: #F29541; /* Laranja da imagem */
+    --cor-texto-claro: #FFFFFF; /* Branco para textos em fundos escuros */
+    --cor-texto-escuro: #333333; /* Cinza escuro para legibilidade */
+    --cor-cinza-suave: #A0A0A0; /* Um cinza mais suave para descrições */
+
+    /* Fontes inspiradas no design */
+    --fonte-titulo-principal: 'Bangers', cursive; /* Fonte impactante para JOTTAV BURGUER */
+    --fonte-chamada: 'Oswald', sans-serif; /* Fonte para "VAI UM AÍ?", "PARA VOCÊ", "VAMOS PEDIR?" */
+    --fonte-geral: 'Montserrat', sans-serif; /* Para o corpo do texto e menus */
 }
 
 /* ==================================== */
 /* 2. ESTILOS GERAIS E COMPONENTES */
 /* ==================================== */
 body {
-    font-family: var(--fonte-principal);
-    background-color: var(--cor-secundaria);
-    color: var(--cor-texto-principal);
+    font-family: var(--fonte-geral);
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-claro);
     margin: 0;
     line-height: 1.6;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
-/* Janela de Boas-Vindas */
-.boas-vindas-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex; justify-content: center; align-items: center; z-index: 1000;
-}
 .main-content {
     display: none;
+    background-color: var(--cor-fundo-secundario);
+    color: var(--cor-texto-escuro);
+    min-height: 100vh;
 }
+
 .modal {
     display: none;
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center; align-items: center; z-index: 1001;
 }
-
-.boas-vindas-card, .modal-conteudo {
-    background-color: white; padding: 2rem; border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); text-align: center; max-width: 450px; width: 90%;
+.modal-conteudo {
+    background-color: var(--cor-fundo-secundario);
+    color: var(--cor-texto-escuro);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    max-width: 500px;
+    width: 90%;
     animation: fadeIn 0.4s ease-out;
     max-height: 90vh;
     overflow-y: auto;
 }
-.boas-vindas-card .logo-boas-vindas { max-width: 200px; margin-bottom: 1.5rem; }
-.boas-vindas-card h2 { font-family: var(--fonte-destaque); font-size: 2.2rem; color: var(--cor-primaria); margin-bottom: 0.5rem; }
-.boas-vindas-card p { font-size: 1.1rem; color: var(--cor-texto-secundario); margin-bottom: 2rem; }
-.botoes-boas-vindas { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+.modal-conteudo h2 {
+    font-family: var(--fonte-chamada);
+    font-size: 2.2rem;
+    color: var(--cor-destaque-laranja);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+.fechar-modal {
+    color: #666;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+.fechar-modal:hover {
+    color: var(--cor-destaque-laranja);
+}
 
-/* Navbar */
-.navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background-color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-.navbar .logo img { max-height: 40px; }
-.navbar .nav-links a { text-decoration: none; color: var(--cor-texto-principal); margin-left: 1.5rem; font-weight: 600; transition: color 0.3s ease; }
-.navbar .nav-links a:hover { color: var(--cor-primaria); }
 
-/* Menu e Categorias */
-.menu-container { padding: 2rem; }
-.menu-section h2 { font-family: var(--fonte-destaque); text-align: center; font-size: 3rem; margin-top: 2.5rem; margin-bottom: 1.5rem; color: var(--cor-primaria); }
+/* ==================================== */
+/* 2.1. TELA DE BOAS-VINDAS */
+/* ==================================== */
+.boas-vindas-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--cor-fundo-principal);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
+    padding: 2rem;
+    box-sizing: border-box;
+}
 
-/* Cards de Itens */
-.item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; padding: 1rem; }
-.item-card { display: flex; flex-direction: column; align-items: center; text-align: center; background-color: white; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); padding: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.item-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
-.item-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; border: 1px solid #eee; }
-.item-card h3 { font-family: var(--fonte-destaque); font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--cor-primaria); }
-.item-card p { font-size: 0.95rem; color: var(--cor-texto-secundario); margin-bottom: 1rem; flex-grow: 1; }
-.price { font-weight: 700; font-size: 1.4rem; color: var(--cor-primaria); margin-top: 0.5rem; }
+.boas-vindas-conteudo {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    background-color: var(--cor-fundo-principal);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    flex-direction: row;
+    animation: fadeInScale 0.6s ease-out forwards;
+}
 
-/* Botões Gerais */
-.btn, .btn-boas-vindas { padding: 0.8rem 1.8rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; font-size: 1.05rem; }
-.btn:hover, .btn-boas-vindas:hover { transform: translateY(-2px); }
-.btn-primary { background-color: var(--cor-primaria); color: white; }
-.btn-primary:hover { background-color: #A33333; }
+.boas-vindas-esquerda {
+    flex: 1;
+    background-color: var(--cor-fundo-principal);
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
 
-/* Botões Específicos da Janela de Boas-Vindas */
-.btn-whatsapp { background-color: #25D366; color: white; }
-.btn-whatsapp:hover { background-color: #1DA851; }
-.btn-instagram { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); color: white; }
-.btn-instagram:hover { transform: scale(1.02); }
-.btn-cardapio { background-color: var(--cor-primaria); color: white; }
-.btn-cardapio:hover { background-color: #A33333; }
+.logo-principal {
+    max-width: 90%;
+    height: auto;
+    margin-bottom: 1rem;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.3));
+}
 
-/* Estilo para itens indisponíveis */
-.item-card.indisponivel { opacity: 0.5; pointer-events: none; }
-.item-card.indisponivel h3 { text-decoration: line-through; color: var(--cor-texto-secundario); }
-.item-card.indisponivel .btn-add { background-color: #ccc; cursor: not-allowed; }
+.tagline {
+    font-family: var(--fonte-chamada);
+    font-size: 1.8rem;
+    color: var(--cor-destaque-laranja);
+    margin: -1.5rem 0 2rem;
+    font-weight: 700;
+}
 
-/* Estilos do Carrinho (Modal) */
-.modal-conteudo h2 { font-family: var(--fonte-destaque); font-size: 2rem; color: var(--cor-primaria); margin-bottom: 1rem; }
-.fechar-modal { color: #aaa; float: right; font-size: 30px; font-weight: bold; cursor: pointer; line-height: 1; }
-.fechar-modal:hover { color: #888; }
-#carrinho-vazio { text-align: center; font-style: italic; color: #888; padding: 1rem 0; }
-.carrinho-item { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px dashed #eee; font-size: 1.05rem; }
-.carrinho-actions { display: flex; align-items: center; gap: 8px; }
-.carrinho-actions button { background-color: var(--cor-fundo-destaque); border: 1px solid #ccc; padding: 4px 8px; cursor: pointer; border-radius: 5px; font-weight: bold; font-size: 0.9rem; transition: background-color 0.2s; }
-.carrinho-actions button:hover { background-color: #d2c8bc; }
-.carrinho-actions .remover-item { color: #e74c3c; cursor: pointer; font-size: 1.3rem; margin-left: 10px; transition: color 0.2s; }
-.carrinho-actions .remover-item:hover { color: #c0392b; }
-.carrinho-actions .total-item { font-weight: 600; min-width: 70px; text-align: right; }
-.resumo-pedido { margin-top: 1.5rem; border-top: 2px solid var(--cor-fundo-destaque); padding-top: 1.5rem; }
-.resumo-pedido h3 { font-size: 1.8rem; color: var(--cor-primaria); }
-.resumo-pedido h4 { font-size: 1.2rem; margin-top: 1rem; }
-.campo-selecao { width: 100%; padding: 0.7rem; margin-top: 0.8rem; border: 1px solid #ccc; border-radius: 5px; font-family: var(--fonte-principal); font-size: 1rem; background-color: var(--cor-fundo-destaque); }
-#finalizar-pedido-whatsapp { width: 100%; margin-top: 2rem; padding: 1.2rem; font-size: 1.2rem; }
+.boas-vindas-chamada {
+    margin-top: 2rem;
+}
+.boas-vindas-chamada p {
+    font-family: var(--fonte-chamada);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--cor-texto-claro);
+    margin-bottom: 0.5rem;
+}
+.numero-whatsapp {
+    font-family: var(--fonte-chamada);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--cor-destaque-laranja);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.numero-whatsapp:hover {
+    color: #FFC080;
+}
 
-/* NOVOS ESTILOS PARA ENDEREÇO E LOCALIZAÇÃO */
+.boas-vindas-direita {
+    flex: 1;
+    background-color: var(--cor-fundo-secundario);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 2rem;
+    position: relative;
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: 1;
+    margin-left: -10%;
+}
+@media (max-width: 768px) {
+    .boas-vindas-direita {
+        clip-path: none;
+        margin-left: 0;
+    }
+}
+
+
+.vai-um-ai {
+    font-family: var(--fonte-chamada);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cor-destaque-laranja);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.imagem-hamburguer-boas-vindas {
+    max-width: 80%;
+    height: auto;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.a-partir-de {
+    font-family: var(--fonte-chamada);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--cor-texto-escuro);
+    margin-bottom: 0.5rem;
+}
+
+.preco-inicial {
+    font-family: var(--fonte-chamada);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--cor-destaque-laranja);
+    margin-bottom: 2rem;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+}
+
+.btn-cardapio {
+    background-color: var(--cor-destaque-laranja);
+    color: var(--cor-texto-claro);
+    padding: 1.2rem 2.5rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-cardapio:hover {
+    background-color: #E08030;
+    transform: translateY(-3px) scale(1.02);
+}
+
+
+/* ==================================== */
+/* 2.2. NAVBAR PRINCIPAL */
+/* ==================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--cor-fundo-secundario);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.navbar .logo img {
+    max-height: 50px;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+.navbar .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: auto;
+}
+.navbar .nav-links a {
+    text-decoration: none;
+    color: var(--cor-texto-escuro);
+    font-weight: 600;
+    font-family: var(--fonte-geral);
+    font-size: 1.05rem;
+    position: relative;
+    transition: color 0.3s ease;
+}
+.navbar .nav-links a:hover {
+    color: var(--cor-destaque-laranja);
+}
+.navbar .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background-color: var(--cor-destaque-laranja);
+    transition: width 0.3s ease;
+}
+.navbar .nav-links a:hover::after,
+.navbar .nav-links a.active::after {
+    width: 100%;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 2rem;
+}
+
+.btn-social {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #b01a75);
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease;
+}
+.btn-social:hover {
+    transform: scale(1.08);
+}
+
+.btn-carrinho {
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-claro);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-carrinho:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background-color: #2F5731;
+}
+.btn-carrinho i.fas {
+    font-size: 1.5rem;
+    color: var(--cor-texto-claro);
+}
+.contador-carrinho {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--cor-destaque-laranja);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: bounce 0.5s ease-in-out;
+}
+
+.hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--cor-texto-escuro);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+
+/* ==================================== */
+/* 2.3. SEÇÕES DE MENU E CARDS DE ITENS */
+/* ==================================== */
+.menu-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.menu-section {
+    margin-bottom: 3rem;
+    padding-top: 1rem;
+}
+.menu-section h2 {
+    font-family: var(--fonte-chamada);
+    text-align: center;
+    font-size: 3.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--cor-destaque-laranja);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
+    padding: 1rem;
+}
+.item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid var(--cor-fundo-secundario);
+}
+.item-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-color: var(--cor-destaque-laranja);
+}
+.item-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #eee;
+}
+.item-card h3 {
+    font-family: var(--fonte-chamada);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--cor-destaque-laranja);
+    text-transform: uppercase;
+}
+.item-card p {
+    font-size: 0.95rem;
+    color: var(--cor-texto-escuro);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+.price {
+    font-family: var(--fonte-chamada);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--cor-fundo-principal);
+    margin-top: 0.5rem;
+}
+
+.btn-add {
+    background-color: var(--cor-destaque-laranja);
+    color: var(--cor-texto-claro);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.btn-add:hover {
+    background-color: #E08030;
+    transform: translateY(-2px);
+}
+
+
+/* ==================================== */
+/* 2.4. ESTILOS DO CARRINHO E FORMULÁRIOS */
+/* ==================================== */
+#carrinho-vazio {
+    text-align: center;
+    font-style: italic;
+    color: var(--cor-cinza-suave);
+    padding: 1rem 0;
+}
+.carrinho-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px dashed #ddd;
+    font-size: 1.05rem;
+    color: var(--cor-texto-escuro);
+}
+.carrinho-item > div:first-child {
+    flex-basis: 65%;
+}
+.carrinho-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-basis: 30%;
+    justify-content: flex-end;
+}
+.carrinho-actions button {
+    background-color: var(--cor-fundo-secundario);
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    color: var(--cor-texto-escuro);
+}
+.carrinho-actions button:hover {
+    background-color: #d2c8bc;
+}
+.carrinho-actions .remover-item {
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 1.3rem;
+    margin-left: 0;
+    transition: color 0.2s;
+}
+.carrinho-actions .remover-item:hover {
+    color: #c0392b;
+}
+.carrinho-actions .total-item {
+    font-weight: 600;
+    min-width: 70px;
+    text-align: right;
+    color: var(--cor-destaque-laranja);
+}
+.item-observacao {
+    font-size: 0.85rem;
+    color: var(--cor-cinza-suave);
+    margin: 5px 0 0;
+    font-style: italic;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.resumo-pedido {
+    margin-top: 1.5rem;
+    border-top: 2px solid var(--cor-fundo-principal);
+    padding-top: 1.5rem;
+    color: var(--cor-texto-escuro);
+}
+.resumo-pedido h3 {
+    font-family: var(--fonte-chamada);
+    font-size: 2rem;
+    color: var(--cor-destaque-laranja);
+    margin-bottom: 1rem;
+}
+.resumo-pedido h4 {
+    font-family: var(--fonte-geral);
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: var(--cor-fundo-principal);
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+.campo-selecao, .campo-endereco, #observacoes-endereco, #observacoes-gerais, #observacao-item {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: var(--fonte-geral);
+    font-size: 1rem;
+    background-color: white;
+    box-sizing: border-box;
+    color: var(--cor-texto-escuro);
+}
+.campo-selecao:focus, .campo-endereco:focus,
+#observacoes-endereco:focus, #observacoes-gerais:focus, #observacao-item:focus {
+    border-color: var(--cor-destaque-laranja);
+    box-shadow: 0 0 0 2px rgba(242, 149, 65, 0.3);
+    outline: none;
+}
+#observacoes-endereco, #observacoes-gerais, #observacao-item {
+    min-height: 60px;
+    resize: vertical;
+}
+
 .btn-full-width {
     width: 100%;
     margin-top: 1rem;
     padding: 1rem;
     font-size: 1.1rem;
 }
+.btn.btn-secondary {
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-claro);
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn.btn-secondary:hover {
+    background-color: #2F5731;
+    transform: translateY(-2px);
+}
 
 .status-text {
     text-align: center;
     font-size: 0.9rem;
     margin-top: 0.5rem;
-    color: var(--cor-texto-secundario);
+    color: var(--cor-cinza-suave);
 }
 
 .form-endereco {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
+    gap: 0.8rem;
+    margin-top: 1rem;
     padding-top: 1rem;
     border-top: 1px solid #ddd;
 }
+.form-endereco label {
+    color: var(--cor-texto-escuro);
+}
 
-.campo-endereco, #observacoes-endereco, #observacoes-gerais {
-    width: 100%;
-    padding: 0.7rem;
-    border: 1px solid #ccc;
+#finalizar-pedido-whatsapp {
+    background-color: #25D366;
+    color: white;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 10px;
+    margin-top: 2.5rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+#finalizar-pedido-whatsapp:hover {
+    background-color: #1DA851;
+    transform: translateY(-3px) scale(1.01);
+}
+
+
+/* ==================================== */
+/* 2.5. MODAL DE ADICIONAIS */
+/* ==================================== */
+.adicionais-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.adicional-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.adicional-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.adicional-card img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
     border-radius: 5px;
-    font-family: var(--fonte-principal);
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+.adicional-info {
+    font-family: var(--fonte-geral);
     font-size: 1rem;
-    background-color: var(--cor-fundo-destaque);
-    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+    color: var(--cor-texto-escuro);
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.adicional-info span:first-child {
+    font-weight: 500;
+}
+.adicional-info .price {
+    font-size: 1.2rem;
+    color: var(--cor-destaque-laranja);
+    font-weight: 700;
+    margin-left: 0.5rem;
+}
+.adicional-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 1rem;
+    flex-shrink: 0;
+}
+.adicional-actions button {
+    background-color: var(--cor-fundo-secundario);
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    color: var(--cor-texto-escuro);
+}
+.adicional-actions button:hover {
+    background-color: #d2c8bc;
+}
+.adicional-actions .quantidade-add {
+    font-weight: bold;
+    color: var(--cor-destaque-laranja);
+    font-size: 1.1rem;
 }
 
-#observacoes-endereco, #observacoes-gerais {
-    min-height: 60px;
-    resize: vertical;
+/* ==================================== */
+/* 3. ANIMAÇÕES */
+/* ==================================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.mt-1 { margin-top: 1rem; }
-.mt-2 { margin-top: 2rem; }
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
 
-
-/* Animações */
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-2px); }
+}
 
 /* ==================================== */
-/* 3. RESPONSIVIDADE (MOBILE FIRST) */
+/* 4. RESPONSIVIDADE (MOBILE FIRST) */
 /* ==================================== */
-/* Telas de até 768px (Celulares) */
 @media (max-width: 768px) {
-    .navbar { flex-direction: column; padding: 1rem; }
-    .navbar .nav-links { margin-top: 1rem; display: flex; flex-wrap: wrap; justify-content: center; }
-    .navbar .nav-links a { margin: 0 0.5rem 0.5rem; }
-    .navbar .action-buttons { width: 100%; display: flex; justify-content: center; margin-top: 1rem; }
-    .menu-section h2 { font-size: 2.2rem; }
-    .item-grid { grid-template-columns: 1fr; gap: 1.5rem; padding: 1rem; }
-    .item-card { padding: 1rem; }
-    .item-card h3 { font-size: 1.5rem; }
-    .price { font-size: 1.2rem; }
-    .modal-conteudo { width: 95%; padding: 1.5rem; }
-    .carrinho-item { flex-direction: column; align-items: flex-start; gap: 5px; }
-    .carrinho-actions { width: 100%; justify-content: space-between; margin-top: 5px; }
-    .carrinho-actions .total-item { order: -1; margin-right: auto; }
-    .remover-item { margin-left: 0; }
-    #finalizar-pedido-whatsapp { padding: 1rem; font-size: 1rem; }
+    .boas-vindas-conteudo {
+        flex-direction: column;
+        height: 100%;
+        max-height: none;
+        overflow-y: auto;
+    }
+
+    .boas-vindas-esquerda, .boas-vindas-direita {
+        padding: 2rem 1rem;
+        width: 100%;
+        clip-path: none;
+        margin-left: 0;
+    }
+    .boas-vindas-direita {
+        border-top: 5px solid var(--cor-destaque-laranja);
+        background-color: var(--cor-fundo-secundario);
+    }
+
+    .logo-principal {
+        max-width: 80%;
+    }
+    .tagline {
+        font-size: 1.5rem;
+        margin: -1rem 0 1.5rem;
+    }
+    .boas-vindas-chamada p {
+        font-size: 1.3rem;
+    }
+    .numero-whatsapp {
+        font-size: 1.8rem;
+    }
+    .vai-um-ai {
+        font-size: 2rem;
+    }
+    .preco-inicial {
+        font-size: 2.2rem;
+    }
+    .btn-cardapio {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0.8rem 1rem;
+    }
+    .navbar .logo {
+        flex-basis: auto;
+        order: 1;
+    }
+    .navbar .action-buttons {
+        order: 2;
+        margin-left: auto;
+    }
+    .navbar .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--cor-fundo-secundario);
+        position: absolute;
+        top: 66px;
+        left: 0;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+        animation: slideDown 0.3s ease-out forwards;
+        order: 3;
+    }
+    .navbar .nav-links.active {
+        display: flex;
+    }
+    .navbar .nav-links a {
+        padding: 0.8rem 1.5rem;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        border-bottom: 1px solid #eee;
+    }
+    .navbar .nav-links a:last-child {
+        border-bottom: none;
+    }
+    .navbar .nav-links a::after {
+        display: none;
+    }
+    .hamburger-menu {
+        display: block;
+        order: 0;
+        margin-right: 1rem;
+    }
+    .hamburger-menu .fas {
+        color: var(--cor-destaque-laranja);
+    }
+
+    .menu-section h2 {
+        font-size: 2.5rem;
+    }
+    .item-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .item-card {
+        padding: 1.2rem;
+    }
+    .item-card h3 {
+        font-size: 1.7rem;
+    }
+    .price {
+        font-size: 1.4rem;
+    }
+
+    .modal-conteudo {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    .carrinho-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .carrinho-item > div:first-child {
+        flex-basis: 100%;
+        text-align: left;
+    }
+    .carrinho-actions {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 5px;
+        flex-basis: 100%;
+    }
+    .carrinho-actions .total-item {
+        order: -1;
+        margin-right: auto;
+    }
+    .remover-item {
+        margin-left: 0;
+    }
+    #finalizar-pedido-whatsapp {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    .adicionais-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        max-height: 250px;
+    }
+
 }
 
-/* Telas de 769px a 1024px (Tablets e alguns laptops) */
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
 @media (min-width: 769px) and (max-width: 1024px) {
+    .boas-vindas-conteudo {
+        flex-direction: row;
+    }
+    .boas-vindas-direita {
+        clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+        margin-left: -5%;
+    }
     .navbar { padding: 1rem 1.5rem; }
-    .navbar .nav-links { margin-left: auto; }
-    .item-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+    .navbar .nav-links { gap: 1rem; }
     .menu-container { padding: 1.5rem; }
-    .menu-section h2 { font-size: 2.5rem; }
+    .menu-section h2 { font-size: 3rem; }
+    .item-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
 }
 
-/* Telas de 1025px ou mais (Desktops) */
 @media (min-width: 1025px) {
+    .boas-vindas-conteudo {
+        height: 70vh;
+    }
+    .boas-vindas-esquerda {
+        padding: 4rem 3rem;
+    }
+    .logo-principal {
+        max-width: 400px;
+    }
+    .tagline {
+        font-size: 2.2rem;
+    }
+    .boas-vindas-chamada p {
+        font-size: 1.8rem;
+    }
+    .numero-whatsapp {
+        font-size: 2.5rem;
+    }
+    .boas-vindas-direita {
+        padding: 4rem 3rem;
+    }
+    .vai-um-ai {
+        font-size: 3rem;
+    }
+    .preco-inicial {
+        font-size: 3.5rem;
+    }
     .navbar { padding: 1rem 4rem; }
     .menu-container { max-width: 1200px; margin: auto; padding: 2rem; }
-    .menu-section h2 { font-size: 3rem; }
-    .item-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 }

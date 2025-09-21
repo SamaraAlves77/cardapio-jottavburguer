@@ -452,9 +452,11 @@ footer {
 .entrada-visual-botoes {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 15px;
     width: 100%;
     max-width: 300px;
+    margin: 0 auto;
 }
 
 .btn-social {

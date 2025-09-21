@@ -556,39 +556,11 @@ footer {
         border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* Configuração para o carrossel horizontal de cards */
+    /* Configuração para o grid de cards */
     .item-grid {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: auto; /* Apenas 'auto', para mostrar a barra de rolagem quando necessário */
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch; /* Para um scroll mais suave no iOS */
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 15px;
-        padding: 0 10px;
-    }
-
-    /* Esconde a barra de rolagem para navegadores baseados em WebKit (Chrome, Safari) */
-    .item-grid::-webkit-scrollbar {
-        display: none;
-    }
-
-    .item-card {
-        flex: 0 0 calc(50% - 7.5px); /* Mostra 2 itens com espaçamento em telas pequenas */
-        max-width: calc(50% - 7.5px);
-        height: auto;
-    }
-
-    .item-card img {
-        height: 120px; /* Altura da imagem mais compacta para se encaixar */
-        object-fit: cover;
-    }
-
-    /* Ajuste para telas menores que 480px (Smartphones) */
-    @media (max-width: 480px) {
-        .item-card {
-            flex: 0 0 70%; /* Mostra 1 item por vez, permitindo rolagem */
-            max-width: 70%;
-        }
+        overflow-x: hidden;
     }
 }

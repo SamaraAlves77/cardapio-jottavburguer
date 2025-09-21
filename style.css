@@ -6,7 +6,7 @@
     --cor-fundo-secundario: #f1f2f6;
     --cor-texto-escuro: #2f3640;
     --cor-texto-claro: #ffffff;
-    --cor-fundo-card-visita: #2c5339; /* Cor de fundo do cartão de visita */
+    --cor-fundo-card-visita: #2c5339;
 }
 
 /* Estilos de Entrada (Novo Design) */
@@ -16,14 +16,13 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: var(--cor-fundo-principal);
+    background-color: var(--cor-fundo-card-visita);
     text-align: center;
 }
 
 .card-visita {
     display: flex;
-    flex-direction: row;
-    background-color: var(--cor-fundo-card-visita);
+    background-color: #2c5339; /* Use a mesma cor de fundo */
     color: var(--cor-texto-claro);
     border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -31,6 +30,7 @@
     max-width: 900px;
     height: auto;
     overflow: hidden;
+    padding: 0;
 }
 
 .card-left {
@@ -40,14 +40,21 @@
     justify-content: center;
     flex: 1;
     padding: 40px 20px;
-    background-color: var(--cor-fundo-card-visita);
+    background-color: #2c5339;
 }
 
 .card-left img {
     max-width: 80%;
     height: auto;
     margin-bottom: 20px;
-    animation: bounce 2s infinite;
+}
+
+.slogan-principal-mobile {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--cor-primaria);
+    margin: 0;
+    display: none; /* Esconde no desktop */
 }
 
 .card-right {
@@ -56,21 +63,33 @@
     justify-content: center;
     flex: 1;
     padding: 40px 20px;
-    background-color: #2c5339; /* Use a mesma cor de fundo para o lado direito */
+    background-color: #2c5339;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .slogan-principal {
     font-size: 1.8rem;
     font-weight: bold;
-    color: var(--cor-secundaria);
+    color: var(--cor-primaria);
     margin-bottom: 30px;
 }
 
-.mensagem-boas-vindas {
+.info-contato {
+    margin-bottom: 20px;
+}
+
+.contato-item {
     font-size: 1.2rem;
-    font-weight: normal;
-    color: var(--cor-texto-claro);
-    margin: 0;
+    margin: 10px 0;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.contato-item i {
+    color: var(--cor-primaria);
+    margin-right: 10px;
+    font-size: 1.4rem;
 }
 
 .entrada-visual-botoes {
@@ -81,7 +100,7 @@
     width: 100%;
 }
 
-.btn-social, .btn-cardapio-principal {
+.btn-cardapio-principal {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,30 +114,18 @@
     text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
     text-align: center;
+    background-color: var(--cor-primaria);
 }
 
-.btn-social:hover, .btn-cardapio-principal:hover {
+.btn-cardapio-principal:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.btn-instagram {
-    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-}
-
-.btn-whatsapp {
-    background-color: #25d366;
-}
-
-.btn-cardapio-principal {
-    background-color: var(--cor-primaria);
-}
-
-.btn-social i {
+.btn-cardapio-principal i {
     margin-right: 10px;
     font-size: 1.2rem;
 }
-
 
 /* Estilos Gerais (Mantidos) */
 @keyframes bounce {
@@ -531,10 +538,8 @@ footer {
     .hamburger-menu-btn {
         display: block;
     }
-}
 
-/* Responsividade para o cartão de visita */
-@media (max-width: 600px) {
+    /* Responsividade para o cartão de visita */
     .card-visita {
         flex-direction: column;
         align-items: center;
@@ -543,5 +548,21 @@ footer {
 
     .card-left, .card-right {
         padding: 20px;
+        border-left: none;
+    }
+
+    .slogan-principal-mobile {
+        display: block; /* Mostra no mobile */
+    }
+
+    .slogan-principal {
+        display: none; /* Esconde no mobile */
+    }
+
+    .info-contato {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
     }
 }

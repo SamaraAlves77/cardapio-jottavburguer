@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Digital - JottaV Burguer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="boas-vindas-overlay" class="boas-vindas-overlay">
+        <div class="boas-vindas-card">
+            <img src="jottaV_burguer.png" alt="Logotipo JottaV Burguer" class="logo-boas-vindas">
+            <h2>Bem-vindo ao JottaV Burguer!</h2>
+            <p>Sua experiência gastronômica começa aqui. Escolha uma opção:</p>
+            <div class="botoes-boas-vindas">
+                <a href="https://wa.me/qr/DQBGK3HE6V4LN1" target="_blank" class="btn-boas-vindas btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Fazer Pedido Rápido
+                </a>
+                <a href="https://www.instagram.com/jottavburguer/" target="_blank" class="btn-boas-vindas btn-instagram">
+                    <i class="fab fa-instagram"></i> Nosso Instagram
+                </a>
+                <button id="abrir-cardapio" class="btn-boas-vindas btn-cardapio">
+                    <i class="fas fa-utensils"></i> Ver Cardápio Completo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-content" class="main-content">
+        <header class="navbar">
+            <div class="logo">
+                <img src="jottaV_burguer.png" alt="Logotipo JottaV Burguer">
+            </div>
+            <nav class="nav-links"></nav>
+            <div class="action-buttons">
+                <button id="abrir-carrinho" class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i> Pedido (<span id="contador-carrinho">0</span>)
+                </button>
+            </div>
+        </header>
+
+        <main class="menu-container"></main>
+
+        <div id="carrinho-modal" class="modal">
+            <div class="modal-conteudo">
+                <span class="fechar-modal">&times;</span>
+                <h2>Seu Pedido</h2>
+                <div id="carrinho-itens">
+                    <p id="carrinho-vazio">Seu carrinho está vazio.</p>
+                </div>
+                <div class="resumo-pedido">
+                    <h3>Total: <span id="total-pedido">R$ 0,00</span></h3>
+                    <h4>Forma de Pagamento:</h4>
+                    <select id="forma-pagamento" class="campo-selecao">
+                        <option value="pix">PIX</option>
+                        <option value="cartao_credito">Cartão de Crédito</option>
+                        <option value="cartao_debito">Cartão de Débito</option>
+                        <option value="dinheiro">Dinheiro</option>
+                    </select>
+                    <p class="observacoes">Observações:</p>
+                    <textarea id="observacoes-pedido" placeholder="Ex: Sem cebola, com mais molho..."></textarea>
+                </div>
+                <button id="finalizar-pedido-whatsapp" class="btn btn-primary">
+                    Finalizar Pedido via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

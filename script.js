@@ -14,9 +14,9 @@ const cardapioData = {
         { id: 4, nome: 'JottaV Classic', preco: 25.99, descricao: 'Pão, carne 150g, molho barbecue, tomate, alface, bacon e queijo muçarela.', imagem: 'imagens_hamburgueres/jottav_classic.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
         { id: 5, nome: 'Búrguer do Xerife', preco: 22.99, descricao: 'Pão, carne de 120g, (queijo muçarela ou requeijão longa) e farofa (bacon ou alho).', imagem: 'imagens_hamburgueres/burguer_xerife.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
         { id: 6, nome: 'Duplo Brutão', preco: 37.99, descricao: 'Pão, 2 carnes de 120g, (queijo muçarela ou requeijão longa), molho da casa, 2 fatias de bacon.', imagem: 'imagens_hamburgueres/duplo_brutao.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
-        { id: 7, nome: 'Calabresa Prime', preco: 26.99, descricao: 'Pão, molho, alface, tomate, calabresa, queijo, cebola caramelizada, (carne ou frango).', imagem: 'imagens_hamburgueres/calabresa_prime.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
-        { id: 8, nome: 'Burguer Salame', preco: 28.99, descricao: 'Pão, requeijão, carne e salame.', imagem: 'imagens_hamburgueres/burguer_salame.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
-        { id: 9, nome: 'Calabresa Básico', preco: 15.00, descricao: 'Pão, molho da casa, calabresa e queijo muçarela.', imagem: 'imagens_hamburgueres/calabresa_basico.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] }
+        { id: 7, nome: 'Calabresa Prime', preco: 26.99, descricao: 'Pão, molho, alface, tomate, calabresa, queijo, cebola caramelizada, (carne ou frango).', imagem: 'imagens_hamburgueres/calabresa_prime.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30, 31, 33] },
+        { id: 8, nome: 'Burguer Salame', preco: 28.99, descricao: 'Pão, requeijão, carne e salame.', imagem: 'imagens_hamburgueres/burguer_salame.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30, 32, 33] },
+        { id: 9, nome: 'Calabresa Básico', preco: 15.00, descricao: 'Pão, molho da casa, calabresa e queijo muçarela.', imagem: 'imagens_hamburgueres/calabresa_basico.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30, 31] }
     ],
     acompanhamentos: [
         { id: 10, nome: 'Batata Palito', preco: 11.99, descricao: 'Batata com batata.', imagem: 'imagens_acompanhamentos/batata_palito.jpg', disponivel: true, adicionais: [24, 26, 27, 28, 29, 30] },
@@ -360,7 +360,8 @@ document.addEventListener('DOMContentLoaded', () => {
             localizacaoStatus.textContent = 'Obtendo sua localização...';
             navigator.geolocation.getCurrentPosition(
                 (posicao) => {
-                    localizacaoAtual = `http://maps.google.com/maps?q=${posicao.coords.latitude},${posicao.coords.longitude}`;
+                    // Sintaxe corrigida do link do Google Maps
+                    localizacaoAtual = `https://www.google.com/maps?q=${posicao.coords.latitude},${posicao.coords.longitude}`;
                     localizacaoStatus.textContent = 'Localização obtida com sucesso!';
                 },
                 (erro) => {
@@ -448,5 +449,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const adicionalSelecionado = itemParaAdicionar.adicionaisSelecionados.find(add => add.id === id);
             quantidadeSpan.textContent = adicionalSelecionado ? adicionalSelecionado.quantidade : 0;
         });
+    }
+
+    // Funções auxiliares para abrir e fechar modais
+    function abrirModal(modalElement) {
+        modalElement.style.display = 'flex';
+    }
+
+    function fecharModal(modalElement) {
+        modalElement.style.display = 'none';
     }
 });

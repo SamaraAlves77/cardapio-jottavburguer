@@ -1,133 +1,99 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JottaV Burguer - Peça Online</title>
+    <title>JottaV Burguer</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <div class="entrada-visual" id="entrada-visual">
-        <div class="entrada-esquerda">
-            <img src="jottaV_burguer.png" alt="JottaV Burguer Logo" class="entrada-logo">
-            <h1 class="entrada-titulo">JottaV<br>Burguer</h1>
-            <p class="entrada-tagline">O sabor que você ama!</p>
-        </div>
-        <div class="entrada-direita">
-            <p class="chamada-direita">Que bom que você veio, sinta-se em casa!</p>
-            <div class="entrada-info-item">
-                <i class="fab fa-instagram icone-laranja"></i>
-                <p><a href="https://www.instagram.com/jottavburguer" target="_blank" class="link-social">@jottavburguer</a></p>
-            </div>
-            <div class="entrada-info-item">
-                <i class="fas fa-phone-alt icone-laranja"></i>
-                <p><a href="https://wa.me/+5586994253258" target="_blank" class="link-social">(86) 9 9425-3258</a></p>
-            </div>
-            <button class="btn-ver-cardapio" id="abrir-cardapio-visual">VER CARDÁPIO</button>
-        </div>
+    <div id="entrada-visual" class="entrada-visual-container">
+        <img src="logo.png" alt="Logo JottaV Burguer">
+        <button id="abrir-cardapio-visual" class="btn-principal">VER CARDÁPIO</button>
     </div>
 
-    <main class="main-content" id="main-content">
+    <main id="main-content" style="display:none;">
 
-        <nav class="navbar">
+        <header>
             <div class="logo">
-                <img src="jottaV_burguer.png" alt="JottaV Burguer Logo">
+                <img src="logo.png" alt="Logo JottaV Burguer">
             </div>
-            <div class="nav-links" id="nav-links">
-                </div>
-            <div class="action-buttons">
-                <a href="https://www.instagram.com/jottavburguer" target="_blank" class="btn-social"><i class="fab fa-instagram"></i></a>
-                <button class="btn-carrinho" id="abrir-carrinho">
+            <nav id="nav-links" class="nav-links">
+                </nav>
+            <div class="header-actions">
+                <button id="abrir-carrinho" class="carrinho-btn">
                     <i class="fas fa-shopping-cart"></i>
-                    <span class="contador-carrinho" id="contador-carrinho">0</span>
+                    <span id="contador-carrinho">0</span>
+                </button>
+                <button id="hamburger-menu" class="hamburger-menu-btn">
+                    <i class="fas fa-bars"></i>
                 </button>
             </div>
-             <button class="hamburger-menu" id="hamburger-menu">
-                <i class="fas fa-bars"></i>
-            </button>
-        </nav>
+        </header>
 
-        <div class="menu-container" id="menu-container">
+        <div id="menu-container" class="container">
             </div>
+
+        <div id="notificacao-flutuante" class="notificacao"></div>
+
+        <footer>
+            <p>&copy; 2024 JottaV Burguer. Todos os direitos reservados.</p>
+        </footer>
 
     </main>
 
     <div id="carrinho-modal" class="modal">
-        <div class="modal-conteudo">
-            <span class="fechar-modal">×</span>
+        <div class="modal-content">
+            <span class="fechar-modal">&times;</span>
             <h2>Seu Pedido</h2>
-            <div id="carrinho-vazio">Seu carrinho está vazio.</div>
-            <div id="carrinho-itens" class="carrinho-itens">
+            <div id="carrinho-vazio" class="carrinho-vazio">Seu carrinho está vazio.</div>
+            <div id="carrinho-itens">
                 </div>
-            
-            <div class="resumo-pedido">
-                <h3>Total: <span id="total-pedido">R$ 0,00</span></h3>
+            <div class="carrinho-total">
+                <p>Total do Pedido: <span id="total-pedido">R$ 0,00</span></p>
+            </div>
+            <div class="carrinho-finalizar">
+                <h3>Dados para Finalizar</h3>
+                <label for="forma-pagamento">Forma de Pagamento:</label>
+                <select id="forma-pagamento">
+                    <option value="pix">PIX</option>
+                    <option value="cartao-credito">Cartão de Crédito</option>
+                    <option value="cartao-debito">Cartão de Débito</option>
+                    <option value="dinheiro">Dinheiro</option>
+                </select>
+
+                <label for="observacoes-gerais">Observações Gerais:</label>
+                <textarea id="observacoes-gerais" placeholder="Ex: Sem cebola, ponto da carne, etc."></textarea>
                 
-                <h4>Dados do Pedido</h4>
-                <div class="form-group">
-                    <label for="forma-pagamento">Forma de Pagamento</label>
-                    <select id="forma-pagamento" class="campo-selecao">
-                        <option value="pix">PIX</option>
-                        <option value="dinheiro">Dinheiro</option>
-                        <option value="cartao-credito">Cartão de Crédito</option>
-                        <option value="cartao-debito">Cartão de Débito</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="observacoes-gerais">Observações Gerais do Pedido</label>
-                    <textarea id="observacoes-gerais" rows="2" placeholder="Ex: Sem cebola, com mais molho..."></textarea>
-                </div>
+                <h3>Endereço de Entrega</h3>
+                <input type="text" id="campo-rua" placeholder="Rua">
+                <input type="text" id="campo-numero" placeholder="Número">
+                <input type="text" id="campo-bairro" placeholder="Bairro">
+                <textarea id="observacoes-endereco" placeholder="Ex: Perto do mercado, portão preto"></textarea>
+                
+                <p id="localizacao-status"></p>
+                <button id="btn-localizacao" class="btn-secundario">Usar minha localização atual</button>
 
-                <h4>Endereço de Entrega</h4>
-                <button id="btn-localizacao" class="btn btn-secondary btn-full-width">
-                    <i class="fas fa-location-arrow"></i> Obter Minha Localização
-                </button>
-                <p id="localizacao-status" class="status-text"></p>
-
-                <div class="form-endereco">
-                    <label for="campo-rua">Rua</label>
-                    <input type="text" id="campo-rua" class="campo-endereco" placeholder="Ex: Rua A" required>
-
-                    <label for="campo-numero">Número</label>
-                    <input type="text" id="campo-numero" class="campo-endereco" placeholder="Ex: 123" required>
-
-                    <label for="campo-bairro">Bairro</label>
-                    <input type="text" id="campo-bairro" class="campo-endereco" placeholder="Ex: Bairro Centro" required>
-
-                    <label for="observacoes-endereco">Observações do Endereço</label>
-                    <textarea id="observacoes-endereco" rows="2" placeholder="Ex: Casa verde, portão preto..."></textarea>
-                </div>
-
-                <button id="finalizar-pedido-whatsapp" class="btn btn-primary btn-full-width">
-                    <i class="fab fa-whatsapp"></i> Finalizar Pedido via WhatsApp
+                <button id="finalizar-pedido-whatsapp" class="btn-principal" disabled>
+                    <i class="fab fa-whatsapp"></i> Finalizar Pedido
                 </button>
             </div>
         </div>
     </div>
 
     <div id="adicionais-modal" class="modal">
-        <div class="modal-conteudo">
-            <span class="fechar-modal">×</span>
-            <h2>Opcionais</h2> <p>Escolha os opcionais para o seu item.</p>
-            <div id="adicionais-opcoes" class="adicionais-grid">
+        <div class="modal-content">
+            <span class="fechar-modal">&times;</span>
+            <h2>Opcionais</h2>
+            <div class="adicionais-opcoes-container" id="adicionais-opcoes">
                 </div>
-            
-            <div class="form-group mt-1">
-                <label for="observacao-item">Observações sobre este item:</label>
-                <textarea id="observacao-item" rows="2" placeholder="Ex: Sem tomate, por favor..."></textarea>
-            </div>
-
-            <button id="confirmar-adicionais" class="btn btn-primary btn-full-width">Adicionar ao Carrinho</button>
+            <label for="observacao-item">Observações sobre o item:</label>
+            <textarea id="observacao-item" placeholder="Ex: Sem queijo, sem picles, etc."></textarea>
+            <button id="confirmar-adicionais" class="btn-principal">Confirmar</button>
         </div>
     </div>
-
-    <div class="notificacao-flutuante" id="notificacao-flutuante"></div>
 
     <script src="script.js"></script>
 </body>

@@ -106,9 +106,52 @@ body {
 .resumo-pedido { margin-top: 1.5rem; border-top: 2px solid var(--cor-fundo-destaque); padding-top: 1.5rem; }
 .resumo-pedido h3 { font-size: 1.8rem; color: var(--cor-primaria); }
 .resumo-pedido h4 { font-size: 1.2rem; margin-top: 1rem; }
-.campo-selecao, #observacoes-pedido, #endereco-pedido { width: 100%; padding: 0.7rem; margin-top: 0.8rem; border: 1px solid #ccc; border-radius: 5px; font-family: var(--fonte-principal); font-size: 1rem; background-color: var(--cor-fundo-destaque); }
-#observacoes-pedido, #endereco-pedido { resize: vertical; min-height: 80px; }
+.campo-selecao { width: 100%; padding: 0.7rem; margin-top: 0.8rem; border: 1px solid #ccc; border-radius: 5px; font-family: var(--fonte-principal); font-size: 1rem; background-color: var(--cor-fundo-destaque); }
 #finalizar-pedido-whatsapp { width: 100%; margin-top: 2rem; padding: 1.2rem; font-size: 1.2rem; }
+
+/* NOVOS ESTILOS PARA ENDEREÇO E LOCALIZAÇÃO */
+.btn-full-width {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+.status-text {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    color: var(--cor-texto-secundario);
+}
+
+.form-endereco {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+.campo-endereco, #observacoes-endereco, #observacoes-gerais {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: var(--fonte-principal);
+    font-size: 1rem;
+    background-color: var(--cor-fundo-destaque);
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+}
+
+#observacoes-endereco, #observacoes-gerais {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+
 
 /* Animações */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }

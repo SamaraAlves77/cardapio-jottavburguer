@@ -7,26 +7,29 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-    <div class="boas-vindas-overlay" id="boas-vindas-overlay">
-        <div class="boas-vindas-conteudo">
-            <img src="jottaV_burguer.png" alt="JottaV Burguer Logo Principal" class="logo-principal">
-            <h1 class="titulo-principal-boas-vindas">JOTTAV<br>BURGUER</h1>
-            <p class="tagline">Para você</p>
-            <div class="boas-vindas-chamada">
-                <p>VAMOS PEDIR?</p>
-                <a href="https://wa.me/+5586994253258" target="_blank" class="numero-whatsapp">86 9 94253258</a>
+    <div class="entrada-visual" id="entrada-visual">
+        <div class="entrada-esquerda">
+            <img src="jottaV_burguer.png" alt="JottaV Burguer Logo" class="entrada-logo">
+            <h1 class="entrada-titulo">JOTTAV<br>BURGUER</h1>
+            <p class="entrada-tagline">Para você</p>
+        </div>
+        <div class="entrada-direita">
+            <p class="chamada-direita">Peça agora e satisfaça sua fome!</p>
+            <div class="entrada-info-item">
+                <i class="fab fa-instagram icone-laranja"></i>
+                <p><a href="https://www.instagram.com/jottavburguer" target="_blank" class="link-social">@jottavburguer</a></p>
             </div>
-
-            <div class="boas-vindas-botoes">
-                <button class="btn btn-cardapio" id="abrir-cardapio">VER CARDÁPIO</button>
-                <a href="https://wa.me/+5586994253258?text=Olá, gostaria de fazer um pedido!" target="_blank" class="btn btn-whatsapp">FAZER PEDIDO VIA WHATSAPP</a>
+            <div class="entrada-info-item">
+                <i class="fas fa-phone-alt icone-laranja"></i>
+                <p><a href="https://wa.me/+5586994253258" target="_blank" class="link-social">(86) 9 9425-3258</a></p>
             </div>
+            <button class="btn-ver-cardapio" id="abrir-cardapio-visual">VER CARDÁPIO</button>
         </div>
     </div>
 
@@ -37,7 +40,7 @@
                 <img src="jottaV_burguer.png" alt="JottaV Burguer Logo">
             </div>
             <div class="nav-links" id="nav-links">
-            </div>
+                </div>
             <div class="action-buttons">
                 <a href="https://www.instagram.com/jottavburguer" target="_blank" class="btn-social"><i class="fab fa-instagram"></i></a>
                 <button class="btn-carrinho" id="abrir-carrinho">
@@ -51,7 +54,7 @@
         </nav>
 
         <div class="menu-container" id="menu-container">
-        </div>
+            </div>
 
     </main>
 
@@ -61,7 +64,7 @@
             <h2>Seu Pedido</h2>
             <div id="carrinho-vazio">Seu carrinho está vazio.</div>
             <div id="carrinho-itens" class="carrinho-itens">
-            </div>
+                </div>
             
             <div class="resumo-pedido">
                 <h3>Total: <span id="total-pedido">R$ 0,00</span></h3>
@@ -88,19 +91,14 @@
                 <p id="localizacao-status" class="status-text"></p>
 
                 <div class="form-endereco">
-                    <label for="campo-estado">Estado</label>
-                    <input type="text" id="campo-estado" class="campo-endereco" placeholder="Ex: PI" list="estados-list">
-                    <datalist id="estados-list"></datalist>
-
-                    <label for="campo-cidade">Cidade</label>
-                    <input type="text" id="campo-cidade" class="campo-endereco" placeholder="Ex: Parnaíba" list="cidades-list">
-                    <datalist id="cidades-list"></datalist>
-
                     <label for="campo-rua">Rua</label>
                     <input type="text" id="campo-rua" class="campo-endereco" placeholder="Ex: Rua A" required>
 
                     <label for="campo-numero">Número</label>
                     <input type="text" id="campo-numero" class="campo-endereco" placeholder="Ex: 123" required>
+
+                    <label for="campo-bairro">Bairro</label>
+                    <input type="text" id="campo-bairro" class="campo-endereco" placeholder="Ex: Bairro Centro" required>
 
                     <label for="observacoes-endereco">Observações do Endereço</label>
                     <textarea id="observacoes-endereco" rows="2" placeholder="Ex: Casa verde, portão preto..."></textarea>
@@ -116,10 +114,9 @@
     <div id="adicionais-modal" class="modal">
         <div class="modal-conteudo">
             <span class="fechar-modal">×</span>
-            <h2>Adicionais</h2>
-            <p>Escolha os adicionais para o seu item.</p>
+            <h2>Opcionais</h2> <p>Escolha os opcionais para o seu item.</p>
             <div id="adicionais-opcoes" class="adicionais-grid">
-            </div>
+                </div>
             
             <div class="form-group mt-1">
                 <label for="observacao-item">Observações sobre este item:</label>
@@ -129,6 +126,8 @@
             <button id="confirmar-adicionais" class="btn btn-primary btn-full-width">Adicionar ao Carrinho</button>
         </div>
     </div>
+
+    <div class="notificacao-flutuante" id="notificacao-flutuante"></div>
 
     <script src="script.js"></script>
 </body>

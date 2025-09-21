@@ -6,9 +6,9 @@
     --cor-fundo-secundario: #f1f2f6;
     --cor-texto-escuro: #2f3640;
     --cor-texto-claro: #ffffff;
-    --cor-fundo-card-visita: #43a047; /* Verde mais claro */
-    --cor-fundo-header: #81c784; /* Verde para o header */
-    --cor-texto-header: #2f3640; /* Cor do texto no header */
+    --cor-fundo-card-visita: #43a047;
+    --cor-fundo-header: #81c784;
+    --cor-texto-header: #2f3640;
 }
 
 /* Estilos de Entrada (Novo Design) */
@@ -24,7 +24,7 @@
 
 .card-visita {
     display: flex;
-    background-color: #43a047; /* Verde mais claro */
+    background-color: #43a047;
     color: var(--cor-texto-claro);
     border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -115,7 +115,6 @@
     font-size: 1.2rem;
 }
 
-
 /* Estilos Gerais */
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
@@ -142,7 +141,7 @@ main {
 }
 
 header {
-    background-color: var(--cor-fundo-header); /* Cor do header alterada */
+    background-color: var(--cor-fundo-header);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
@@ -160,7 +159,6 @@ header {
     height: 50px;
 }
 
-/* Estilo para os botões de categoria do cardápio */
 .nav-links {
     display: flex;
     gap: 10px;
@@ -234,6 +232,7 @@ header {
     padding-bottom: 10px;
 }
 
+/* Correção para o layout de itens em dispositivos móveis */
 .item-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -555,5 +554,21 @@ footer {
 
     .card-right {
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Regras específicas para telas menores que 768px */
+    .item-grid {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Para um scroll mais suave no iOS */
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    .item-card {
+        flex: 0 0 calc(50% - 15px);
+        max-width: calc(50% - 15px);
     }
 }

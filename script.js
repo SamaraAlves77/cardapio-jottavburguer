@@ -55,6 +55,37 @@ const cardapioData = {
     ]
 };
 
+// Dados de Estados e Cidades do Brasil
+const estadosCidades = {
+    'AC': ['Rio Branco', 'Cruzeiro do Sul'],
+    'AL': ['Maceió', 'Arapiraca'],
+    'AP': ['Macapá', 'Santana'],
+    'AM': ['Manaus', 'Parintins'],
+    'BA': ['Salvador', 'Feira de Santana'],
+    'CE': ['Fortaleza', 'Caucaia'],
+    'DF': ['Brasília'],
+    'ES': ['Vitória', 'Vila Velha'],
+    'GO': ['Goiânia', 'Aparecida de Goiânia'],
+    'MA': ['São Luís', 'Imperatriz'],
+    'MT': ['Cuiabá', 'Várzea Grande'],
+    'MS': ['Campo Grande', 'Dourados'],
+    'MG': ['Belo Horizonte', 'Uberlândia'],
+    'PA': ['Belém', 'Ananindeua'],
+    'PB': ['João Pessoa', 'Campina Grande'],
+    'PR': ['Curitiba', 'Londrina'],
+    'PE': ['Recife', 'Jaboatão dos Guararapes'],
+    'PI': ['Teresina', 'Parnaíba', 'Picos', 'Floriano'],
+    'RJ': ['Rio de Janeiro', 'São Gonçalo'],
+    'RN': ['Natal', 'Mossoró'],
+    'RS': ['Porto Alegre', 'Caxias do Sul'],
+    'RO': ['Porto Velho', 'Ji-Paraná'],
+    'RR': ['Boa Vista', 'Rorainópolis'],
+    'SC': ['Florianópolis', 'Joinville'],
+    'SP': ['São Paulo', 'Guarulhos'],
+    'SE': ['Aracaju', 'Nossa Senhora do Socorro'],
+    'TO': ['Palmas', 'Araguaína']
+};
+
 // Reconstruir o mapa de todos os itens
 Object.values(cardapioData).forEach(categoria => {
     categoria.forEach(item => {
@@ -75,28 +106,26 @@ const cartItemsContainer = document.getElementById('carrinho-itens');
 const cartTotalSpan = document.getElementById('total-pedido');
 const finalizeOrderBtn = document.getElementById('finalizar-pedido-whatsapp');
 const paymentMethodSelect = document.getElementById('forma-pagamento');
-const orderNotesTextarea = document.getElementById('observacoes-pedido');
-const addressTextarea = document.getElementById('endereco-pedido');
+const observacoesGeraisTextarea = document.getElementById('observacoes-gerais');
+const observacoesEnderecoTextarea = document.getElementById('observacoes-endereco');
 const cartCounterSpan = document.getElementById('contador-carrinho');
 
-// Novo modal para Adicionais
-const adicionaisModal = document.createElement('div');
-adicionaisModal.id = 'adicionais-modal';
-adicionaisModal.className = 'modal';
-adicionaisModal.innerHTML = `
-    <div class="modal-conteudo">
-        <span class="fechar-modal fechar-adicionais">&times;</span>
-        <h2>Adicionar Personalizações</h2>
-        <div id="adicionais-opcoes" class="adicionais-grid"></div>
-        <button id="confirmar-adicionais" class="btn btn-primary">Confirmar</button>
-    </div>
-`;
-document.body.appendChild(adicionaisModal);
+// Novos elementos do DOM para endereço e localização
+const btnLocalizacao = document.getElementById('btn-localizacao');
+const localizacaoStatus = document.getElementById('localizacao-status');
+const campoEstado = document.getElementById('campo-estado');
+const campoCidade = document.getElementById('campo-cidade');
+const campoRua = document.getElementById('campo-rua');
+const campoNumero = document.getElementById('campo-numero');
+const estadosList = document.getElementById('estados-list');
+const cidadesList = document.getElementById('cidades-list');
+
+// Modal para Adicionais (reutilizado do código anterior)
+const adicionaisModal = document.getElementById('adicionais-modal');
 
 let itemParaAdicionar = null;
-
-// Array para armazenar os itens do pedido com quantidades
 let carrinho = [];
+let localizacaoAtual = null;
 
 // Funções Principais
 function construirCardapio() {
@@ -156,11 +185,11 @@ function atualizarCarrinho() {
             itemElement.classList.add('carrinho-item');
             
             let adicionaisHtml = '';
+            let subtotal = item.preco;
             if (item.adicionaisSelecionados && item.adicionaisSelecionados.length > 0) {
                 adicionaisHtml = `<small> + ${item.adicionaisSelecionados.map(add => todosOsItens[add.id].nome).join(', ')}</small>`;
+                subtotal += item.adicionaisSelecionados.reduce((acc, add) => acc + (todosOsItens[add.id].preco * add.quantidade), 0);
             }
-
-            const subtotal = item.preco + item.adicionaisSelecionados.reduce((acc, add) => acc + (todosOsItens[add.id].preco * add.quantidade), 0);
             
             itemElement.innerHTML = `
                 <span>${item.nome} ${adicionaisHtml}</span>
@@ -216,18 +245,15 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarCarrinho();
 
     document.querySelector('.btn-whatsapp').href = `https://wa.me/${WHATSAPP_NUMERO}`;
-    document.querySelector('.btn-instagram').href = `https://www.instagram.com/jottavburguer/`;
+    document.querySelector('.btn-instagram').href = `https://www.instagram.com/${INSTAGRAM_USUARIO}/`;
     
-    // Lógica da janela de boas-vindas
     document.getElementById('abrir-cardapio').addEventListener('click', () => {
         boasVindasOverlay.style.display = 'none';
         mainContent.style.display = 'block';
     });
 
-    // Abrir modal do carrinho
     openModalBtn.addEventListener('click', () => abrirModal(cartModal));
 
-    // Fechar modais
     document.querySelectorAll('.fechar-modal').forEach(btn => {
         btn.addEventListener('click', () => {
             fecharModal(cartModal);
@@ -235,7 +261,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Adicionar item ao carrinho
     menuContainer.addEventListener('click', (event) => {
         const target = event.target;
         if (target.classList.contains('btn-add')) {
@@ -250,7 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Lógica para Adicionais
     document.getElementById('adicionais-opcoes').addEventListener('click', (event) => {
         const target = event.target;
         if (target.classList.contains('incrementar-add')) {
@@ -280,22 +304,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fecharModal(adicionaisModal);
     });
 
-    // Funções auxiliares para o modal de adicionais
-    function atualizarModalAdicionais() {
-        document.querySelectorAll('.adicional-card').forEach(card => {
-            const id = parseInt(card.querySelector('.incrementar-add').dataset.id);
-            const quantidadeSpan = card.querySelector('.quantidade-add');
-            const adicionalSelecionado = itemParaAdicionar.adicionaisSelecionados.find(add => add.id === id);
-            quantidadeSpan.textContent = adicionalSelecionado ? adicionalSelecionado.quantidade : 0;
-        });
-    }
-
     function adicionarItemAoCarrinho(item) {
         carrinho.push(item);
         atualizarCarrinho();
     }
 
-    // Manipular quantidades no carrinho (incrementar/decrementar)
     cartItemsContainer.addEventListener('click', (event) => {
         const target = event.target;
         if (target.classList.contains('incrementar')) {
@@ -315,7 +328,52 @@ document.addEventListener('DOMContentLoaded', () => {
         atualizarCarrinho();
     });
 
-    // Finalizar pedido para o WhatsApp
+    // NOVA LÓGICA DE ENDEREÇO E LOCALIZAÇÃO
+    
+    // 1. Popula a lista de estados
+    Object.keys(estadosCidades).forEach(estado => {
+        const option = document.createElement('option');
+        option.value = estado;
+        estadosList.appendChild(option);
+    });
+
+    // 2. Filtra as cidades com base no estado selecionado
+    campoEstado.addEventListener('input', () => {
+        const estadoSelecionado = campoEstado.value.toUpperCase();
+        cidadesList.innerHTML = '';
+        if (estadosCidades[estadoSelecionado]) {
+            estadosCidades[estadoSelecionado].forEach(cidade => {
+                const option = document.createElement('option');
+                option.value = cidade;
+                cidadesList.appendChild(option);
+            });
+            campoCidade.disabled = false;
+        } else {
+            campoCidade.value = '';
+            campoCidade.disabled = true;
+        }
+    });
+
+    // 3. Obtém a localização do cliente
+    btnLocalizacao.addEventListener('click', () => {
+        if (navigator.geolocation) {
+            localizacaoStatus.textContent = 'Obtendo sua localização...';
+            navigator.geolocation.getCurrentPosition(
+                (posicao) => {
+                    localizacaoAtual = `http://maps.google.com/maps?q=${posicao.coords.latitude},${posicao.coords.longitude}`;
+                    localizacaoStatus.textContent = 'Localização obtida com sucesso!';
+                },
+                (erro) => {
+                    localizacaoStatus.textContent = 'Não foi possível obter sua localização. Por favor, digite o endereço manualmente.';
+                    console.error('Erro ao obter localização:', erro);
+                }
+            );
+        } else {
+            localizacaoStatus.textContent = 'Seu navegador não suporta geolocalização.';
+        }
+    });
+
+    // 4. Finalizar pedido para o WhatsApp
     finalizeOrderBtn.addEventListener('click', () => {
         if (carrinho.length === 0) {
             alert('Seu carrinho está vazio. Adicione itens antes de finalizar o pedido.');
@@ -344,16 +402,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         const formaPagamento = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].text;
-        const observacoes = orderNotesTextarea.value.trim();
-        const endereco = addressTextarea.value.trim();
+        const obsGerais = observacoesGeraisTextarea.value.trim();
+        const obsEndereco = observacoesEnderecoTextarea.value.trim();
+        const estado = campoEstado.value.trim();
+        const cidade = campoCidade.value.trim();
+        const rua = campoRua.value.trim();
+        const numero = campoNumero.value.trim();
 
-        mensagem += `\n*Total:* R$ ${total.toFixed(2).replace('.', ',')}`;
-        mensagem += `\n*Forma de Pagamento:* ${formaPagamento}`;
-        if (observacoes) {
-            mensagem += `\n*Observações:* ${observacoes}`;
+        // Construção do bloco de endereço
+        mensagem += `\n*Endereço:*`;
+        if (localizacaoAtual) {
+            mensagem += `\n- Localização: ${localizacaoAtual}`;
+        } else if (estado || cidade || rua || numero) {
+            if (estado) mensagem += `\n- Estado: ${estado}`;
+            if (cidade) mensagem += `\n- Cidade: ${cidade}`;
+            if (rua) mensagem += `\n- Rua: ${rua}`;
+            if (numero) mensagem += `\n- Número: ${numero}`;
+        } else {
+            mensagem += `\n- Não fornecido`;
         }
-        if (endereco) {
-            mensagem += `\n*Endereço:* ${endereco}`;
+
+        if (obsEndereco) {
+            mensagem += `\n- Observações do Endereço: ${obsEndereco}`;
+        }
+
+        mensagem += `\n\n*Resumo do Pagamento:*`;
+        mensagem += `\n- Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+        mensagem += `\n- Forma de Pagamento: ${formaPagamento}`;
+        
+        if (obsGerais) {
+            mensagem += `\n\n*Observações Gerais:* ${obsGerais}`;
         }
         
         const mensagemCodificada = encodeURIComponent(mensagem);
@@ -362,7 +440,13 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(whatsappUrl, '_blank');
     });
 
-    // Funções para gerenciar os modais
-    function abrirModal(modal) { modal.style.display = 'flex'; }
-    function fecharModal(modal) { modal.style.display = 'none'; }
+    // Função auxiliar para atualizar o modal de adicionais
+    function atualizarModalAdicionais() {
+        document.querySelectorAll('.adicional-card').forEach(card => {
+            const id = parseInt(card.querySelector('.incrementar-add').dataset.id);
+            const quantidadeSpan = card.querySelector('.quantidade-add');
+            const adicionalSelecionado = itemParaAdicionar.adicionaisSelecionados.find(add => add.id === id);
+            quantidadeSpan.textContent = adicionalSelecionado ? adicionalSelecionado.quantidade : 0;
+        });
+    }
 });

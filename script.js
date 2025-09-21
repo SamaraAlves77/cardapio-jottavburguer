@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const entradaVisual = document.getElementById('entrada-visual');
+    const abrirCardapioBtnVisual = document.getElementById('abrir-cardapio-visual');
+    const mainContent = document.getElementById('main-content');
+
     const menuContainer = document.getElementById('menu-container');
     const navLinksContainer = document.getElementById('nav-links');
     const carrinhoModal = document.getElementById('carrinho-modal');
@@ -9,9 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalPedidoSpan = document.getElementById('total-pedido');
     const contadorCarrinhoSpan = document.getElementById('contador-carrinho');
     const finalizarPedidoBtn = document.getElementById('finalizar-pedido-whatsapp');
-    const boasVindasOverlay = document.getElementById('boas-vindas-overlay');
-    const abrirCardapioBtn = document.getElementById('abrir-cardapio');
-    const mainContent = document.getElementById('main-content');
     const hamburgerMenu = document.getElementById('hamburger-menu');
     const carrinhoVazioDiv = document.getElementById('carrinho-vazio');
     const adicionaisModal = document.getElementById('adicionais-modal');
@@ -22,66 +23,101 @@ document.addEventListener('DOMContentLoaded', () => {
     let carrinho = [];
     let itemAtualParaAdicionais = null;
 
-    // Dados do cardápio e adicionais
+    // Dados do cardápio (AGORA COMPLETO E SINCRONIZADO COM AMBAS AS IMAGENS)
     const cardapioData = {
         'Hambúrgueres': [
-            { id: 1, nome: 'Smash Original', descricao: 'Pão, blend da casa, queijo e molho da casa.', preco: 14.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_original.jpg?raw=true' },
-            { id: 2, nome: 'Smash Cheddar e Bacon', descricao: 'Pão, blend da casa, queijo cheddar, farofa de bacon e molho da casa.', preco: 18.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_cheddar_bacon.jpg?raw=true' },
-            { id: 3, nome: 'Smash Duplo', descricao: 'Pão, 2x blend da casa, 2x queijo, alface, tomate e molho da casa.', preco: 23.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_duplo.jpg?raw=true' },
-            { id: 4, nome: 'Smash Salada', descricao: 'Pão, blend da casa, queijo, alface, tomate e molho da casa.', preco: 16.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_salada.jpg?raw=true' },
-            { id: 5, nome: 'Smash com Cream Cheese', descricao: 'Pão, blend da casa, queijo, cream cheese e molho da casa.', preco: 17.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_cream_cheese.jpg?raw=true' }
+            // Hambúrgueres da Imagem 2 (Principal)
+            { id: 1, nome: 'Smash Original', descricao: 'Pão, Carne 80g prensada na chapa, queijo Muçarela, cebola caramelizada, alface, tomate e molho da casa.', preco: 18.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_original.jpg?raw=true' }, // ATUALIZADO
+            { id: 2, nome: 'Smash Duplo', descricao: 'Pão, 2 carnes 80g prensadas na chapa, 2 queijos muçarela, cebola caramelizada, alface, tomate e molho da casa.', preco: 24.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_duplo.jpg?raw=true' }, // ATUALIZADO
+            { id: 3, nome: 'Jotta Básico', descricao: 'Pão, Carne 120g prensada na chapa com cebola, queijo muçarela e molho da casa.', preco: 14.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/jotta_basico.jpg?raw=true' }, // NOVO
+            { id: 4, nome: 'Jotta Classic', descricao: 'Pão, Carne 120g, molho barbecue, tomate, alface, bacon e queijo muçarela.', preco: 25.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/jotta_classic.jpg?raw=true' }, // NOVO
+            { id: 5, nome: 'Burguer do Xerife', descricao: 'Pão, carne de 120g, (queijo muçarela ou requeijão longa) e farofa (bacon ou alho).', preco: 22.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/burguer_xerife.jpg?raw=true' }, // NOVO
+            { id: 6, nome: 'Duplo Brutão', descricao: 'Pão, 2 carnes de 120g, (queijo muçarela ou requeijão longa) , molho da casa, 2 fatias de bacon.', preco: 37.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/duplo_brutao.jpg?raw=true' }, // NOVO
+
+            // Hambúrgueres da Imagem 1 (Novidades) - IDs ajustados para não conflitar
+            { id: 7, nome: 'Calabresa Prime', descricao: 'Pão, molho, alface, tomate, calabresa, queijo, cebola caramelizada, ( carne ou frango. )', preco: 26.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/calabresa_prime.jpg?raw=true' }, // NOVO
+            { id: 8, nome: 'Burguer Salame', descricao: 'Pão, requeijão, carne e salame.', preco: 28.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/burguer_salame.jpg?raw=true' }, // NOVO
+            { id: 9, nome: 'Calabresa Básico', descricao: 'Pão, molho da casa, calabresa e queijo muçarela.', preco: 15.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/calabresa_basico.jpg?raw=true' }, // NOVO
+            // Misto do cardápio anterior, mantido se ainda for válido
+            { id: 10, nome: 'Misto', descricao: 'Pão prensado, milho, presunto e queijo mussarela.', preco: 13.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/misto.jpg?raw=true' }
+
         ],
         'Combos': [
-            { id: 6, nome: 'Combo Smash Duplo', descricao: 'Smash Duplo + Batata Palito + Guaraná 1L.', preco: 37.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_smash_duplo.jpg?raw=true' },
-            { id: 7, nome: 'Combo do Chef', descricao: 'Smash Original + Batata Palito + Guaraná 1L.', preco: 30.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_do_chef.jpg?raw=true' },
-            { id: 8, nome: 'Família', descricao: '2x Smash Original + Smash com Cheddar e Bacon + Batata Palito (grande).', preco: 154.90, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_familia.jpg?raw=true' }
+            // Novos Combos baseados na Imagem 2
+            { id: 11, nome: 'Combo Econômico', descricao: '1 Smash Original + batata frita + refrigerante lata.', preco: 31.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_economico.jpg?raw=true' }, // NOVO
+            { id: 12, nome: 'Combo do Chef', descricao: '1 Jotta Classic + batata frita + refrigerante lata.', preco: 41.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_do_chef.jpg?raw=true' }, // NOVO
+            { id: 13, nome: 'Combo Smash Duplo', descricao: '1 Smash duplo + batata frita + refrigerante lata.', preco: 37.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_smash_duplo.jpg?raw=true' }, // NOVO
+            { id: 14, nome: 'Combo Premium', descricao: '1 Duplo Brutão + batata frita + refrigerante lata.', preco: 53.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_premium.jpg?raw=true' }, // NOVO
+
+            { id: 15, nome: 'Casal: 2x Smash Original', descricao: '2 Smash Original + batata frita + Guaraná 1L.', preco: 49.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/casal_smash_original.jpg?raw=true' }, // NOVO
+            { id: 16, nome: 'Casal: 2x Jotta Classic', descricao: '2 Jotta Classic + batata frita + Guaraná 1L.', preco: 63.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/casal_jotta_classic.jpg?raw=true' }, // NOVO
+            { id: 17, nome: 'Casal: 2x Smash Duplo', descricao: '2 Smash duplo + batata frita + Guaraná 1L.', preco: 61.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/casal_smash_duplo.jpg?raw=true' }, // NOVO
+            { id: 18, nome: 'Casal: 2x Duplo Brutão', descricao: '2 Duplo Brutão + batata frita + Guaraná 1L.', preco: 87.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/casal_duplo_brutao.jpg?raw=true' }, // NOVO
+
+            { id: 19, nome: 'Família: 4x Smash Original', descricao: '4 Smash Original + batata frita + Guaraná 1L.', preco: 87.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/familia_smash_original.jpg?raw=true' }, // NOVO
+            { id: 20, nome: 'Família: 4x Jotta Classic', descricao: '4 Jotta Classic + batata frita + Guaraná 1L.', preco: 115.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/familia_jotta_classic.jpg?raw=true' }, // NOVO
+            { id: 21, nome: 'Família: 4x Smash Duplo', descricao: '4 Smash duplo + batata frita + Guaraná 1L.', preco: 111.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/familia_smash_duplo.jpg?raw=true' }, // NOVO
+            { id: 22, nome: 'Família: 4x Duplo Brutão', descricao: '4 Duplo Brutão + batata frita + Guaraná 1L.', preco: 154.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/familia_duplo_brutao.jpg?raw=true' }, // NOVO
+        ],
+        'Acompanhamentos': [
+            { id: 23, nome: 'Batata Palito', descricao: 'Porção individual de batata frita palito.', preco: 11.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_acompanhamentos/batata_palito_nova.jpg?raw=true' }, // NOVO (da Imagem 2)
+            { id: 24, nome: 'Batata com Bacon', descricao: 'Porção de batata frita com bacon.', preco: 17.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_acompanhamentos/batata_bacon.jpg?raw=true' }, // NOVO (da Imagem 2)
+            { id: 25, nome: 'Nuggets (6 unid.)', descricao: '6 unidades de nuggets crocantes.', preco: 12.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_acompanhamentos/nuggets.jpg?raw=true' }
         ],
         'Bebidas': [
-            { id: 9, nome: 'Coca-Cola Lata', descricao: 'Refrigerante Coca-Cola 350ml.', preco: 6.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/coca_lata.jpg?raw=true' },
-            { id: 10, nome: 'Guaraná Lata', descricao: 'Refrigerante Guaraná Antarctica 350ml.', preco: 6.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/guarana_lata.jpg?raw=true' },
-            { id: 11, nome: 'Guaraná 1L', descricao: 'Refrigerante Guaraná Antarctica 1 Litro.', preco: 9.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/guarana_1l.jpg?raw=true' }
+            { id: 26, nome: 'Coca-Cola Lata', descricao: 'Refrigerante Coca-Cola 350ml.', preco: 7.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/coca_lata.jpg?raw=true' }, // PREÇO ATUALIZADO
+            { id: 27, nome: 'Guaraná Lata', descricao: 'Refrigerante Guaraná Antarctica 350ml.', preco: 6.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/guarana_lata.jpg?raw=true' },
+            { id: 28, nome: 'Guaraná 1L', descricao: 'Refrigerante Guaraná Antarctica 1 Litro.', preco: 9.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/guarana_1l.jpg?raw=true' },
+            { id: 29, nome: 'Água Mineral', descricao: 'Água mineral sem gás 500ml.', preco: 4.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/agua.jpg?raw=true' }
         ]
     };
 
+    // Dados de adicionais (AGORA COMPLETOS)
     const adicionaisData = [
         { id: 101, nome: 'Creme de Requeijão', preco: 4.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/creme_requeijao.jpg?raw=true' },
         { id: 102, nome: 'Queijo Muçarela', preco: 4.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/queijo_mucarela.jpg?raw=true' },
-        { id: 103, nome: 'Bacon', preco: 5.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/bacon.jpg?raw=true' },
+        { id: 103, nome: 'Bacon', preco: 4.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/bacon.jpg?raw=true' }, // PREÇO ATUALIZADO PARA R$ 4,00 (da Image 2)
         { id: 104, nome: 'Farofa de Bacon', preco: 3.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/farofa_bacon.jpg?raw=true' },
         { id: 105, nome: 'Cebola Caramelizada', preco: 3.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/cebola_caramelizada.jpg?raw=true' },
-        { id: 106, nome: 'Molho Barbecue', preco: 2.50, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/molho_barbecue.jpg?raw=true' },
-        { id: 107, nome: 'Molho da Casa', preco: 2.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/molho_da_casa.jpg?raw=true' },
-        { id: 108, nome: 'Batata Palito', preco: 9.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/batata_palito.jpg?raw=true' },
+        { id: 106, nome: 'Molho Barbecue', preco: 2.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/molho_barbecue.jpg?raw=true' }, // PREÇO ATUALIZADO PARA R$ 2,00 (da Image 2)
+        { id: 107, nome: 'Molho da Casa', preco: 2.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/molho_da_casa.jpg?raw=true' }, // PREÇO ATUALIZADO PARA R$ 2,00 (da Image 2)
+        { id: 108, nome: 'Batata Palito (Add)', preco: 9.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/batata_palito.jpg?raw=true' }, // Nome ajustado para diferenciar do acompanhamento
         { id: 109, nome: 'Farofa de Alho', preco: 3.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/farofa_alho.jpg?raw=true' },
-        { id: 110, nome: 'Ovo Frito', preco: 2.50, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/ovo_frito.jpg?raw=true' }
+        { id: 110, nome: 'Ovo Frito', preco: 2.50, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/ovo_frito.jpg?raw=true' },
+        { id: 111, nome: 'Calabresa', preco: 5.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/calabresa_add.jpg?raw=true' }, // NOVO (da Imagem 1)
+        { id: 112, nome: 'Salame', preco: 7.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/salame_add.jpg?raw=true' } // NOVO (da Imagem 1)
     ];
 
-    // CIDADES E ESTADOS (APENAS PARA EXEMPLO)
-    const estados = {
-        'PI': ['Parnaíba', 'Teresina'],
-        'MA': ['São Luís', 'Imperatriz']
-    };
-    const estadoInput = document.getElementById('campo-estado');
-    const cidadeInput = document.getElementById('campo-cidade');
-    const estadosList = document.getElementById('estados-list');
-    const cidadesList = document.getElementById('cidades-list');
-
     // Funções de inicialização
-    function inicializar() {
+    function inicializarApp() {
+        // Evento para o botão da tela de entrada
+        abrirCardapioBtnVisual.addEventListener('click', () => {
+            entradaVisual.style.display = 'none';
+            mainContent.style.display = 'block';
+            // Garante que o cardápio seja renderizado e os eventos adicionados
+            // apenas quando o mainContent estiver visível
+            inicializarCardapioEEventos();
+        });
+    }
+
+    function inicializarCardapioEEventos() {
         preencherCardapio();
         preencherNavLinks();
-        preencherEstados();
         adicionarEventosDeModal();
-        adicionarEventosDeInteracao();
+        adicionarEventosDeInteracaoCardapio();
+        carregarCarrinhoDoLocalStorage();
     }
 
     function preencherCardapio() {
         menuContainer.innerHTML = '';
         for (const categoria in cardapioData) {
+            // Verifica se a categoria possui itens antes de renderizá-la
+            if (cardapioData[categoria].length === 0) continue;
+
             const section = document.createElement('section');
             section.classList.add('menu-section');
-            section.id = `section-${categoria.toLowerCase().replace(/á/g, 'a')}`;
-            section.innerHTML = `<h2>${categoria}</h2><div class="item-grid" id="grid-${categoria.toLowerCase().replace(/á/g, 'a')}"></div>`;
+            section.id = `section-${categoria.toLowerCase().replace(/á/g, 'a').replace(/ç/g, 'c').replace(/ã/g, 'a').replace(/\s/g, '-')}`; // Ajusta IDs para URL e espaços
+            section.innerHTML = `<h2>${categoria}</h2><div class="item-grid" id="grid-${categoria.toLowerCase().replace(/á/g, 'a').replace(/ç/g, 'c').replace(/ã/g, 'a').replace(/\s/g, '-')}"></div>`;
             menuContainer.appendChild(section);
 
             const grid = section.querySelector('.item-grid');
@@ -95,19 +131,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function preencherNavLinks() {
         navLinksContainer.innerHTML = '';
         for (const categoria in cardapioData) {
+            // Apenas adiciona link se a categoria tiver itens
+            if (cardapioData[categoria].length === 0) continue;
+
             const link = document.createElement('a');
-            link.href = `#section-${categoria.toLowerCase().replace(/á/g, 'a')}`;
+            link.href = `#section-${categoria.toLowerCase().replace(/á/g, 'a').replace(/ç/g, 'c').replace(/ã/g, 'a').replace(/\s/g, '-')}`;
             link.textContent = categoria;
             navLinksContainer.appendChild(link);
-        }
-    }
-
-    function preencherEstados() {
-        estadosList.innerHTML = '';
-        for (const estado in estados) {
-            const option = document.createElement('option');
-            option.value = estado;
-            estadosList.appendChild(option);
+            
+            link.addEventListener('click', () => {
+                navLinksContainer.classList.remove('active'); // Fecha o menu hambúrguer ao clicar
+            });
         }
     }
 
@@ -122,12 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function adicionarEventosDeInteracao() {
-        abrirCardapioBtn.addEventListener('click', () => {
-            boasVindasOverlay.style.display = 'none';
-            mainContent.style.display = 'block';
-        });
-
+    function adicionarEventosDeInteracaoCardapio() {
         abrirCarrinhoBtn.addEventListener('click', () => {
             renderizarCarrinho();
             carrinhoModal.style.display = 'flex';
@@ -138,24 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinksContainer.classList.toggle('active');
         });
 
-        estadoInput.addEventListener('input', (e) => {
-            const estadoSelecionado = e.target.value.toUpperCase();
-            cidadesList.innerHTML = '';
-            if (estados[estadoSelecionado]) {
-                estados[estadoSelecionado].forEach(cidade => {
-                    const option = document.createElement('option');
-                    option.value = cidade;
-                    cidadesList.appendChild(option);
-                });
-            }
-        });
-
         document.getElementById('btn-localizacao').addEventListener('click', obterLocalizacao);
-
-        confirmarAdicionaisBtn.addEventListener('click', () => {
-            adicionarItemAoCarrinho(itemAtualParaAdicionais);
-            fecharModal();
-        });
     }
 
     function criarItemCard(item, categoria) {
@@ -171,11 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const btnAdd = card.querySelector('.btn-add');
         btnAdd.addEventListener('click', () => {
-            if (categoria === 'Hambúrgueres') {
+            // Apenas Hambúrgueres e Combos têm adicionais por padrão na maioria dos casos
+            // Você pode ajustar quais categorias podem ter adicionais aqui
+            if (categoria === 'Hambúrgueres' || categoria === 'Combos') { 
                 itemAtualParaAdicionais = { ...item };
                 renderizarAdicionaisModal();
                 adicionaisModal.style.display = 'flex';
             } else {
+                // Se não tiver adicionais, adiciona direto ao carrinho
                 adicionarItemAoCarrinho(item);
             }
         });
@@ -186,8 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
         adicionaisOpcoesDiv.innerHTML = '';
         observacaoItemTextarea.value = '';
 
-        const adicionaisSelecionados = {};
-
+        // Usar um Map para rastrear a quantidade, facilitando o reset e a leitura
+        const adicionaisSelecionadosMap = new Map(); 
+        
         adicionaisData.forEach(adicional => {
             const adicionalCard = document.createElement('div');
             adicionalCard.classList.add('adicional-card');
@@ -205,32 +221,35 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             adicionaisOpcoesDiv.appendChild(adicionalCard);
 
-            const quantidadeSpan = adicionalCard.querySelector('.quantidade-add');
-            adicionaisSelecionados[adicional.id] = 0;
+            const quantidadeSpan = adicionalCard.querySelector(`.quantidade-add[data-id="${adicional.id}"]`);
+            adicionaisSelecionadosMap.set(adicional.id, 0); // Inicializa com 0
 
             adicionalCard.querySelector('.btn-add-adicional').addEventListener('click', () => {
-                adicionaisSelecionados[adicional.id]++;
-                quantidadeSpan.textContent = adicionaisSelecionados[adicional.id];
+                let currentQty = adicionaisSelecionadosMap.get(adicional.id);
+                adicionaisSelecionadosMap.set(adicional.id, currentQty + 1);
+                quantidadeSpan.textContent = adicionaisSelecionadosMap.get(adicional.id);
             });
 
             adicionalCard.querySelector('.btn-remove-adicional').addEventListener('click', () => {
-                if (adicionaisSelecionados[adicional.id] > 0) {
-                    adicionaisSelecionados[adicional.id]--;
-                    quantidadeSpan.textContent = adicionaisSelecionados[adicional.id];
+                let currentQty = adicionaisSelecionadosMap.get(adicional.id);
+                if (currentQty > 0) {
+                    adicionaisSelecionadosMap.set(adicional.id, currentQty - 1);
+                    quantidadeSpan.textContent = adicionaisSelecionadosMap.get(adicional.id);
                 }
             });
         });
 
         confirmarAdicionaisBtn.onclick = () => {
-            const novosAdicionais = Object.keys(adicionaisSelecionados)
-                .filter(id => adicionaisSelecionados[id] > 0)
-                .map(id => {
+            const novosAdicionais = [];
+            adicionaisSelecionadosMap.forEach((quantidade, id) => {
+                if (quantidade > 0) {
                     const adicional = adicionaisData.find(a => a.id == id);
-                    return {
+                    novosAdicionais.push({
                         ...adicional,
-                        quantidade: adicionaisSelecionados[id]
-                    };
-                });
+                        quantidade: quantidade
+                    });
+                }
+            });
             
             const observacao = observacaoItemTextarea.value.trim();
 
@@ -240,14 +259,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function adicionarItemAoCarrinho(item, adicionais = [], observacao = '') {
-        const itemExistente = carrinho.find(c => c.id === item.id);
+        // Gera um ID único para cada item no carrinho, incluindo os adicionais e observações
+        // Isso permite que itens iguais com adicionais/observações diferentes sejam tratados como itens separados
+        const uid = Date.now() + Math.random().toString(36).substring(2, 9);
+        const novoItem = { ...item, quantidade: 1, adicionais: adicionais, observacao: observacao, uid: uid };
         
-        if (itemExistente && adicionais.length === 0 && observacao === '') {
-            itemExistente.quantidade++;
-        } else {
-            const novoItem = { ...item, quantidade: 1, adicionais: adicionais, observacao: observacao, uid: Date.now() };
-            carrinho.push(novoItem);
-        }
+        carrinho.push(novoItem);
         
         atualizarCarrinho();
         exibirMensagem(`"${item.nome}" adicionado!`);
@@ -274,15 +291,13 @@ document.addEventListener('DOMContentLoaded', () => {
         carrinho.forEach(item => {
             let precoTotalItem = item.preco * item.quantidade;
             let observacoesTxt = item.observacao ? `Obs: ${item.observacao}` : '';
-            let adicionaisTxt = '';
+            let adicionaisDetalhesTxt = ''; // Para exibir no carrinho
 
             if (item.adicionais && item.adicionais.length > 0) {
-                const adicionaisNome = item.adicionais.map(ad => `${ad.nome} (${ad.quantidade})`).join(', ');
-                adicionaisTxt = `<br><span class="adicionais-txt">${adicionaisNome}</span>`;
-                
-                item.adicionais.forEach(adicional => {
-                    precoTotalItem += adicional.preco * adicional.quantidade * item.quantidade;
-                });
+                adicionaisDetalhesTxt = item.adicionais.map(ad => {
+                    precoTotalItem += ad.preco * ad.quantidade * item.quantidade; // Multiplica adicionais pela quantidade do item principal
+                    return `${ad.nome} (${ad.quantidade}x)`;
+                }).join(', ');
             }
 
             const itemDiv = document.createElement('div');
@@ -290,8 +305,8 @@ document.addEventListener('DOMContentLoaded', () => {
             itemDiv.innerHTML = `
                 <div>
                     <span class="item-quantidade">${item.quantidade}x</span> ${item.nome}
-                    <div class="item-adicionais">${adicionaisTxt}</div>
-                    <div class="item-observacao">${observacoesTxt}</div>
+                    ${adicionaisDetalhesTxt ? `<div class="item-adicionais">${adicionaisDetalhesTxt}</div>` : ''}
+                    ${observacoesTxt ? `<div class="item-observacao">${observacoesTxt}</div>` : ''}
                 </div>
                 <div class="carrinho-actions">
                     <span class="total-item">R$ ${precoTotalItem.toFixed(2).replace('.', ',')}</span>
@@ -329,55 +344,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function finalizarPedido() {
         if (carrinho.length === 0) {
-            alert('Seu carrinho está vazio!');
+            exibirMensagem('Seu carrinho está vazio!');
             return;
         }
 
-        const nome = 'Cliente';
-        const telefone = '86994253258';
+        const nome = 'Cliente'; // Pode ser capturado de um campo de nome, se houver
+        const telefoneJottaV = '86994253258'; // Telefone do JottaV Burguer
         const formaPagamento = document.getElementById('forma-pagamento').value;
-        const observacoesGerais = document.getElementById('observacoes-gerais').value;
-        const estado = document.getElementById('campo-estado').value;
-        const cidade = document.getElementById('campo-cidade').value;
-        const rua = document.getElementById('campo-rua').value;
-        const numero = document.getElementById('campo-numero').value;
-        const observacoesEndereco = document.getElementById('observacoes-endereco').value;
+        const observacoesGerais = document.getElementById('observacoes-gerais').value.trim();
+        const rua = document.getElementById('campo-rua').value.trim();
+        const numero = document.getElementById('campo-numero').value.trim();
+        const bairro = document.getElementById('campo-bairro').value.trim();
+        const observacoesEndereco = document.getElementById('observacoes-endereco').value.trim();
 
         let mensagem = `Olá, meu nome é ${nome} e gostaria de fazer o seguinte pedido:\n\n`;
 
-        let total = 0;
+        let totalFinal = 0;
         carrinho.forEach(item => {
-            let precoItem = item.preco;
-            let adicionaisDetalhes = '';
+            let precoItemAtual = item.preco;
+            let detalhesAdicionaisTexto = '';
+
             if (item.adicionais && item.adicionais.length > 0) {
-                adicionaisDetalhes = item.adicionais.map(ad => {
-                    precoItem += ad.preco * ad.quantidade;
-                    return `+ ${ad.nome} (${ad.quantidade}x)`;
+                detalhesAdicionaisTexto = item.adicionais.map(ad => {
+                    precoItemAtual += ad.preco * ad.quantidade; // Adiciona preço dos adicionais ao item base
+                    return `   + ${ad.nome} (${ad.quantidade}x)`; // Indentado para clareza
                 }).join('\n');
             }
 
-            let obs = item.observacao ? `\n(Obs: ${item.observacao})` : '';
+            let obsItem = item.observacao ? `\n(Obs do item: ${item.observacao})` : '';
 
-            mensagem += `* ${item.nome} (${item.quantidade}x) - R$ ${(precoItem * item.quantidade).toFixed(2).replace('.', ',')}\n`;
-            if (adicionaisDetalhes) {
-                mensagem += `${adicionaisDetalhes}\n`;
+            mensagem += `* ${item.nome} (${item.quantidade}x) - R$ ${(precoItemAtual * item.quantidade).toFixed(2).replace('.', ',')}\n`;
+            if (detalhesAdicionaisTexto) {
+                mensagem += `${detalhesAdicionaisTexto}\n`;
             }
-            if (obs) {
-                mensagem += obs + '\n';
+            if (obsItem) {
+                mensagem += obsItem + '\n';
             }
+            totalFinal += (precoItemAtual * item.quantidade);
         });
 
-        const totalFinal = carrinho.reduce((acc, item) => {
-            let precoItem = item.preco;
-            if (item.adicionais) {
-                item.adicionais.forEach(ad => {
-                    precoItem += ad.preco * ad.quantidade;
-                });
-            }
-            return acc + (precoItem * item.quantidade);
-        }, 0);
-
-        mensagem += `\n*TOTAL: R$ ${totalFinal.toFixed(2).replace('.', ',')}*\n\n`;
+        mensagem += `\n*TOTAL DO PEDIDO: R$ ${totalFinal.toFixed(2).replace('.', ',')}*\n\n`;
         mensagem += `*Forma de Pagamento:* ${formaPagamento}\n`;
 
         if (observacoesGerais) {
@@ -387,15 +393,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (rua && numero) {
             mensagem += `\n*Endereço de Entrega:*\n`;
             mensagem += `  - Rua: ${rua}, Nº: ${numero}\n`;
-            if (estado) mensagem += `  - Estado: ${estado}\n`;
-            if (cidade) mensagem += `  - Cidade: ${cidade}\n`;
+            if (bairro) mensagem += `  - Bairro: ${bairro}\n`;
             if (observacoesEndereco) mensagem += `  - Obs. Endereço: ${observacoesEndereco}\n`;
+        } else {
+             mensagem += `\n*Endereço de Entrega:* Não informado.`;
         }
 
         const encodedMessage = encodeURIComponent(mensagem);
-        const url = `https://wa.me/+55${telefone}?text=${encodedMessage}`;
+        const url = `https://wa.me/+55${telefoneJottaV}?text=${encodedMessage}`;
         window.open(url, '_blank');
         
+        // Limpar carrinho e fechar modal após o pedido
         carrinho = [];
         atualizarCarrinho();
         fecharModal();
@@ -415,21 +423,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function exibirMensagem(texto) {
-        const mensagem = document.createElement('div');
-        mensagem.className = 'notificacao-flutuante';
-        mensagem.textContent = texto;
-        document.body.appendChild(mensagem);
+        const notificacao = document.getElementById('notificacao-flutuante');
+        notificacao.textContent = texto;
+        notificacao.classList.add('show');
 
         setTimeout(() => {
-            mensagem.classList.add('show');
-        }, 100);
-
-        setTimeout(() => {
-            mensagem.classList.remove('show');
-            setTimeout(() => {
-                mensagem.remove();
-            }, 500);
-        }, 3000);
+            notificacao.classList.remove('show');
+        }, 3000); // Esconde após 3 segundos
     }
 
     async function obterLocalizacao() {
@@ -452,8 +452,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const address = data.address;
                 document.getElementById('campo-rua').value = address.road || '';
-                document.getElementById('campo-cidade').value = address.city || address.town || address.village || '';
-                document.getElementById('campo-estado').value = address.state || '';
+                document.getElementById('campo-bairro').value = address.suburb || address.neighbourhood || '';
+                // Você pode tentar preencher o número se a API fornecer (raro, mas possível)
+                // document.getElementById('campo-numero').value = address.house_number || ''; 
             } catch (error) {
                 status.textContent = 'Não foi possível obter o endereço a partir da sua localização.';
                 console.error('Erro ao buscar endereço:', error);
@@ -463,5 +464,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    inicializar();
+    // Inicializa a aplicação ao carregar a página
+    inicializarApp();
 });

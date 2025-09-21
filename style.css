@@ -410,7 +410,8 @@ body {
 
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    /* REDUZ a largura mínima para caber mais cards por linha em telas maiores */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 2.5rem;
     padding: 1rem;
 }
@@ -433,7 +434,8 @@ body {
 }
 .item-card img {
     width: 100%;
-    height: 180px;
+    /* REDUZ a altura para deixar o card mais compacto */
+    height: 150px;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 1rem;
@@ -901,18 +903,31 @@ body {
         font-size: 2.5rem;
     }
     .item-grid {
-        grid-template-columns: 1fr;
+        /* Ajuste para 2 colunas no mobile */
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
     .item-card {
-        padding: 1.2rem;
+        padding: 1rem;
     }
     .item-card h3 {
-        font-size: 1.7rem;
-    }
-    .price {
         font-size: 1.4rem;
     }
+    .item-card p {
+        font-size: 0.85rem;
+        display: none; /* Oculta a descrição para economizar espaço */
+    }
+    .price {
+        font-size: 1.2rem;
+    }
+    .item-card img {
+        height: 100px; /* Reduz o tamanho da imagem */
+    }
+    .btn-add {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+
 
     /* Carrinho */
     .modal-conteudo {
@@ -948,13 +963,39 @@ body {
 
     /* Adicionais */
     .adicionais-grid {
+        display: grid;
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
         max-height: 250px;
+    }
+    .adicional-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0.5rem;
+    }
+    .adicional-card img {
+        width: 60px;
+        height: 60px;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+    .adicional-info {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .adicional-info .price {
+        margin-left: 0;
+    }
+    .adicional-actions {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
-    /* Tela de Entrada */
+    /* Ajustes menores */
     .entrada-titulo {
         font-size: 2.2rem;
     }

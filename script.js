@@ -93,7 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
         menuContainer.innerHTML = '';
         navLinks.innerHTML = '';
 
-        Object.keys(cardapio).forEach(categoria => {
+        // Obter as categorias, excluindo "Opcionais"
+        const categoriasParaRenderizar = Object.keys(cardapio).filter(cat => cat !== "Opcionais");
+
+        categoriasParaRenderizar.forEach(categoria => {
             const link = document.createElement('a');
             link.href = `#${categoria.toLowerCase().replace(/ /g, '-')}`;
             link.textContent = categoria;
@@ -275,8 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             if (categoriasComAdicionais.includes(categoria)) {
-                adicionaisModal.style.display = 'flex';
                 renderizarAdicionais();
+                adicionaisModal.style.display = 'flex';
             } else {
                 adicionarAoCarrinho(item, categoria);
             }

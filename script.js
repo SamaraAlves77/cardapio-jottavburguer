@@ -1,6 +1,6 @@
 // ATENÇÃO: SUBSTITUA ESTES DADOS!
 // LEMBRE-SE de substituir o número e o Instagram para que os links funcionem!
-const WHATSAPP_NUMERO = '5586994253258'; 
+const WHATSAPP_NUMERO = '+5586994253258'; 
 const INSTAGRAM_USUARIO = 'jottavburguer';
 
 // Ponto central para gerenciamento de itens. Altere este objeto para modificar o cardápio.
@@ -73,6 +73,7 @@ const cartTotalSpan = document.getElementById('total-pedido');
 const finalizeOrderBtn = document.getElementById('finalizar-pedido-whatsapp');
 const paymentMethodSelect = document.getElementById('forma-pagamento');
 const orderNotesTextarea = document.getElementById('observacoes-pedido');
+const addressTextarea = document.getElementById('endereco-pedido');
 const cartCounterSpan = document.getElementById('contador-carrinho');
 
 // Array para armazenar os itens do pedido com quantidades
@@ -216,24 +217,28 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        let mensagem = `Olá, gostaria de fazer o seguinte pedido:\n\n`;
+        let mensagem = `Olá, tudo bem? Gostaria de dar continuidade ao meu pedido:\n\n`;
         let total = 0;
         carrinho.forEach(item => {
-            mensagem += `${item.quantidade}x - ${item.nome} (R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')})\n`;
+            mensagem += `* - ${item.quantidade}x ${item.nome} (R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')})\n`;
             total += item.preco * item.quantidade;
         });
         
         const formaPagamento = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].text;
         const observacoes = orderNotesTextarea.value.trim();
+        const endereco = addressTextarea.value.trim();
 
         mensagem += `\n*Total:* R$ ${total.toFixed(2).replace('.', ',')}`;
         mensagem += `\n*Forma de Pagamento:* ${formaPagamento}`;
         if (observacoes) {
             mensagem += `\n*Observações:* ${observacoes}`;
         }
+        if (endereco) {
+            mensagem += `\n*Endereço:* ${endereco}`;
+        }
         
         const mensagemCodificada = encodeURIComponent(mensagem);
-        const whatsappUrl = `https://wa.me/qr/DQBGK3HE6V4LN1?text=${mensagemCodificada}`;
+        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensagemCodificada}`;
         
         window.open(whatsappUrl, '_blank');
     });
@@ -243,6 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function fecharModal(modal) { modal.style.display = 'none'; }
 
     // Atualiza links de contato com os dados do script
-    document.querySelector('.btn-whatsapp').href = `https://wa.me/qr/DQBGK3HE6V4LN1`;
+    document.querySelector('.btn-whatsapp').href = `https://wa.me/${WHATSAPP_NUMERO}`;
     document.querySelector('.btn-instagram').href = `https://www.instagram.com/jottavburguer/`;
 });

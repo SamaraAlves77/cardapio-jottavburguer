@@ -563,35 +563,32 @@ footer {
         flex-wrap: nowrap;
         overflow-x: scroll;
         overflow-y: hidden;
-        -webkit-overflow-scrolling: touch; /* Para um scroll mais suave no iOS */
+        -webkit-overflow-scrolling: touch;
         gap: 15px;
         padding: 0 10px;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* Internet Explorer 10+ */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 
-    /* Esconde a barra de rolagem para navegadores baseados em WebKit (Chrome, Safari) */
     .item-grid::-webkit-scrollbar {
         display: none;
     }
 
     .item-card {
-        flex: 0 0 calc(33.33% - 10px); /* Mostra 3 itens com espaçamento em telas pequenas */
-        max-width: calc(33.33% - 10px);
-        height: 250px; /* Altura fixa para evitar cards muito longos */
-        box-sizing: border-box;
+        flex: 0 0 70%;
+        max-width: 70%;
+        height: auto;
     }
 
     .item-card img {
-        height: 100px; /* Altura da imagem mais compacta para se encaixar */
+        height: 150px;
     }
 
     /* Ajuste para telas menores que 480px (Smartphones) */
     @media (max-width: 480px) {
         .item-card {
-            flex: 0 0 calc(50% - 10px); /* Mostra 2 itens por vez com espaçamento */
-            max-width: calc(50% - 10px);
-            height: 250px; /* Mantém a altura fixa */
+            flex: 0 0 80%;
+            max-width: 80%;
         }
     }
 }

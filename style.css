@@ -72,15 +72,14 @@
     align-items: center;
     gap: 15px;
     width: 100%;
-    max-width: 300px; /* Ajusta a largura máxima do contêiner */
+    max-width: 300px;
 }
 
-/* Estilos dos botões de entrada */
 .btn-social, .btn-cardapio-principal {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%; /* Garante que os botões tenham 100% da largura do contêiner */
+    width: 100%;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -115,7 +114,7 @@
 }
 
 
-/* Estilos Gerais (Mantidos) */
+/* Estilos Gerais */
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
         transform: translateY(0);
@@ -159,20 +158,33 @@ header {
     height: 50px;
 }
 
+/* Estilo para os botões de categoria do cardápio */
 .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 10px; /* Reduz o espaçamento entre os botões */
+    overflow-x: auto; /* Adiciona scroll horizontal se necessário */
+    padding-bottom: 5px; /* Espaço para a sombra/scroll */
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--cor-texto-escuro);
     font-weight: bold;
-    transition: color 0.3s;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 8px 15px; /* Ajusta o padding dos botões */
+    border-radius: 5px;
+    white-space: nowrap; /* Evita quebras de linha */
+    background-color: #ddd; /* Fundo cinza claro */
 }
 
 .nav-links a:hover {
-    color: var(--cor-primaria);
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
+}
+
+.nav-links a.active {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
 }
 
 .header-actions {

@@ -1,38 +1,40 @@
 // ATENÇÃO: SUBSTITUA ESTES DADOS!
-// LEMBRE-SE de substituir o número e o Instagram para que os links funcionem!
 const WHATSAPP_NUMERO = '+5586994253258'; 
 const INSTAGRAM_USUARIO = 'jottavburguer';
+
+// Mapeamento de todos os itens por ID para fácil acesso
+let todosOsItens = {};
 
 // Ponto central para gerenciamento de itens. Altere este objeto para modificar o cardápio.
 const cardapioData = {
     hamburgueres: [
-        { id: 1, nome: 'Smash Original', preco: 18.99, descricao: 'Pão, carne 80g prensada na chapa, queijo muçarela, cebola caramelizada, alface, tomate e molho da casa.', imagem: 'imagens_hamburgueres/smash_original.jpg', disponivel: true },
-        { id: 2, nome: 'Smash Duplo', preco: 24.99, descricao: 'Pão, 2 carnes 80g prensadas na chapa, 2 queijos muçarela, cebola caramelizada, alface, tomate e molho da casa.', imagem: 'imagens_hamburgueres/smash_duplo.jpg', disponivel: true },
-        { id: 3, nome: 'JottaV Básico', preco: 14.99, descricao: 'Pão, carne 80g prensada na chapa com cebola, queijo muçarela e molho da casa.', imagem: 'imagens_hamburgueres/jottav_basico.jpg', disponivel: true },
-        { id: 4, nome: 'JottaV Classic', preco: 25.99, descricao: 'Pão, carne 150g, molho barbecue, tomate, alface, bacon e queijo muçarela.', imagem: 'imagens_hamburgueres/jottav_classic.jpg', disponivel: true },
-        { id: 5, nome: 'Búrguer do Xerife', preco: 22.99, descricao: 'Pão, carne de 120g, (queijo muçarela ou requeijão longa) e farofa (bacon ou alho).', imagem: 'imagens_hamburgueres/burguer_xerife.jpg', disponivel: true },
-        { id: 6, nome: 'Duplo Brutão', preco: 37.99, descricao: 'Pão, 2 carnes de 120g, (queijo muçarela ou requeijão longa), molho da casa, 2 fatias de bacon.', imagem: 'imagens_hamburgueres/duplo_brutao.jpg', disponivel: true },
-        { id: 7, nome: 'Calabresa Prime', preco: 26.99, descricao: 'Pão, molho, alface, tomate, calabresa, queijo, cebola caramelizada, (carne ou frango).', imagem: 'imagens_hamburgueres/calabresa_prime.jpg', disponivel: true },
-        { id: 8, nome: 'Burguer Salame', preco: 28.99, descricao: 'Pão, requeijão, carne e salame.', imagem: 'imagens_hamburgueres/burguer_salame.jpg', disponivel: true },
-        { id: 9, nome: 'Calabresa Básico', preco: 15.00, descricao: 'Pão, molho da casa, calabresa e queijo muçarela.', imagem: 'imagens_hamburgueres/calabresa_basico.jpg', disponivel: true }
+        { id: 1, nome: 'Smash Original', preco: 18.99, descricao: 'Pão, carne 80g prensada na chapa, queijo muçarela, cebola caramelizada, alface, tomate e molho da casa.', imagem: 'imagens_hamburgueres/smash_original.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
+        { id: 2, nome: 'Smash Duplo', preco: 24.99, descricao: 'Pão, 2 carnes 80g prensadas na chapa, 2 queijos muçarela, cebola caramelizada, alface, tomate e molho da casa.', imagem: 'imagens_hamburgueres/smash_duplo.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
+        { id: 3, nome: 'JottaV Básico', preco: 14.99, descricao: 'Pão, carne 80g prensada na chapa com cebola, queijo muçarela e molho da casa.', imagem: 'imagens_hamburgueres/jottav_basico.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
+        { id: 4, nome: 'JottaV Classic', preco: 25.99, descricao: 'Pão, carne 150g, molho barbecue, tomate, alface, bacon e queijo muçarela.', imagem: 'imagens_hamburgueres/jottav_classic.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
+        { id: 5, nome: 'Búrguer do Xerife', preco: 22.99, descricao: 'Pão, carne de 120g, (queijo muçarela ou requeijão longa) e farofa (bacon ou alho).', imagem: 'imagens_hamburgueres/burguer_xerife.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
+        { id: 6, nome: 'Duplo Brutão', preco: 37.99, descricao: 'Pão, 2 carnes de 120g, (queijo muçarela ou requeijão longa), molho da casa, 2 fatias de bacon.', imagem: 'imagens_hamburgueres/duplo_brutao.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
+        { id: 7, nome: 'Calabresa Prime', preco: 26.99, descricao: 'Pão, molho, alface, tomate, calabresa, queijo, cebola caramelizada, (carne ou frango).', imagem: 'imagens_hamburgueres/calabresa_prime.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
+        { id: 8, nome: 'Burguer Salame', preco: 28.99, descricao: 'Pão, requeijão, carne e salame.', imagem: 'imagens_hamburgueres/burguer_salame.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
+        { id: 9, nome: 'Calabresa Básico', preco: 15.00, descricao: 'Pão, molho da casa, calabresa e queijo muçarela.', imagem: 'imagens_hamburgueres/calabresa_basico.jpg', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] }
     ],
     acompanhamentos: [
-        { id: 10, nome: 'Batata Palito', preco: 11.99, descricao: 'Batata com batata.', imagem: 'imagens_acompanhamentos/batata_palito.jpg', disponivel: true },
-        { id: 11, nome: 'Batata com Bacon', preco: 17.99, descricao: 'Batata com bacon.', imagem: 'imagens_acompanhamentos/batata_bacon.jpg', disponivel: true }
+        { id: 10, nome: 'Batata Palito', preco: 11.99, descricao: 'Batata com batata.', imagem: 'imagens_acompanhamentos/batata_palito.jpg', disponivel: true, adicionais: [24, 26, 27, 28, 29, 30] },
+        { id: 11, nome: 'Batata com Bacon', preco: 17.99, descricao: 'Batata com bacon.', imagem: 'imagens_acompanhamentos/batata_bacon.jpg', disponivel: true, adicionais: [24, 26, 27, 28, 29, 30] }
     ],
     combos: [
-        { id: 12, nome: 'Combo Econômico', preco: 31.99, descricao: '1 Smash Original + batata frita + refrigerante lata.', imagem: 'imagens_combos/combo_economico.jpg', disponivel: true },
-        { id: 13, nome: 'Combo do Chef', preco: 41.99, descricao: '1 JottaV Classic + batata frita + refrigerante lata.', imagem: 'imagens_combos/combo_chef.jpg', disponivel: true },
-        { id: 14, nome: 'Combo Smash Duplo', preco: 37.99, descricao: '1 Smash Duplo + batata frita + refrigerante lata.', imagem: 'imagens_combos/combo_smash_duplo.jpg', disponivel: true },
-        { id: 15, nome: 'Combo Premium', preco: 53.99, descricao: '1 Duplo Brutão + batata frita + refrigerante lata.', imagem: 'imagens_combos/combo_premium.jpg', disponivel: true },
-        { id: 16, nome: 'Casal R$ 49,99', preco: 49.99, descricao: '2 Smash Original + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_casal_49.jpg', disponivel: true },
-        { id: 17, nome: 'Casal R$ 63,99', preco: 63.99, descricao: '2 JottaV Classic + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_casal_63.jpg', disponivel: true },
-        { id: 18, nome: 'Casal R$ 61,99', preco: 61.99, descricao: '2 Smash Duplo + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_casal_61.jpg', disponivel: true },
-        { id: 19, nome: 'Casal R$ 87,99', preco: 87.99, descricao: '2 Duplo Brutão + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_casal_87.jpg', disponivel: true },
-        { id: 20, nome: 'Família R$ 87,99', preco: 87.99, descricao: '4 Smash Original + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_familia_87.jpg', disponivel: true },
-        { id: 21, nome: 'Família R$ 115,99', preco: 115.99, descricao: '4 JottaV Classic + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_familia_115.jpg', disponivel: true },
-        { id: 22, nome: 'Família R$ 111,99', preco: 111.99, descricao: '4 Smash Duplo + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_familia_111.jpg', disponivel: true },
-        { id: 23, nome: 'Família R$ 154,90', preco: 154.90, descricao: '4 Duplo Brutão + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_familia_154.jpg', disponivel: true }
+        { id: 12, nome: 'Combo Econômico', preco: 31.99, descricao: '1 Smash Original + batata frita + refrigerante lata.', imagem: 'imagens_combos/combo_economico.jpg', disponivel: true, adicionais: [] },
+        { id: 13, nome: 'Combo do Chef', preco: 41.99, descricao: '1 JottaV Classic + batata frita + refrigerante lata.', imagem: 'imagens_combos/combo_chef.jpg', disponivel: true, adicionais: [] },
+        { id: 14, nome: 'Combo Smash Duplo', preco: 37.99, descricao: '1 Smash Duplo + batata frita + refrigerante lata.', imagem: 'imagens_combos/combo_smash_duplo.jpg', disponivel: true, adicionais: [] },
+        { id: 15, nome: 'Combo Premium', preco: 53.99, descricao: '1 Duplo Brutão + batata frita + refrigerante lata.', imagem: 'imagens_combos/combo_premium.jpg', disponivel: true, adicionais: [] },
+        { id: 16, nome: 'Casal R$ 49,99', preco: 49.99, descricao: '2 Smash Original + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_casal_49.jpg', disponivel: true, adicionais: [] },
+        { id: 17, nome: 'Casal R$ 63,99', preco: 63.99, descricao: '2 JottaV Classic + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_casal_63.jpg', disponivel: true, adicionais: [] },
+        { id: 18, nome: 'Casal R$ 61,99', preco: 61.99, descricao: '2 Smash Duplo + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_casal_61.jpg', disponivel: true, adicionais: [] },
+        { id: 19, nome: 'Casal R$ 87,99', preco: 87.99, descricao: '2 Duplo Brutão + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_casal_87.jpg', disponivel: true, adicionais: [] },
+        { id: 20, nome: 'Família R$ 87,99', preco: 87.99, descricao: '4 Smash Original + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_familia_87.jpg', disponivel: true, adicionais: [] },
+        { id: 21, nome: 'Família R$ 115,99', preco: 115.99, descricao: '4 JottaV Classic + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_familia_115.jpg', disponivel: true, adicionais: [] },
+        { id: 22, nome: 'Família R$ 111,99', preco: 111.99, descricao: '4 Smash Duplo + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_familia_111.jpg', disponivel: true, adicionais: [] },
+        { id: 23, nome: 'Família R$ 154,90', preco: 154.90, descricao: '4 Duplo Brutão + batata frita + Guaraná 1L.', imagem: 'imagens_combos/combo_familia_154.jpg', disponivel: true, adicionais: [] }
     ],
     adicionais: [
         { id: 24, nome: 'Creme de Requeijão', preco: 4.00, descricao: '', imagem: 'imagens_adicionais/creme_requeijao.jpg', disponivel: true },
@@ -47,17 +49,18 @@ const cardapioData = {
         { id: 33, nome: 'Requeijão', preco: 4.00, descricao: '', imagem: 'imagens_adicionais/requeijao.jpg', disponivel: true }
     ],
     bebidas: [
-        { id: 34, nome: 'Coca-Cola Lata', preco: 7.00, descricao: '', imagem: 'imagens_bebidas/coca_lata.jpg', disponivel: true },
-        { id: 35, nome: 'Guaraná Lata', preco: 6.00, descricao: '', imagem: 'imagens_bebidas/guarana_lata.jpg', disponivel: true },
-        { id: 36, nome: 'Guaraná 1L', preco: 9.00, descricao: '', imagem: 'imagens_bebidas/guarana_1l.jpg', disponivel: true }
+        { id: 34, nome: 'Coca-Cola Lata', preco: 7.00, descricao: '', imagem: 'imagens_bebidas/coca_lata.jpg', disponivel: true, adicionais: [] },
+        { id: 35, nome: 'Guaraná Lata', preco: 6.00, descricao: '', imagem: 'imagens_bebidas/guarana_lata.jpg', disponivel: true, adicionais: [] },
+        { id: 36, nome: 'Guaraná 1L', preco: 9.00, descricao: '', imagem: 'imagens_bebidas/guarana_1l.jpg', disponivel: true, adicionais: [] }
     ]
 };
 
-// Mapeamento de todos os itens por ID para fácil acesso
-const todosOsItens = Object.values(cardapioData).flat().reduce((acc, item) => {
-    acc[item.id] = item;
-    return acc;
-}, {});
+// Reconstruir o mapa de todos os itens
+Object.values(cardapioData).forEach(categoria => {
+    categoria.forEach(item => {
+        todosOsItens[item.id] = item;
+    });
+});
 
 // Acessa elementos do DOM
 const boasVindasOverlay = document.getElementById('boas-vindas-overlay');
@@ -76,6 +79,22 @@ const orderNotesTextarea = document.getElementById('observacoes-pedido');
 const addressTextarea = document.getElementById('endereco-pedido');
 const cartCounterSpan = document.getElementById('contador-carrinho');
 
+// Novo modal para Adicionais
+const adicionaisModal = document.createElement('div');
+adicionaisModal.id = 'adicionais-modal';
+adicionaisModal.className = 'modal';
+adicionaisModal.innerHTML = `
+    <div class="modal-conteudo">
+        <span class="fechar-modal fechar-adicionais">&times;</span>
+        <h2>Adicionar Personalizações</h2>
+        <div id="adicionais-opcoes" class="adicionais-grid"></div>
+        <button id="confirmar-adicionais" class="btn btn-primary">Confirmar</button>
+    </div>
+`;
+document.body.appendChild(adicionaisModal);
+
+let itemParaAdicionar = null;
+
 // Array para armazenar os itens do pedido com quantidades
 let carrinho = [];
 
@@ -84,12 +103,10 @@ function construirCardapio() {
     menuContainer.innerHTML = '';
     navLinksContainer.innerHTML = '';
     
-    // Mapeamento de categorias e seus nomes para a navegação
     const categorias = {
         hamburgueres: 'Hambúrgueres',
         acompanhamentos: 'Acompanhamentos',
         combos: 'Combos',
-        adicionais: 'Adicionais',
         bebidas: 'Bebidas'
     };
 
@@ -137,18 +154,26 @@ function atualizarCarrinho() {
         carrinho.forEach((item, index) => {
             const itemElement = document.createElement('div');
             itemElement.classList.add('carrinho-item');
+            
+            let adicionaisHtml = '';
+            if (item.adicionaisSelecionados && item.adicionaisSelecionados.length > 0) {
+                adicionaisHtml = `<small> + ${item.adicionaisSelecionados.map(add => todosOsItens[add.id].nome).join(', ')}</small>`;
+            }
+
+            const subtotal = item.preco + item.adicionaisSelecionados.reduce((acc, add) => acc + (todosOsItens[add.id].preco * add.quantidade), 0);
+            
             itemElement.innerHTML = `
-                <span>${item.nome}</span>
+                <span>${item.nome} ${adicionaisHtml}</span>
                 <div class="carrinho-actions">
                     <button class="decrementar" data-index="${index}">-</button>
                     <span>${item.quantidade}</span>
                     <button class="incrementar" data-index="${index}">+</button>
-                    <span class="total-item">R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</span>
+                    <span class="total-item">R$ ${(subtotal * item.quantidade).toFixed(2).replace('.', ',')}</span>
                     <i class="fas fa-trash-alt remover-item" data-index="${index}"></i>
                 </div>
             `;
             cartItemsContainer.appendChild(itemElement);
-            total += item.preco * item.quantidade;
+            total += subtotal * item.quantidade;
             totalItens += item.quantidade;
         });
     }
@@ -157,21 +182,58 @@ function atualizarCarrinho() {
     cartCounterSpan.textContent = totalItens;
 }
 
-// Adiciona listeners de eventos
+function abrirModalAdicionais(item) {
+    const adicionaisGrid = document.getElementById('adicionais-opcoes');
+    adicionaisGrid.innerHTML = '';
+    itemParaAdicionar = { ...item, quantidade: 1, adicionaisSelecionados: [] };
+
+    const adicionaisDisponiveis = cardapioData.adicionais.filter(add => item.adicionais.includes(add.id));
+    
+    adicionaisDisponiveis.forEach(adicional => {
+        const adicionalCard = document.createElement('div');
+        adicionalCard.className = 'adicional-card';
+        adicionalCard.innerHTML = `
+            <img src="${adicional.imagem}" alt="${adicional.nome}">
+            <div class="adicional-info">
+                <span>${adicional.nome}</span>
+                <span class="price">R$ ${adicional.preco.toFixed(2).replace('.', ',')}</span>
+            </div>
+            <div class="adicional-actions">
+                <button class="decrementar-add" data-id="${adicional.id}">-</button>
+                <span class="quantidade-add">0</span>
+                <button class="incrementar-add" data-id="${adicional.id}">+</button>
+            </div>
+        `;
+        adicionaisGrid.appendChild(adicionalCard);
+    });
+
+    adicionaisModal.style.display = 'flex';
+}
+
+// Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-    // Carrega o cardápio
     construirCardapio();
     atualizarCarrinho();
 
+    document.querySelector('.btn-whatsapp').href = `https://wa.me/${WHATSAPP_NUMERO}`;
+    document.querySelector('.btn-instagram').href = `https://www.instagram.com/jottavburguer/`;
+    
     // Lógica da janela de boas-vindas
-    abrirCardapioBtn.addEventListener('click', () => {
+    document.getElementById('abrir-cardapio').addEventListener('click', () => {
         boasVindasOverlay.style.display = 'none';
         mainContent.style.display = 'block';
     });
 
-    // Lógica do carrinho
+    // Abrir modal do carrinho
     openModalBtn.addEventListener('click', () => abrirModal(cartModal));
-    closeModalBtn.addEventListener('click', () => fecharModal(cartModal));
+
+    // Fechar modais
+    document.querySelectorAll('.fechar-modal').forEach(btn => {
+        btn.addEventListener('click', () => {
+            fecharModal(cartModal);
+            fecharModal(adicionaisModal);
+        });
+    });
 
     // Adicionar item ao carrinho
     menuContainer.addEventListener('click', (event) => {
@@ -180,15 +242,58 @@ document.addEventListener('DOMContentLoaded', () => {
             const itemId = parseInt(target.dataset.id);
             const item = todosOsItens[itemId];
             
-            const itemNoCarrinho = carrinho.find(cartItem => cartItem.id === item.id);
-            if (itemNoCarrinho) {
-                itemNoCarrinho.quantidade++;
+            if (item.adicionais && item.adicionais.length > 0) {
+                abrirModalAdicionais(item);
             } else {
-                carrinho.push({ ...item, quantidade: 1 });
+                adicionarItemAoCarrinho(item);
             }
-            atualizarCarrinho();
         }
     });
+
+    // Lógica para Adicionais
+    document.getElementById('adicionais-opcoes').addEventListener('click', (event) => {
+        const target = event.target;
+        if (target.classList.contains('incrementar-add')) {
+            const id = parseInt(target.dataset.id);
+            const adicional = itemParaAdicionar.adicionaisSelecionados.find(add => add.id === id);
+            if (adicional) {
+                adicional.quantidade++;
+            } else {
+                itemParaAdicionar.adicionaisSelecionados.push({ id: id, quantidade: 1 });
+            }
+        } else if (target.classList.contains('decrementar-add')) {
+            const id = parseInt(target.dataset.id);
+            const adicionalIndex = itemParaAdicionar.adicionaisSelecionados.findIndex(add => add.id === id);
+            if (adicionalIndex > -1) {
+                if (itemParaAdicionar.adicionaisSelecionados[adicionalIndex].quantidade > 1) {
+                    itemParaAdicionar.adicionaisSelecionados[adicionalIndex].quantidade--;
+                } else {
+                    itemParaAdicionar.adicionaisSelecionados.splice(adicionalIndex, 1);
+                }
+            }
+        }
+        atualizarModalAdicionais();
+    });
+
+    document.getElementById('confirmar-adicionais').addEventListener('click', () => {
+        adicionarItemAoCarrinho(itemParaAdicionar);
+        fecharModal(adicionaisModal);
+    });
+
+    // Funções auxiliares para o modal de adicionais
+    function atualizarModalAdicionais() {
+        document.querySelectorAll('.adicional-card').forEach(card => {
+            const id = parseInt(card.querySelector('.incrementar-add').dataset.id);
+            const quantidadeSpan = card.querySelector('.quantidade-add');
+            const adicionalSelecionado = itemParaAdicionar.adicionaisSelecionados.find(add => add.id === id);
+            quantidadeSpan.textContent = adicionalSelecionado ? adicionalSelecionado.quantidade : 0;
+        });
+    }
+
+    function adicionarItemAoCarrinho(item) {
+        carrinho.push(item);
+        atualizarCarrinho();
+    }
 
     // Manipular quantidades no carrinho (incrementar/decrementar)
     cartItemsContainer.addEventListener('click', (event) => {
@@ -220,8 +325,22 @@ document.addEventListener('DOMContentLoaded', () => {
         let mensagem = `Olá, tudo bem? Gostaria de dar continuidade ao meu pedido:\n\n`;
         let total = 0;
         carrinho.forEach(item => {
-            mensagem += `* - ${item.quantidade}x ${item.nome} (R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')})\n`;
-            total += item.preco * item.quantidade;
+            let itemTotal = item.preco;
+            let adicionaisTexto = '';
+
+            if (item.adicionaisSelecionados && item.adicionaisSelecionados.length > 0) {
+                adicionaisTexto = item.adicionaisSelecionados.map(add => {
+                    const adicionalItem = todosOsItens[add.id];
+                    itemTotal += adicionalItem.preco * add.quantidade;
+                    return `   + ${add.quantidade}x ${adicionalItem.nome} (R$ ${(adicionalItem.preco * add.quantidade).toFixed(2).replace('.', ',')})`;
+                }).join('\n');
+            }
+
+            mensagem += `* - ${item.quantidade}x ${item.nome} (R$ ${(itemTotal * item.quantidade).toFixed(2).replace('.', ',')})\n`;
+            if (adicionaisTexto) {
+                mensagem += adicionaisTexto + '\n';
+            }
+            total += itemTotal * item.quantidade;
         });
         
         const formaPagamento = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].text;
@@ -246,8 +365,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Funções para gerenciar os modais
     function abrirModal(modal) { modal.style.display = 'flex'; }
     function fecharModal(modal) { modal.style.display = 'none'; }
-
-    // Atualiza links de contato com os dados do script
-    document.querySelector('.btn-whatsapp').href = `https://wa.me/${WHATSAPP_NUMERO}`;
-    document.querySelector('.btn-instagram').href = `https://www.instagram.com/jottavburguer/`;
 });

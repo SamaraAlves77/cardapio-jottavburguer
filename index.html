@@ -3,106 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio Digital - JottaV Burguer</title>
+    <title>JottaV Burguer - Peça Online</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-    <div id="boas-vindas-overlay" class="boas-vindas-overlay">
-        <div class="boas-vindas-card">
-            <img src="jottaV_burguer.png" alt="Logotipo JottaV Burguer" class="logo-boas-vindas">
-            <h2>Bem-vindo ao JottaV Burguer!</h2>
-            <p>Sua experiência gastronômica começa aqui. Escolha uma opção:</p>
-            <div class="botoes-boas-vindas">
-                <a href="https://wa.me/+5586994253258" target="_blank" class="btn-boas-vindas btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> Fazer Pedido Rápido
-                </a>
-                <a href="https://www.instagram.com/jottavburguer/" target="_blank" class="btn-boas-vindas btn-instagram">
-                    <i class="fab fa-instagram"></i> Nosso Instagram
-                </a>
-                <button id="abrir-cardapio" class="btn-boas-vindas btn-cardapio">
-                    <i class="fas fa-utensils"></i> Ver Cardápio Completo
+    <div class="boas-vindas-overlay" id="boas-vindas-overlay">
+        <div class="boas-vindas-conteudo">
+            <div class="boas-vindas-esquerda">
+                <img src="https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/Made%20with%20insMind-image_Pippit_202505091639.jpg?raw=true" alt="JottaV Burguer Logo Principal" class="logo-principal">
+                <p class="tagline">PARA VOCÊ</p>
+                <div class="boas-vindas-chamada">
+                    <p>VAMOS PEDIR?</p>
+                    <a href="https://wa.me/+5586994253258" target="_blank" class="numero-whatsapp">86 9 94253258</a>
+                </div>
+            </div>
+            <div class="boas-vindas-direita">
+                <p class="vai-um-ai">VAI UM AÍ?</p>
+                <img src="https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_original.jpg?raw=true" alt="Imagem Ilustrativa de Hambúrguer" class="imagem-hamburguer-boas-vindas">
+                <p class="a-partir-de">A PARTIR DE</p>
+                <p class="preco-inicial">14,99</p>
+                <button class="btn btn-cardapio" id="abrir-cardapio">VER CARDÁPIO COMPLETO</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content" id="main-content">
+
+        <nav class="navbar">
+            <div class="logo">
+                <img src="https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/Made%20with%20insMind-image_Pippit_202505091639.jpg?raw=true" alt="JottaV Burguer Logo">
+            </div>
+            <div class="nav-links" id="nav-links">
+            </div>
+            <div class="action-buttons">
+                <a href="https://www.instagram.com/jottavburguer" target="_blank" class="btn-social"><i class="fab fa-instagram"></i></a>
+                <button class="btn-carrinho" id="abrir-carrinho">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="contador-carrinho" id="contador-carrinho">0</span>
+                </button>
+            </div>
+             <button class="hamburger-menu" id="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+
+        <div class="menu-container" id="menu-container">
+        </div>
+
+    </main>
+
+    <div id="carrinho-modal" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar-modal">×</span>
+            <h2>Seu Pedido</h2>
+            <div id="carrinho-itens" class="carrinho-itens">
+            </div>
+            
+            <div class="resumo-pedido">
+                <h3>Total: <span id="total-pedido">R$ 0,00</span></h3>
+                
+                <h4>Dados do Pedido</h4>
+                <div class="form-group">
+                    <label for="forma-pagamento">Forma de Pagamento</label>
+                    <select id="forma-pagamento" class="campo-selecao">
+                        <option value="pix">PIX</option>
+                        <option value="dinheiro">Dinheiro</option>
+                        <option value="cartao-credito">Cartão de Crédito</option>
+                        <option value="cartao-debito">Cartão de Débito</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="observacoes-gerais">Observações Gerais do Pedido</label>
+                    <textarea id="observacoes-gerais" rows="2" placeholder="Ex: Sem cebola, com mais molho..."></textarea>
+                </div>
+
+                <h4>Endereço de Entrega</h4>
+                <button id="btn-localizacao" class="btn btn-secondary btn-full-width">
+                    <i class="fas fa-location-arrow"></i> Obter Minha Localização
+                </button>
+                <p id="localizacao-status" class="status-text"></p>
+
+                <div class="form-endereco">
+                    <label for="campo-estado">Estado</label>
+                    <input type="text" id="campo-estado" class="campo-endereco" placeholder="Ex: PI" list="estados-list">
+                    <datalist id="estados-list"></datalist>
+
+                    <label for="campo-cidade">Cidade</label>
+                    <input type="text" id="campo-cidade" class="campo-endereco" placeholder="Ex: Parnaíba" list="cidades-list">
+                    <datalist id="cidades-list"></datalist>
+
+                    <label for="campo-rua">Rua</label>
+                    <input type="text" id="campo-rua" class="campo-endereco" placeholder="Ex: Rua A" required>
+
+                    <label for="campo-numero">Número</label>
+                    <input type="text" id="campo-numero" class="campo-endereco" placeholder="Ex: 123" required>
+
+                    <label for="observacoes-endereco">Observações do Endereço</label>
+                    <textarea id="observacoes-endereco" rows="2" placeholder="Ex: Casa verde, portão preto..."></textarea>
+                </div>
+
+                <button id="finalizar-pedido-whatsapp" class="btn btn-primary btn-full-width">
+                    <i class="fab fa-whatsapp"></i> Finalizar Pedido via WhatsApp
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="main-content" class="main-content">
-        <header class="navbar">
-            <div class="logo">
-                <img src="jottaV_burguer.png" alt="Logotipo JottaV Burguer">
+    <div id="adicionais-modal" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar-modal">×</span>
+            <h2>Adicionais</h2>
+            <p>Escolha os adicionais para o seu item.</p>
+            <div id="adicionais-opcoes" class="adicionais-grid">
             </div>
-            <nav class="nav-links"></nav>
-            <div class="action-buttons">
-                <button id="abrir-carrinho" class="btn btn-primary">
-                    <i class="fas fa-shopping-cart"></i> Pedido (<span id="contador-carrinho">0</span>)
-                </button>
+            
+            <div class="form-group mt-1">
+                <label for="observacao-item">Observações sobre este item:</label>
+                <textarea id="observacao-item" rows="2" placeholder="Ex: Sem tomate, por favor..."></textarea>
             </div>
-        </header>
 
-        <main class="menu-container"></main>
-
-        <div id="carrinho-modal" class="modal">
-            <div class="modal-conteudo">
-                <span class="fechar-modal">×</span>
-                <h2>Seu Pedido</h2>
-                <div id="carrinho-itens">
-                    <p id="carrinho-vazio">Seu carrinho está vazio.</p>
-                </div>
-                <div class="resumo-pedido">
-                    <h3>Total: <span id="total-pedido">R$ 0,00</span></h3>
-                    
-                    <h4>Forma de Pagamento:</h4>
-                    <select id="forma-pagamento" class="campo-selecao">
-                        <option value="pix">PIX</option>
-                        <option value="cartao_credito">Cartão de Crédito</option>
-                        <option value="cartao_debito">Cartão de Débito</option>
-                        <option value="dinheiro">Dinheiro</option>
-                    </select>
-
-                    <h4 class="mt-2">Endereço de Entrega:</h4>
-                    <button id="btn-localizacao" class="btn btn-primary btn-full-width">
-                        <i class="fas fa-map-marker-alt"></i> Enviar Localização Atual
-                    </button>
-                    <p id="localizacao-status" class="status-text"></p>
-
-                    <div class="form-endereco">
-                        <label for="campo-estado">Estado:</label>
-                        <input type="text" id="campo-estado" class="campo-endereco" list="estados-list" placeholder="Ex: PI">
-                        <datalist id="estados-list"></datalist>
-
-                        <label for="campo-cidade" class="mt-1">Cidade:</label>
-                        <input type="text" id="campo-cidade" class="campo-endereco" list="cidades-list" placeholder="Ex: Parnaíba">
-                        <datalist id="cidades-list"></datalist>
-                        
-                        <label for="campo-rua" class="mt-1">Rua / Avenida:</label>
-                        <input type="text" id="campo-rua" class="campo-endereco" placeholder="Ex: Av. Presidente Vargas">
-                        
-                        <label for="campo-numero" class="mt-1">Número:</label>
-                        <input type="number" id="campo-numero" class="campo-endereco" placeholder="Ex: 123">
-
-                        <p class="observacoes">Observações do Endereço:</p>
-                        <textarea id="observacoes-endereco" placeholder="Ponto de referência, bloco, apartamento, etc."></textarea>
-                    </div>
-
-                    <p class="observacoes mt-2">Observações Gerais do Pedido:</p>
-                    <textarea id="observacoes-gerais" placeholder="Ex: Sem cebola, com mais molho..."></textarea>
-                </div>
-                <button id="finalizar-pedido-whatsapp" class="btn btn-primary btn-full-width">
-                    Finalizar Pedido via WhatsApp
-                </button>
-            </div>
-        </div>
-
-         <div id="adicionais-modal" class="modal">
-            <div class="modal-conteudo">
-                <span class="fechar-modal fechar-adicionais">×</span>
-                <h2>Adicionar Personalizações</h2>
-                <div id="adicionais-opcoes" class="adicionais-grid"></div>
-                <button id="confirmar-adicionais" class="btn btn-primary">Confirmar</button>
-            </div>
+            <button id="confirmar-adicionais" class="btn btn-primary btn-full-width">Adicionar ao Carrinho</button>
         </div>
     </div>
 

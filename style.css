@@ -578,7 +578,12 @@ footer {
     .item-card {
         flex: 0 0 calc(33.33% - 10px); /* Mostra 3 itens com espaçamento em telas pequenas */
         max-width: calc(33.33% - 10px);
+        height: 250px; /* Altura fixa para evitar cards muito longos */
         box-sizing: border-box;
+    }
+
+    .item-card img {
+        height: 100px; /* Altura da imagem mais compacta para se encaixar */
     }
 
     /* Ajuste para telas menores que 480px (Smartphones) */
@@ -586,6 +591,7 @@ footer {
         .item-card {
             flex: 0 0 calc(50% - 10px); /* Mostra 2 itens por vez com espaçamento */
             max-width: calc(50% - 10px);
+            height: 250px; /* Mantém a altura fixa */
         }
     }
 }

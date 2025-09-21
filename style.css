@@ -4,7 +4,7 @@
 :root {
     --cor-fundo-principal: #2E6F40; /* Verde escuro */
     --cor-fundo-secundario: #F7E2AB; /* Creme */
-    --cor-destaque-laranja: #BB0B0B; /* Laranja */
+    --cor-destaque-laranja: #BB0B0B; /* vermelho */
     --cor-texto-claro: #FFFFFF; /* Branco */
     --cor-texto-escuro: #333333; /* Cinza escuro */
     --cor-cinza-suave: #A0A0A0; /* Cinza suave */
@@ -1009,4 +1009,5 @@ body {
         font-size: 1.3rem;
     }
 }
+
 

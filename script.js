@@ -179,9 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const btnAdd = card.querySelector('.btn-add');
         btnAdd.addEventListener('click', () => {
-            // Apenas Hambúrgueres e Combos têm adicionais por padrão na maioria dos casos
-            // Você pode ajustar quais categorias podem ter adicionais aqui
-            if (categoria === 'Hambúrgueres' || categoria === 'Combos') { 
+            // Apenas Hambúrgueres terão adicionais. Combos agora adicionam direto.
+            if (categoria === 'Hambúrgueres') {
                 itemAtualParaAdicionais = { ...item };
                 renderizarAdicionaisModal();
                 adicionaisModal.style.display = 'flex';
@@ -388,9 +387,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (rua && numero) {
             mensagem += `\n*Endereço de Entrega:*\n`;
-            mensagem += `  - Rua: ${rua}, Nº: ${numero}\n`;
-            if (bairro) mensagem += `  - Bairro: ${bairro}\n`;
-            if (observacoesEndereco) mensagem += `  - Obs. Endereço: ${observacoesEndereco}\n`;
+            mensagem += `   - Rua: ${rua}, Nº: ${numero}\n`;
+            if (bairro) mensagem += `   - Bairro: ${bairro}\n`;
+            if (observacoesEndereco) mensagem += `   - Obs. Endereço: ${observacoesEndereco}\n`;
         } else {
              mensagem += `\n*Endereço de Entrega:* Não informado.`;
         }

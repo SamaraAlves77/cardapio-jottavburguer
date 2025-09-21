@@ -72,15 +72,15 @@
     align-items: center;
     gap: 15px;
     width: 100%;
-    max-width: 300px;
+    max-width: 300px; /* Ajusta a largura máxima do contêiner */
 }
 
-/* Estilos dos botões de entrada (ajustados para serem iguais aos de "Adicionar") */
+/* Estilos dos botões de entrada */
 .btn-social, .btn-cardapio-principal {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 100%; /* Garante que os botões tenham 100% da largura do contêiner */
     padding: 10px 20px;
     border: none;
     border-radius: 5px;

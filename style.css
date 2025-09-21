@@ -2,12 +2,12 @@
 /* 1. PERSONALIZAÇÃO DE TEMA */
 /* ==================================== */
 :root {
-    --cor-fundo-principal: #3B6B3D;
-    --cor-fundo-secundario: #E8DCC9;
-    --cor-destaque-laranja: #F29541;
-    --cor-texto-claro: #FFFFFF;
-    --cor-texto-escuro: #333333;
-    --cor-cinza-suave: #A0A0A0;
+    --cor-fundo-principal: #3B6B3D; /* Verde escuro */
+    --cor-fundo-secundario: #E8DCC9; /* Creme */
+    --cor-destaque-laranja: #F29541; /* Laranja */
+    --cor-texto-claro: #FFFFFF; /* Branco */
+    --cor-texto-escuro: #333333; /* Cinza escuro */
+    --cor-cinza-suave: #A0A0A0; /* Cinza suave */
     --fonte-titulo-principal: 'Bangers', cursive;
     --fonte-chamada: 'Oswald', sans-serif;
     --fonte-geral: 'Montserrat', sans-serif;
@@ -24,15 +24,22 @@ body {
     line-height: 1.6;
     scroll-behavior: smooth;
     overflow-x: hidden;
-}
-
-.main-content {
-    display: none;
-    background-color: var(--cor-fundo-secundario);
-    color: var(--cor-texto-escuro);
+    display: flex; /* Para centralizar a tela de entrada */
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
 }
 
+/* Conteúdo principal (cardápio) - Visível após a tela de entrada */
+.main-content {
+    display: none; /* Inicialmente oculto */
+    background-color: var(--cor-fundo-secundario);
+    color: var(--cor-texto-escuro);
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Estilos de Modal */
 .modal {
     display: none;
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -74,121 +81,185 @@ body {
     color: var(--cor-destaque-laranja);
 }
 
-
-/* TELA DE BOAS-VINDAS */
-.boas-vindas-overlay {
-    background-color: var(--cor-fundo-principal);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* ==================================== */
+/* 3. TELA DE ENTRADA VISUAL (CARTÃO DE VISITAS) */
+/* ==================================== */
+.entrada-visual {
+    display: flex; /* Garante que os lados fiquem um ao lado do outro */
+    width: 100vw;
     height: 100vh;
-    padding: 2rem;
-    box-sizing: border-box;
-    text-align: center;
+    max-width: 1200px; /* Limite para telas muito grandes */
+    max-height: 900px; /* Limite para telas muito altas */
+    margin: auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: fadeInScale 0.8s ease-out forwards;
+    background-color: var(--cor-fundo-principal); /* Fallback */
 }
-.boas-vindas-conteudo {
+
+.entrada-esquerda {
+    flex: 1; /* Ocupa 1 parte da largura disponível */
+    background: linear-gradient(135deg, #4CAF50 0%, var(--cor-fundo-principal) 100%); /* Degradê de verde */
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    max-width: 600px;
-    width: 100%;
-    animation: fadeInScale 0.6s ease-out forwards;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden; /* Garante que as formas não saiam */
 }
 
-.titulo-principal-boas-vindas {
-    font-family: var(--fonte-titulo-principal);
-    font-size: 4.5rem;
-    line-height: 1;
-    color: var(--cor-destaque-laranja);
-    text-shadow: 4px 4px 8px rgba(0,0,0,0.3);
-    margin-bottom: 1rem;
+.entrada-esquerda::before { /* Adiciona forma orgânica no fundo */
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 40% 60% 70% 30% / 40% 40% 60% 60%;
+    transform: rotate(30deg);
+    z-index: 0;
+}
+.entrada-esquerda::after { /* Outra forma orgânica */
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    right: -20%;
+    width: 120%;
+    height: 120%;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 60% 40% 30% 70% / 60% 60% 40% 40%;
+    transform: rotate(-20deg);
+    z-index: 0;
 }
 
-.logo-principal {
-    max-width: 80%;
+
+.entrada-logo {
+    max-width: 70%;
     height: auto;
     margin-bottom: 1rem;
-    animation: fadeIn 1s ease-out;
-}
-@media (max-width: 480px) {
-    .titulo-principal-boas-vindas {
-        font-size: 3.5rem;
-    }
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.2));
+    z-index: 1; /* Para ficar acima das formas orgânicas */
 }
 
-.tagline {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.8rem;
-    color: var(--cor-texto-claro);
-    margin: 0 0 1rem;
-    font-weight: 500;
-}
-
-.boas-vindas-chamada p {
-    font-family: var(--fonte-chamada);
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--cor-texto-claro);
-    margin-bottom: 0.5rem;
-}
-.numero-whatsapp {
-    font-family: var(--fonte-chamada);
-    font-size: 2rem;
-    font-weight: 700;
+.entrada-titulo {
+    font-family: var(--fonte-titulo-principal);
+    font-size: 3.5rem;
+    line-height: 0.9;
     color: var(--cor-destaque-laranja);
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+    margin-bottom: 0.5rem;
+    z-index: 1;
+}
+
+.entrada-tagline {
+    font-family: var(--fonte-geral);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--cor-texto-claro);
+    margin: 0;
+    font-weight: 500;
+    z-index: 1;
+}
+
+.entrada-direita {
+    flex: 1.2; /* Ocupa 1.2 partes, sendo um pouco maior */
+    background-color: var(--cor-fundo-principal); /* Verde mais escuro */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente o conteúdo */
+    align-items: flex-start; /* Alinha os itens à esquerda */
+    padding: 2.5rem;
+    gap: 1.5rem;
+    color: var(--cor-texto-claro);
+    position: relative;
+}
+
+/* Formas orgânicas no lado direito */
+.entrada-direita::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path fill="%232E5030" d="M0,0 L100,0 L100,50 C80,70 60,80 40,70 C20,60 0,80 0,100 Z" transform="rotate(180, 50, 50)"/></svg>') no-repeat center center / cover;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.chamada-direita {
+    font-family: var(--fonte-chamada);
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--cor-destaque-laranja);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 100%; /* Garante que o texto ocupe toda a largura disponível */
+    z-index: 1;
+}
+
+
+.entrada-info-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-family: var(--fonte-geral);
+    font-size: 1.1rem;
+    z-index: 1;
+}
+
+.icone-laranja {
+    color: var(--cor-destaque-laranja);
+    font-size: 1.8rem;
+    min-width: 30px;
+    text-align: center;
+}
+
+.entrada-info-item p {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Estilo para links dentro dos itens de informação */
+.link-social {
+    color: var(--cor-texto-claro);
     text-decoration: none;
     transition: color 0.3s ease;
 }
-.numero-whatsapp:hover {
-    color: #FFC080;
+
+.link-social:hover {
+    color: var(--cor-destaque-laranja);
 }
 
-.boas-vindas-botoes {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    width: 100%;
-}
-
-.btn {
-    font-family: var(--fonte-geral);
-    font-size: 1.1rem;
-    font-weight: 700;
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.btn-cardapio {
+.btn-ver-cardapio {
     background-color: var(--cor-destaque-laranja);
     color: var(--cor-texto-claro);
-    box-shadow: 0 0 15px var(--cor-destaque-laranja);
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--fonte-geral);
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 2.5rem;
+    align-self: center; /* Centraliza o botão dentro do flex container */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
-.btn-cardapio:hover {
+
+.btn-ver-cardapio:hover {
     background-color: #E08030;
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 0 20px #E08030;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-.btn-whatsapp {
-    background-color: #25D366;
-    color: white;
-    box-shadow: 0 0 15px #25D366;
-}
-.btn-whatsapp:hover {
-    background-color: #1DA851;
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 0 20px #1DA851;
-}
-
-/* NAVBAR PRINCIPAL */
+/* ==================================== */
+/* 4. NAVBAR PRINCIPAL */
+/* ==================================== */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -313,7 +384,9 @@ body {
 }
 
 
-/* SEÇÕES DE MENU E CARDS DE ITENS */
+/* ==================================== */
+/* 5. SEÇÕES DE MENU E CARDS DE ITENS */
+/* ==================================== */
 .menu-container {
     padding: 2rem;
     max-width: 1200px;
@@ -406,7 +479,9 @@ body {
 }
 
 
-/* ESTILOS DO CARRINHO E FORMULÁRIOS */
+/* ==================================== */
+/* 6. ESTILOS DO CARRINHO E FORMULÁRIOS */
+/* ==================================== */
 #carrinho-vazio {
     text-align: center;
     font-style: italic;
@@ -471,6 +546,13 @@ body {
     white-space: pre-wrap;
     word-break: break-word;
 }
+.item-adicionais {
+    font-size: 0.85rem;
+    color: var(--cor-fundo-principal);
+    margin-top: 3px;
+    font-style: italic;
+}
+
 
 .resumo-pedido {
     margin-top: 1.5rem;
@@ -574,7 +656,9 @@ body {
 }
 
 
-/* MODAL DE ADICIONAIS */
+/* ==================================== */
+/* 7. MODAL DE ADICIONAIS */
+/* ==================================== */
 .adicionais-grid {
     display: flex;
     flex-direction: column;
@@ -652,15 +736,44 @@ body {
     font-size: 1.1rem;
 }
 
+/* ==================================== */
+/* 8. NOTIFICAÇÃO FLUTUANTE */
+/* ==================================== */
+.notificacao-flutuante {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-claro);
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 1rem;
+    font-weight: 500;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s;
+}
 
-/* ANIMAÇÕES */
+.notificacao-flutuante.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+
+/* ==================================== */
+/* 9. ANIMAÇÕES */
+/* ==================================== */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInScale {
-    from { opacity: 0; transform: scale(0.95); }
+    from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
 
@@ -670,19 +783,68 @@ body {
     60% { transform: translateY(-2px); }
 }
 
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
 
-/* RESPONSIVIDADE (MOBILE FIRST) */
+
+/* ==================================== */
+/* 10. RESPONSIVIDADE (MOBILE FIRST) */
+/* ==================================== */
 @media (max-width: 768px) {
-    .titulo-principal-boas-vindas {
-        font-size: 3rem;
-    }
-    .boas-vindas-conteudo {
-        padding: 1rem;
-    }
-    .boas-vindas-botoes {
-        gap: 1rem;
+    /* Tela de Entrada */
+    .entrada-visual {
+        flex-direction: column; /* Lados empilham verticalmente */
+        border-radius: 0;
+        max-width: 100%;
+        max-height: unset;
+        height: 100vh;
     }
 
+    .entrada-esquerda {
+        flex: none;
+        height: 40vh;
+        padding: 1.5rem;
+    }
+
+    .entrada-direita {
+        flex: none;
+        height: 60vh;
+        padding: 1.5rem;
+        gap: 1rem;
+        justify-content: flex-start;
+        align-items: center; /* Centraliza itens no mobile */
+    }
+    .chamada-direita {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .entrada-titulo {
+        font-size: 2.8rem;
+    }
+    .entrada-tagline {
+        font-size: 1.2rem;
+    }
+    .entrada-logo {
+        max-width: 60%;
+    }
+
+    .entrada-info-item {
+        font-size: 1rem;
+        gap: 0.8rem;
+    }
+    .icone-laranja {
+        font-size: 1.5rem;
+    }
+    .btn-ver-cardapio {
+        width: 80%;
+        margin-top: 2rem;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    /* Navbar do Cardápio */
     .navbar {
         flex-wrap: wrap;
         justify-content: space-between;
@@ -734,6 +896,7 @@ body {
         color: var(--cor-destaque-laranja);
     }
 
+    /* Seções e Cards do Cardápio */
     .menu-section h2 {
         font-size: 2.5rem;
     }
@@ -751,6 +914,7 @@ body {
         font-size: 1.4rem;
     }
 
+    /* Carrinho */
     .modal-conteudo {
         width: 95%;
         padding: 1.5rem;
@@ -781,13 +945,26 @@ body {
         padding: 1rem;
         font-size: 1rem;
     }
+
+    /* Adicionais */
     .adicionais-grid {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
         max-height: 250px;
     }
 }
 
-@keyframes slideDown {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+@media (max-width: 480px) {
+    /* Tela de Entrada */
+    .entrada-titulo {
+        font-size: 2.2rem;
+    }
+    .entrada-tagline {
+        font-size: 1rem;
+    }
+    .entrada-info-item {
+        font-size: 0.9rem;
+    }
+    .icone-laranja {
+        font-size: 1.3rem;
+    }
 }

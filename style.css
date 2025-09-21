@@ -1,1013 +1,373 @@
-/* ==================================== */
-/* 1. PERSONALIZAÇÃO DE TEMA */
-/* ==================================== */
 :root {
-    --cor-fundo-principal: #2E6F40; /* Verde escuro */
-    --cor-fundo-secundario: #F7E2AB; /* Creme */
-    --cor-destaque-laranja: #BB0B0B; /* vermelho */
-    --cor-texto-claro: #FFFFFF; /* Branco */
-    --cor-texto-escuro: #333333; /* Cinza escuro */
-    --cor-cinza-suave: #A0A0A0; /* Cinza suave */
-    --fonte-titulo-principal: 'Bangers', cursive;
-    --fonte-chamada: 'Oswald', sans-serif;
-    --fonte-geral: 'Montserrat', sans-serif;
+    --cor-primaria: #ff4757;
+    --cor-secundaria: #ffa502;
+    --cor-terciaria: #7f8c8d;
+    --cor-fundo-principal: #f5f6fa;
+    --cor-fundo-secundario: #f1f2f6;
+    --cor-texto-escuro: #2f3640;
+    --cor-texto-claro: #ffffff;
 }
 
-/* ==================================== */
-/* 2. ESTILOS GERAIS E COMPONENTES */
-/* ==================================== */
-body {
-    font-family: var(--fonte-geral);
-    background-color: var(--cor-fundo-principal);
-    color: var(--cor-texto-claro);
-    margin: 0;
-    line-height: 1.6;
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-    display: flex; /* Para centralizar a tela de entrada */
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-/* Conteúdo principal (cardápio) - Visível após a tela de entrada */
-.main-content {
-    display: none; /* Inicialmente oculto */
-    background-color: var(--cor-fundo-secundario);
-    color: var(--cor-texto-escuro);
-    min-height: 100vh;
-    width: 100%;
-}
-
-/* Estilos de Modal */
-.modal {
-    display: none;
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center; align-items: center; z-index: 1001;
-    overflow-y: auto;
-}
-.modal-conteudo {
-    background-color: var(--cor-fundo-secundario);
-    color: var(--cor-texto-escuro);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    text-align: left;
-    max-width: 500px;
-    width: 90%;
-    animation: fadeIn 0.4s ease-out;
-    max-height: 90vh;
-    overflow-y: auto;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-.modal-conteudo h2 {
-    font-family: var(--fonte-chamada);
-    font-size: 2.2rem;
-    color: var(--cor-destaque-laranja);
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-.fechar-modal {
-    color: #666;
-    float: right;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    line-height: 1;
-}
-.fechar-modal:hover {
-    color: var(--cor-destaque-laranja);
-}
-
-/* ==================================== */
-/* 3. TELA DE ENTRADA VISUAL (CARTÃO DE VISITAS) */
-/* ==================================== */
-.entrada-visual {
-    display: flex; /* Garante que os lados fiquem um ao lado do outro */
-    width: 100vw;
-    height: 100vh;
-    max-width: 1200px; /* Limite para telas muito grandes */
-    max-height: 900px; /* Limite para telas muito altas */
-    margin: auto;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    animation: fadeInScale 0.8s ease-out forwards;
-    background-color: var(--cor-fundo-principal); /* Fallback */
-}
-
-.entrada-esquerda {
-    flex: 1; /* Ocupa 1 parte da largura disponível */
-    background: linear-gradient(135deg, #4CAF50 0%, var(--cor-fundo-principal) 100%); /* Degradê de verde */
+/* Estilos de Entrada */
+.entrada-visual-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden; /* Garante que as formas não saiam */
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--cor-fundo-principal);
+    text-align: center;
 }
 
-.entrada-esquerda::before { /* Adiciona forma orgânica no fundo */
-    content: '';
-    position: absolute;
-    top: -20%;
-    left: -20%;
-    width: 140%;
-    height: 140%;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 40% 60% 70% 30% / 40% 40% 60% 60%;
-    transform: rotate(30deg);
-    z-index: 0;
-}
-.entrada-esquerda::after { /* Outra forma orgânica */
-    content: '';
-    position: absolute;
-    bottom: -20%;
-    right: -20%;
-    width: 120%;
-    height: 120%;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 60% 40% 30% 70% / 60% 60% 40% 40%;
-    transform: rotate(-20deg);
-    z-index: 0;
-}
-
-
-.entrada-logo {
-    max-width: 70%;
+.entrada-visual-container img {
+    max-width: 80%;
     height: auto;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.2));
-    z-index: 1; /* Para ficar acima das formas orgânicas */
+    margin-bottom: 30px;
+    animation: bounce 2s infinite;
 }
 
-.entrada-titulo {
-    font-family: var(--fonte-titulo-principal);
-    font-size: 3.5rem;
-    line-height: 0.9;
-    color: var(--cor-destaque-laranja);
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
-    margin-bottom: 0.5rem;
-    z-index: 1;
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
 }
 
-.entrada-tagline {
-    font-family: var(--fonte-geral);
-    font-style: italic;
-    font-size: 1.5rem;
-    color: var(--cor-texto-claro);
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
-    font-weight: 500;
-    z-index: 1;
+    padding: 0;
+    background-color: var(--cor-fundo-secundario);
+    color: var(--cor-texto-escuro);
 }
 
-.entrada-direita {
-    flex: 1.2; /* Ocupa 1.2 partes, sendo um pouco maior */
-    background-color: var(--cor-fundo-principal); /* Verde mais escuro */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente o conteúdo */
-    align-items: flex-start; /* Alinha os itens à esquerda */
-    padding: 2.5rem;
-    gap: 1.5rem;
-    color: var(--cor-texto-claro);
-    position: relative;
+main {
+    padding-top: 80px;
+    display: none;
 }
 
-/* Formas orgânicas no lado direito */
-.entrada-direita::before {
-    content: '';
-    position: absolute;
+header {
+    background-color: var(--cor-fundo-secundario);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path fill="%232E5030" d="M0,0 L100,0 L100,50 C80,70 60,80 40,70 C20,60 0,80 0,100 Z" transform="rotate(180, 50, 50)"/></svg>') no-repeat center center / cover;
-    opacity: 0.1;
-    z-index: 0;
-}
-
-.chamada-direita {
-    font-family: var(--fonte-chamada);
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--cor-destaque-laranja);
-    margin-bottom: 1.5rem;
-    text-align: center;
-    width: 100%; /* Garante que o texto ocupe toda a largura disponível */
-    z-index: 1;
-}
-
-
-.entrada-info-item {
+    z-index: 1000;
     display: flex;
     align-items: center;
-    gap: 1.2rem;
-    font-family: var(--fonte-geral);
-    font-size: 1.1rem;
-    z-index: 1;
-}
-
-.icone-laranja {
-    color: var(--cor-destaque-laranja);
-    font-size: 1.8rem;
-    min-width: 30px;
-    text-align: center;
-}
-
-.entrada-info-item p {
-    margin: 0;
-    font-weight: 500;
-}
-
-/* Estilo para links dentro dos itens de informação */
-.link-social {
-    color: var(--cor-texto-claro);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.link-social:hover {
-    color: var(--cor-destaque-laranja);
-}
-
-.btn-ver-cardapio {
-    background-color: var(--cor-destaque-laranja);
-    color: var(--cor-texto-claro);
-    padding: 1.2rem 2.5rem;
-    border: none;
-    border-radius: 10px;
-    font-family: var(--fonte-geral);
-    font-size: 1.2rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 2.5rem;
-    align-self: center; /* Centraliza o botão dentro do flex container */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.btn-ver-cardapio:hover {
-    background-color: #E08030;
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* ==================================== */
-/* 4. NAVBAR PRINCIPAL */
-/* ==================================== */
-.navbar {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: var(--cor-fundo-secundario);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    padding: 10px 20px;
+    box-sizing: border-box;
 }
-.navbar .logo img {
-    max-height: 50px;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+
+.logo img {
+    height: 50px;
 }
-.navbar .nav-links {
+
+.nav-links {
     display: flex;
-    gap: 1.5rem;
-    margin-left: auto;
+    gap: 20px;
 }
-.navbar .nav-links a {
+
+.nav-links a {
     text-decoration: none;
     color: var(--cor-texto-escuro);
-    font-weight: 600;
-    font-family: var(--fonte-geral);
-    font-size: 1.05rem;
-    position: relative;
-    transition: color 0.3s ease;
-}
-.navbar .nav-links a:hover {
-    color: var(--cor-destaque-laranja);
-}
-.navbar .nav-links a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 0;
-    height: 3px;
-    background-color: var(--cor-destaque-laranja);
-    transition: width 0.3s ease;
-}
-.navbar .nav-links a:hover::after,
-.navbar .nav-links a.active::after {
-    width: 100%;
-}
-
-.action-buttons {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-left: 2rem;
-}
-
-.btn-social {
-    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #b01a75);
-    color: white;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    transition: transform 0.2s ease;
-}
-.btn-social:hover {
-    transform: scale(1.08);
-}
-
-.btn-carrinho {
-    background-color: var(--cor-fundo-principal);
-    color: var(--cor-texto-claro);
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    position: relative;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.btn-carrinho:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    background-color: #2F5731;
-}
-.btn-carrinho i.fas {
-    font-size: 1.5rem;
-    color: var(--cor-texto-claro);
-}
-.contador-carrinho {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: var(--cor-destaque-laranja);
-    color: white;
-    font-size: 0.8rem;
     font-weight: bold;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: bounce 0.5s ease-in-out;
+    transition: color 0.3s;
 }
 
+.nav-links a:hover {
+    color: var(--cor-primaria);
+}
 
-.hamburger-menu {
-    display: none;
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.carrinho-btn, .hamburger-menu-btn {
     background: none;
     border: none;
     color: var(--cor-texto-escuro);
-    font-size: 1.8rem;
+    font-size: 1.2rem;
     cursor: pointer;
+    position: relative;
 }
 
+.carrinho-btn #contador-carrinho {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+}
 
-/* ==================================== */
-/* 5. SEÇÕES DE MENU E CARDS DE ITENS */
-/* ==================================== */
-.menu-container {
-    padding: 2rem;
+.container {
+    padding: 20px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
 }
+
 .menu-section {
-    margin-bottom: 3rem;
-    padding-top: 1rem;
+    margin-bottom: 40px;
 }
+
 .menu-section h2 {
-    font-family: var(--fonte-chamada);
     text-align: center;
-    font-size: 3.5rem;
-    margin-top: 2.5rem;
-    margin-bottom: 2rem;
-    color: var(--cor-destaque-laranja);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+    color: var(--cor-primaria);
+    margin-bottom: 20px;
+    font-size: 2em;
+    border-bottom: 2px solid var(--cor-primaria);
+    padding-bottom: 10px;
 }
 
 .item-grid {
     display: grid;
-    /* REDUZ a largura mínima para caber mais cards por linha em telas maiores */
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 2.5rem;
-    padding: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
 }
+
 .item-card {
+    background-color: var(--cor-texto-claro);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    padding: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 2px solid var(--cor-fundo-secundario);
+    justify-content: space-between;
 }
+
 .item-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    border-color: var(--cor-destaque-laranja);
+    transform: translateY(-5px);
 }
+
 .item-card img {
     width: 100%;
-    /* REDUZ a altura para deixar o card mais compacto */
     height: 150px;
     object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 1rem;
-    border: 1px solid #eee;
+    margin-bottom: 10px;
 }
+
 .item-card h3 {
-    font-family: var(--fonte-chamada);
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: var(--cor-destaque-laranja);
-    text-transform: uppercase;
-}
-.item-card p {
-    font-size: 0.95rem;
     color: var(--cor-texto-escuro);
-    margin-bottom: 1rem;
+    margin: 5px 0;
+}
+
+.item-card p {
+    color: var(--cor-terciaria);
+    font-size: 0.9em;
     flex-grow: 1;
 }
-.price {
-    font-family: var(--fonte-chamada);
-    font-weight: 700;
-    font-size: 1.6rem;
-    color: var(--cor-fundo-principal);
-    margin-top: 0.5rem;
+
+.item-card .price {
+    font-weight: bold;
+    color: var(--cor-primaria);
+    font-size: 1.2em;
+    margin: 10px 0;
 }
 
-.btn-add {
-    background-color: var(--cor-destaque-laranja);
+.btn-principal, .btn-secundario, .btn-add {
+    background-color: var(--cor-primaria);
     color: var(--cor-texto-claro);
-    padding: 0.8rem 1.5rem;
     border: none;
-    border-radius: 8px;
-    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    font-size: 1rem;
-    margin-top: 1rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.btn-add:hover {
-    background-color: #E08030;
-    transform: translateY(-2px);
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
+.btn-principal:hover, .btn-add:hover {
+    background-color: #e63946;
+}
 
-/* ==================================== */
-/* 6. ESTILOS DO CARRINHO E FORMULÁRIOS */
-/* ==================================== */
-#carrinho-vazio {
+.btn-secundario {
+    background-color: var(--cor-terciaria);
+}
+
+.btn-secundario:hover {
+    background-color: #6c7a7e;
+}
+
+footer {
     text-align: center;
-    font-style: italic;
-    color: var(--cor-cinza-suave);
-    padding: 1rem 0;
+    padding: 20px;
+    background-color: var(--cor-texto-escuro);
+    color: var(--cor-texto-claro);
+    margin-top: 20px;
 }
-.carrinho-item {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
     align-items: center;
-    padding: 0.8rem 0;
-    border-bottom: 1px dashed #ddd;
-    font-size: 1.05rem;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: var(--cor-fundo-principal);
+    padding: 25px;
+    border-radius: 10px;
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.fechar-modal {
+    color: var(--cor-terciaria);
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.fechar-modal:hover, .fechar-modal:focus {
     color: var(--cor-texto-escuro);
 }
-.carrinho-item > div:first-child {
-    flex-basis: 65%;
+
+.carrinho-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--cor-fundo-secundario);
 }
+
+.carrinho-item:last-child {
+    border-bottom: none;
+}
+
 .carrinho-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
-    flex-basis: 30%;
-    justify-content: flex-end;
-}
-.carrinho-actions button {
-    background-color: var(--cor-fundo-secundario);
-    border: 1px solid #ccc;
-    padding: 4px 8px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    transition: background-color 0.2s;
-    color: var(--cor-texto-escuro);
-}
-.carrinho-actions button:hover {
-    background-color: #d2c8bc;
-}
-.carrinho-actions .remover-item {
-    color: #e74c3c;
-    cursor: pointer;
-    font-size: 1.3rem;
-    margin-left: 0;
-    transition: color 0.2s;
-}
-.carrinho-actions .remover-item:hover {
-    color: #c0392b;
-}
-.carrinho-actions .total-item {
-    font-weight: 600;
-    min-width: 70px;
-    text-align: right;
-    color: var(--cor-destaque-laranja);
-}
-.item-observacao {
-    font-size: 0.85rem;
-    color: var(--cor-cinza-suave);
-    margin: 5px 0 0;
-    font-style: italic;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-.item-adicionais {
-    font-size: 0.85rem;
-    color: var(--cor-fundo-principal);
-    margin-top: 3px;
-    font-style: italic;
-}
-
-
-.resumo-pedido {
-    margin-top: 1.5rem;
-    border-top: 2px solid var(--cor-fundo-principal);
-    padding-top: 1.5rem;
-    color: var(--cor-texto-escuro);
-}
-.resumo-pedido h3 {
-    font-family: var(--fonte-chamada);
-    font-size: 2rem;
-    color: var(--cor-destaque-laranja);
-    margin-bottom: 1rem;
-}
-.resumo-pedido h4 {
-    font-family: var(--fonte-geral);
-    font-size: 1.3rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.8rem;
-    color: var(--cor-fundo-principal);
-}
-.form-group {
-    margin-bottom: 1rem;
-}
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-.campo-selecao, .campo-endereco, #observacoes-endereco, #observacoes-gerais, #observacao-item {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: var(--fonte-geral);
-    font-size: 1rem;
-    background-color: white;
-    box-sizing: border-box;
-    color: var(--cor-texto-escuro);
-}
-.campo-selecao:focus, .campo-endereco:focus,
-#observacoes-endereco:focus, #observacoes-gerais:focus, #observacao-item:focus {
-    border-color: var(--cor-destaque-laranja);
-    box-shadow: 0 0 0 2px rgba(242, 149, 65, 0.3);
-    outline: none;
-}
-#observacoes-endereco, #observacoes-gerais, #observacao-item {
-    min-height: 60px;
-    resize: vertical;
-}
-
-.btn-full-width {
-    width: 100%;
-    margin-top: 1rem;
-    padding: 1rem;
-    font-size: 1.1rem;
-}
-.btn.btn-secondary {
-    background-color: var(--cor-fundo-principal);
-    color: var(--cor-texto-claro);
-    border-radius: 8px;
-    padding: 0.8rem 1.5rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-.btn.btn-secondary:hover {
-    background-color: #2F5731;
-    transform: translateY(-2px);
-}
-
-.status-text {
-    text-align: center;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-    color: var(--cor-cinza-suave);
-}
-
-.form-endereco {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #ddd;
-}
-.form-endereco label {
-    color: var(--cor-texto-escuro);
-}
-
-#finalizar-pedido-whatsapp {
-    background-color: #25D366;
-    color: white;
-    padding: 1.2rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    border-radius: 10px;
-    margin-top: 2.5rem;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
-#finalizar-pedido-whatsapp:hover {
-    background-color: #1DA851;
-    transform: translateY(-3px) scale(1.01);
-}
-
-
-/* ==================================== */
-/* 7. MODAL DE ADICIONAIS */
-/* ==================================== */
-.adicionais-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    margin-top: 1.5rem;
-    max-height: 300px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-.adicional-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 0.8rem 1rem;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-.adicional-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-.adicional-card img {
-    display: block;
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-right: 1rem;
-    flex-shrink: 0;
-}
-.adicional-info {
-    font-family: var(--fonte-geral);
-    font-size: 1rem;
-    color: var(--cor-texto-escuro);
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.adicional-info span:first-child {
-    font-weight: 500;
-}
-.adicional-info .price {
-    font-size: 1.2rem;
-    color: var(--cor-destaque-laranja);
-    font-weight: 700;
-    margin-left: 0.5rem;
-}
-.adicional-actions {
-    display: flex;
-    align-items: center;
     gap: 5px;
-    margin-left: 1rem;
-    flex-shrink: 0;
-}
-.adicional-actions button {
-    background-color: var(--cor-fundo-secundario);
-    border: 1px solid #ccc;
-    padding: 4px 8px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    transition: background-color 0.2s;
-    color: var(--cor-texto-escuro);
-}
-.adicional-actions button:hover {
-    background-color: #d2c8bc;
-}
-.adicional-actions .quantidade-add {
-    font-weight: bold;
-    color: var(--cor-destaque-laranja);
-    font-size: 1.1rem;
 }
 
-/* ==================================== */
-/* 8. NOTIFICAÇÃO FLUTUANTE */
-/* ==================================== */
-.notificacao-flutuante {
+.carrinho-actions button, .carrinho-actions i {
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.carrinho-vazio {
+    text-align: center;
+    padding: 20px;
+    color: var(--cor-terciaria);
+}
+
+.carrinho-total {
+    text-align: right;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 20px;
+    border-top: 2px solid var(--cor-primaria);
+    padding-top: 10px;
+}
+
+.carrinho-finalizar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.carrinho-finalizar input, .carrinho-finalizar textarea, .carrinho-finalizar select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.carrinho-finalizar button {
+    width: 100%;
+}
+
+.notificacao {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--cor-fundo-principal);
+    background-color: var(--cor-primaria);
     color: var(--cor-texto-claro);
-    padding: 12px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    font-size: 1rem;
-    font-weight: 500;
-    z-index: 1000;
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s;
+    transition: opacity 0.5s, visibility 0s 0.5s;
+    z-index: 1000;
 }
 
-.notificacao-flutuante.show {
+.notificacao.show {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(-10px);
+    transition: opacity 0.5s;
 }
 
-
-/* ==================================== */
-/* 9. ANIMAÇÕES */
-/* ==================================== */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+.hamburger-menu-btn {
+    display: none;
 }
 
-@keyframes fadeInScale {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-5px); }
-    60% { transform: translateY(-2px); }
-}
-
-@keyframes slideDown {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-
-/* ==================================== */
-/* 10. RESPONSIVIDADE (MOBILE FIRST) */
-/* ==================================== */
 @media (max-width: 768px) {
-    /* Tela de Entrada */
-    .entrada-visual {
-        flex-direction: column; /* Lados empilham verticalmente */
-        border-radius: 0;
-        max-width: 100%;
-        max-height: unset;
-        height: 100vh;
-    }
-
-    .entrada-esquerda {
-        flex: none;
-        height: 40vh;
-        padding: 1.5rem;
-    }
-
-    .entrada-direita {
-        flex: none;
-        height: 60vh;
-        padding: 1.5rem;
-        gap: 1rem;
-        justify-content: flex-start;
-        align-items: center; /* Centraliza itens no mobile */
-    }
-    .chamada-direita {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-    }
-    .entrada-titulo {
-        font-size: 2.8rem;
-    }
-    .entrada-tagline {
-        font-size: 1.2rem;
-    }
-    .entrada-logo {
-        max-width: 60%;
-    }
-
-    .entrada-info-item {
-        font-size: 1rem;
-        gap: 0.8rem;
-    }
-    .icone-laranja {
-        font-size: 1.5rem;
-    }
-    .btn-ver-cardapio {
-        width: 80%;
-        margin-top: 2rem;
-        padding: 1rem 1.5rem;
-        font-size: 1rem;
-    }
-
-    /* Navbar do Cardápio */
-    .navbar {
-        flex-wrap: wrap;
-        justify-content: space-between;
-        padding: 0.8rem 1rem;
-    }
-    .navbar .logo {
-        flex-basis: auto;
-        order: 1;
-    }
-    .navbar .action-buttons {
-        order: 2;
-        margin-left: auto;
-    }
-    .navbar .nav-links {
+    .nav-links {
         display: none;
         flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
         width: 100%;
         background-color: var(--cor-fundo-secundario);
-        position: absolute;
-        top: 66px;
-        left: 0;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        padding: 1rem 0;
-        animation: slideDown 0.3s ease-out forwards;
-        order: 3;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px 20px;
     }
-    .navbar .nav-links.active {
+
+    .nav-links.active {
         display: flex;
     }
-    .navbar .nav-links a {
-        padding: 0.8rem 1.5rem;
-        width: 100%;
-        text-align: center;
-        margin: 0;
-        border-bottom: 1px solid #eee;
+
+    .nav-links a {
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
     }
-    .navbar .nav-links a:last-child {
-        border-bottom: none;
-    }
-    .navbar .nav-links a::after {
-        display: none;
-    }
-    .hamburger-menu {
+
+    .hamburger-menu-btn {
         display: block;
-        order: 0;
-        margin-right: 1rem;
-    }
-    .hamburger-menu .fas {
-        color: var(--cor-destaque-laranja);
-    }
-
-    /* Seções e Cards do Cardápio */
-    .menu-section h2 {
-        font-size: 2.5rem;
-    }
-    .item-grid {
-        /* Ajuste para 2 colunas no mobile */
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-    .item-card {
-        padding: 1rem;
-    }
-    .item-card h3 {
-        font-size: 1.4rem;
-    }
-    .item-card p {
-        font-size: 0.85rem;
-        display: none; /* Oculta a descrição para economizar espaço */
-    }
-    .price {
-        font-size: 1.2rem;
-    }
-    .item-card img {
-        height: 100px; /* Reduz o tamanho da imagem */
-    }
-    .btn-add {
-        font-size: 0.9rem;
-        padding: 0.6rem 1rem;
-    }
-
-
-    /* Carrinho */
-    .modal-conteudo {
-        width: 95%;
-        padding: 1.5rem;
-    }
-    .carrinho-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
-    .carrinho-item > div:first-child {
-        flex-basis: 100%;
-        text-align: left;
-    }
-    .carrinho-actions {
-        width: 100%;
-        justify-content: space-between;
-        margin-top: 5px;
-        flex-basis: 100%;
-    }
-    .carrinho-actions .total-item {
-        order: -1;
-        margin-right: auto;
-    }
-    .remover-item {
-        margin-left: 0;
-    }
-    #finalizar-pedido-whatsapp {
-        padding: 1rem;
-        font-size: 1rem;
-    }
-
-    /* Adicionais */
-    .adicionais-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-        max-height: 250px;
-    }
-    .adicional-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 0.5rem;
-    }
-    .adicional-card img {
-        width: 60px;
-        height: 60px;
-        margin-right: 0;
-        margin-bottom: 0.5rem;
-    }
-    .adicional-info {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-    .adicional-info .price {
-        margin-left: 0;
-    }
-    .adicional-actions {
-        margin-left: 0;
-        margin-top: 0.5rem;
-        justify-content: center;
     }
 }
-
-@media (max-width: 480px) {
-    /* Ajustes menores */
-    .entrada-titulo {
-        font-size: 2.2rem;
-    }
-    .entrada-tagline {
-        font-size: 1rem;
-    }
-    .entrada-info-item {
-        font-size: 0.9rem;
-    }
-    .icone-laranja {
-        font-size: 1.3rem;
-    }
-}
-
-

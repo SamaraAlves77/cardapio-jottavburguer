@@ -1,472 +1,808 @@
-// ATENÇÃO: SUBSTITUA ESTES DADOS!
-const WHATSAPP_NUMERO = '+5586994253258';
-const INSTAGRAM_USUARIO = 'jottavburguer';
+/* ==================================== */
+/* 1. PERSONALIZAÇÃO DE TEMA: Altere aqui para mudar as cores e fontes! */
+/* ==================================== */
+:root {
+    /* Tema: JottaV Burguer - Cores e Estilo da Imagem */
+    --cor-fundo-principal: #3B6B3D; /* Verde escuro */
+    --cor-fundo-secundario: #E8DCC9; /* Creme claro, quase branco para detalhes */
+    --cor-destaque-laranja: #F29541; /* Laranja da imagem */
+    --cor-texto-claro: #FFFFFF; /* Branco para textos em fundos escuros */
+    --cor-texto-escuro: #333333; /* Cinza escuro para legibilidade */
+    --cor-cinza-suave: #A0A0A0; /* Um cinza mais suave para descrições */
 
-// Mapeamento de todos os itens por ID para fácil acesso
-let todosOsItens = {};
+    /* Fontes inspiradas no design */
+    --fonte-titulo-principal: 'Bangers', cursive; /* Fonte impactante para JOTTAV BURGUER */
+    --fonte-chamada: 'Oswald', sans-serif; /* Fonte para "VAI UM AÍ?", "PARA VOCÊ", "VAMOS PEDIR?" */
+    --fonte-geral: 'Montserrat', sans-serif; /* Para o corpo do texto e menus */
+}
 
-// Ponto central para gerenciamento de itens. Altere este objeto para modificar o cardápio.
-const cardapioData = {
-    hamburgueres: [
-        { id: 1, nome: 'Smash Original', preco: 18.99, descricao: 'Pão, carne 80g prensada na chapa, queijo muçarela, cebola caramelizada, alface, tomate e molho da casa.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_original.jpg?raw=true', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
-        { id: 2, nome: 'Smash Duplo', preco: 24.99, descricao: 'Pão, 2 carnes 80g prensadas na chapa, 2 queijos muçarela, cebola caramelizada, alface, tomate e molho da casa.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_duplo.jpg?raw=true', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
-        { id: 3, nome: 'JottaV Básico', preco: 14.99, descricao: 'Pão, carne 80g prensada na chapa com cebola, queijo muçarela e molho da casa.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/jottav_basico.jpg?raw=true', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
-        { id: 4, nome: 'JottaV Classic', preco: 25.99, descricao: 'Pão, carne 150g, molho barbecue, tomate, alface, bacon e queijo muçarela.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/jottav_classic.jpg?raw=true', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
-        { id: 5, nome: 'Búrguer do Xerife', preco: 22.99, descricao: 'Pão, carne de 120g, (queijo muçarela ou requeijão longa) e farofa (bacon ou alho).', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/burguer_xerife.jpg?raw=true', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
-        { id: 6, nome: 'Duplo Brutão', preco: 37.99, descricao: 'Pão, 2 carnes de 120g, (queijo muçarela ou requeijão longa), molho da casa, 2 fatias de bacon.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/duplo_brutao.jpg?raw=true', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30] },
-        { id: 7, nome: 'Calabresa Prime', preco: 26.99, descricao: 'Pão, molho, alface, tomate, calabresa, queijo, cebola caramelizada, (carne ou frango).', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/calabresa_prime.jpg?raw=true', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30, 31, 33] },
-        { id: 8, nome: 'Burguer Salame', preco: 28.99, descricao: 'Pão, requeijão, carne e salame.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/burguer_salame.jpg?raw=true', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30, 32, 33] },
-        { id: 9, nome: 'Calabresa Básico', preco: 15.00, descricao: 'Pão, molho da casa, calabresa e queijo muçarela.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/calabresa_basico.jpg?raw=true', disponivel: true, adicionais: [24, 25, 26, 27, 28, 29, 30, 31] }
-    ],
-    acompanhamentos: [
-        { id: 10, nome: 'Batata Palito', preco: 11.99, descricao: 'Batata com batata.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_acompanhamentos/batata_palito.jpg?raw=true', disponivel: true, adicionais: [24, 26, 27, 28, 29, 30] },
-        { id: 11, nome: 'Batata com Bacon', preco: 17.99, descricao: 'Batata com bacon.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_acompanhamentos/batata_bacon.jpg?raw=true', disponivel: true, adicionais: [24, 26, 27, 28, 29, 30] }
-    ],
-    combos: [
-        { id: 12, nome: 'Combo Econômico', preco: 31.99, descricao: '1 Smash Original + batata frita + refrigerante lata.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_economico.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 13, nome: 'Combo do Chef', preco: 41.99, descricao: '1 JottaV Classic + batata frita + refrigerante lata.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_chef.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 14, nome: 'Combo Smash Duplo', preco: 37.99, descricao: '1 Smash Duplo + batata frita + refrigerante lata.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_smash_duplo.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 15, nome: 'Combo Premium', preco: 53.99, descricao: '1 Duplo Brutão + batata frita + refrigerante lata.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_premium.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 16, nome: 'Casal R$ 49,99', preco: 49.99, descricao: '2 Smash Original + batata frita + Guaraná 1L.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_casal_49.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 17, nome: 'Casal R$ 63,99', preco: 63.99, descricao: '2 JottaV Classic + batata frita + Guaraná 1L.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_casal_63.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 18, nome: 'Casal R$ 61,99', preco: 61.99, descricao: '2 Smash Duplo + batata frita + Guaraná 1L.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_casal_61.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 19, nome: 'Casal R$ 87,99', preco: 87.99, descricao: '2 Duplo Brutão + batata frita + Guaraná 1L.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_casal_87.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 20, nome: 'Família R$ 87,99', preco: 87.99, descricao: '4 Smash Original + batata frita + Guaraná 1L.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_familia_87.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 21, nome: 'Família R$ 115,99', preco: 115.99, descricao: '4 JottaV Classic + batata frita + Guaraná 1L.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_familia_115.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 22, nome: 'Família R$ 111,99', preco: 111.99, descricao: '4 Smash Duplo + batata frita + Guaraná 1L.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_familia_111.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 23, nome: 'Família R$ 154,90', preco: 154.90, descricao: '4 Duplo Brutão + batata frita + Guaraná 1L.', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_familia_154.jpg?raw=true', disponivel: true, adicionais: [] }
-    ],
-    adicionais: [
-        { id: 24, nome: 'Creme de Requeijão', preco: 4.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/creme_requeijao.jpg?raw=true', disponivel: true },
-        { id: 25, nome: 'Queijo Muçarela', preco: 4.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/queijo.jpg?raw=true', disponivel: true },
-        { id: 26, nome: 'Bacon', preco: 4.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/bacon.jpg?raw=true', disponivel: true },
-        { id: 27, nome: 'Farofa de Bacon', preco: 3.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/farofa_bacon.jpg?raw=true', disponivel: true },
-        { id: 28, nome: 'Farofa de Alho', preco: 3.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/farofa_alho.jpg?raw=true', disponivel: true },
-        { id: 29, nome: 'Molho Barbecue', preco: 2.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/molho_barbecue.jpg?raw=true', disponivel: true },
-        { id: 30, nome: 'Molho da Casa', preco: 2.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/molho_casa.jpg?raw=true', disponivel: true },
-        { id: 31, nome: 'Calabresa', preco: 5.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/calabresa.jpg?raw=true', disponivel: true },
-        { id: 32, nome: 'Salame', preco: 7.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/salame.jpg?raw=true', disponivel: true },
-        { id: 33, nome: 'Requeijão', preco: 4.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/requeijao.jpg?raw=true', disponivel: true }
-    ],
-    bebidas: [
-        { id: 34, nome: 'Coca-Cola Lata', preco: 7.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/coca_lata.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 35, nome: 'Guaraná Lata', preco: 6.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/guarana_lata.jpg?raw=true', disponivel: true, adicionais: [] },
-        { id: 36, nome: 'Guaraná 1L', preco: 9.00, descricao: '', imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/guarana_1l.jpg?raw=true', disponivel: true, adicionais: [] }
-    ]
-};
+/* ==================================== */
+/* 2. ESTILOS GERAIS E COMPONENTES */
+/* ==================================== */
+body {
+    font-family: var(--fonte-geral);
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-claro);
+    margin: 0;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
 
-const estadosCidades = {
-    "AC": ["Rio Branco", "Cruzeiro do Sul"], "AL": ["Maceió", "Arapiraca"], "AM": ["Manaus", "Parintins"],
-    "AP": ["Macapá", "Santana"], "BA": ["Salvador", "Feira de Santana"], "CE": ["Fortaleza", "Caucaia"],
-    "DF": ["Brasília"], "ES": ["Vitória", "Serra"], "GO": ["Goiânia", "Aparecida de Goiânia"],
-    "MA": ["São Luís", "Imperatriz"], "MG": ["Belo Horizonte", "Uberlândia"], "MS": ["Campo Grande", "Dourados"],
-    "MT": ["Cuiabá", "Várzea Grande"], "PA": ["Belém", "Ananindeua"], "PB": ["João Pessoa", "Campina Grande"],
-    "PE": ["Recife", "Jaboatão dos Guararapes"], "PI": ["Teresina", "Parnaíba"], "PR": ["Curitiba", "Londrina"],
-    "RJ": ["Rio de Janeiro", "São Gonçalo"], "RN": ["Natal", "Mossoró"], "RO": ["Porto Velho", "Ji-Paraná"],
-    "RR": ["Boa Vista"], "RS": ["Porto Alegre", "Caxias do Sul"], "SC": ["Florianópolis", "Joinville"],
-    "SE": ["Aracaju", "Nossa Senhora do Socorro"], "SP": ["São Paulo", "Guarulhos"], "TO": ["Palmas", "Araguaína"]
-};
+.main-content {
+    display: none;
+    background-color: var(--cor-fundo-secundario);
+    color: var(--cor-texto-escuro);
+    min-height: 100vh;
+}
+
+.modal {
+    display: none;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center; align-items: center; z-index: 1001;
+}
+.modal-conteudo {
+    background-color: var(--cor-fundo-secundario);
+    color: var(--cor-texto-escuro);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    max-width: 500px;
+    width: 90%;
+    animation: fadeIn 0.4s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.modal-conteudo h2 {
+    font-family: var(--fonte-chamada);
+    font-size: 2.2rem;
+    color: var(--cor-destaque-laranja);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+.fechar-modal {
+    color: #666;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+.fechar-modal:hover {
+    color: var(--cor-destaque-laranja);
+}
 
 
-// Reconstruir o mapa de todos os itens
-Object.values(cardapioData).forEach(categoria => {
-    categoria.forEach(item => {
-        todosOsItens[item.id] = item;
-    });
-});
+/* ==================================== */
+/* 2.1. TELA DE BOAS-VINDAS - NOVO LAYOUT */
+/* ==================================== */
+.boas-vindas-overlay {
+    background-color: var(--cor-fundo-principal);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 2rem;
+    box-sizing: border-box;
+    text-align: center;
+}
+.boas-vindas-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    animation: fadeInScale 0.6s ease-out forwards;
+}
 
-// Acessa elementos do DOM
-const boasVindasOverlay = document.getElementById('boas-vindas-overlay');
-const mainContent = document.getElementById('main-content');
-const abrirCardapioBtn = document.getElementById('abrir-cardapio');
-const navLinksContainer = document.getElementById('nav-links');
-const menuContainer = document.querySelector('.menu-container');
-const cartModal = document.getElementById('carrinho-modal');
-const closeModalBtns = document.querySelectorAll('.fechar-modal');
-const openModalBtn = document.getElementById('abrir-carrinho');
-const cartItemsContainer = document.getElementById('carrinho-itens');
-const cartTotalSpan = document.getElementById('total-pedido');
-const finalizeOrderBtn = document.getElementById('finalizar-pedido-whatsapp');
-const paymentMethodSelect = document.getElementById('forma-pagamento');
-const observacoesGeraisTextarea = document.getElementById('observacoes-gerais');
-const observacoesEnderecoTextarea = document.getElementById('observacoes-endereco');
-const cartCounterSpan = document.getElementById('contador-carrinho');
-const hamburgerMenuBtn = document.getElementById('hamburger-menu');
+.titulo-principal-boas-vindas {
+    font-family: var(--fonte-titulo-principal);
+    font-size: 4.5rem;
+    line-height: 1;
+    color: var(--cor-destaque-laranja);
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+    margin-bottom: 1rem;
+}
 
-// Novos elementos do DOM para endereço e localização
-const btnLocalizacao = document.getElementById('btn-localizacao');
-const localizacaoStatus = document.getElementById('localizacao-status');
-const campoEstado = document.getElementById('campo-estado');
-const campoCidade = document.getElementById('campo-cidade');
-const campoRua = document.getElementById('campo-rua');
-const campoNumero = document.getElementById('campo-numero');
-const estadosList = document.getElementById('estados-list');
-const cidadesList = document.getElementById('cidades-list');
-
-// Modal para Adicionais
-const adicionaisModal = document.getElementById('adicionais-modal');
-
-// Campo de observação de item no modal de adicionais
-const observacaoItemTextarea = document.getElementById('observacao-item');
-
-let itemParaAdicionar = null;
-let carrinho = [];
-let localizacaoAtual = null;
-
-// Funções Principais
-function construirCardapio() {
-    menuContainer.innerHTML = '';
-    navLinksContainer.innerHTML = '';
-    
-    const categorias = {
-        hamburgueres: 'Hambúrgueres',
-        acompanhamentos: 'Acompanhamentos',
-        combos: 'Combos',
-        bebidas: 'Bebidas'
-    };
-
-    for (const key in categorias) {
-        if (cardapioData[key] && cardapioData[key].length > 0) {
-            const navLink = document.createElement('a');
-            navLink.href = `#${key}`;
-            navLink.textContent = categorias[key];
-            navLinksContainer.appendChild(navLink);
-
-            const section = document.createElement('section');
-            section.id = key;
-            section.classList.add('menu-section');
-            section.innerHTML = `<h2>${categorias[key]}</h2><div class="item-grid"></div>`;
-            const itemGrid = section.querySelector('.item-grid');
-
-            cardapioData[key].forEach(item => {
-                const itemCard = document.createElement('div');
-                itemCard.classList.add('item-card');
-                if (!item.disponivel) {
-                    itemCard.classList.add('indisponivel');
-                }
-                itemCard.innerHTML = `
-                    <img src="${item.imagem}" alt="${item.nome}">
-                    <h3>${item.nome}</h3>
-                    <p>${item.descricao}</p>
-                    <span class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
-                    <button class="btn-add" data-id="${item.id}">Adicionar ao Pedido</button>
-                `;
-                itemGrid.appendChild(itemCard);
-            });
-            menuContainer.appendChild(section);
-        }
+.logo-principal {
+    max-width: 80%;
+    height: auto;
+    margin-bottom: 1rem;
+    animation: fadeIn 1s ease-out;
+}
+@media (max-width: 480px) {
+    .titulo-principal-boas-vindas {
+        font-size: 3.5rem;
     }
 }
 
-function calcularPrecoItem(item) {
-    let precoBase = item.preco;
-    if (item.adicionaisSelecionados && item.adicionaisSelecionados.length > 0) {
-        precoBase += item.adicionaisSelecionados.reduce((acc, add) => acc + (todosOsItens[add.id].preco * add.quantidade), 0);
-    }
-    return precoBase;
+.tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--cor-texto-claro);
+    margin: 0 0 1rem;
+    font-weight: 500;
 }
 
-function atualizarCarrinho() {
-    cartItemsContainer.innerHTML = '';
-    let total = 0;
-    let totalItens = 0;
-
-    if (carrinho.length === 0) {
-        cartItemsContainer.innerHTML = '<p id="carrinho-vazio">Seu carrinho está vazio.</p>';
-    } else {
-        carrinho.forEach((item, index) => {
-            const itemElement = document.createElement('div');
-            itemElement.classList.add('carrinho-item');
-            
-            let adicionaisHtml = '';
-            if (item.adicionaisSelecionados && item.adicionaisSelecionados.length > 0) {
-                adicionaisHtml = `<small> + ${item.adicionaisSelecionados.map(add => todosOsItens[add.id].nome).join(', ')}</small>`;
-            }
-            
-            let observacaoHtml = '';
-            if (item.observacao && item.observacao.trim() !== '') {
-                observacaoHtml = `<p class="item-observacao">Obs: ${item.observacao}</p>`;
-            }
-
-            const subtotal = calcularPrecoItem(item);
-            
-            itemElement.innerHTML = `
-                <div>
-                    <span>${item.nome} ${adicionaisHtml}</span>
-                    ${observacaoHtml}
-                </div>
-                <div class="carrinho-actions">
-                    <button class="decrementar" data-index="${index}">-</button>
-                    <span>${item.quantidade}</span>
-                    <button class="incrementar" data-index="${index}">+</button>
-                    <span class="total-item">R$ ${(subtotal * item.quantidade).toFixed(2).replace('.', ',')}</span>
-                    <i class="fas fa-trash-alt remover-item" data-index="${index}"></i>
-                </div>
-            `;
-            cartItemsContainer.appendChild(itemElement);
-            total += subtotal * item.quantidade;
-            totalItens += item.quantidade;
-        });
-    }
-
-    cartTotalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-    cartCounterSpan.textContent = totalItens;
+.boas-vindas-chamada p {
+    font-family: var(--fonte-chamada);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--cor-texto-claro);
+    margin-bottom: 0.5rem;
+}
+.numero-whatsapp {
+    font-family: var(--fonte-chamada);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--cor-destaque-laranja);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.numero-whatsapp:hover {
+    color: #FFC080;
 }
 
-function abrirModalAdicionais(item) {
-    const adicionaisGrid = document.getElementById('adicionais-opcoes');
-    adicionaisGrid.innerHTML = '';
-    itemParaAdicionar = { ...item, quantidade: 1, adicionaisSelecionados: [], observacao: '' };
-
-    const adicionaisDisponiveis = cardapioData.adicionais.filter(add => item.adicionais.includes(add.id));
-    
-    adicionaisDisponiveis.forEach(adicional => {
-        const adicionalCard = document.createElement('div');
-        adicionalCard.className = 'adicional-card';
-        adicionalCard.innerHTML = `
-            <img src="${adicional.imagem}" alt="${adicional.nome}">
-            <div class="adicional-info">
-                <span>${adicional.nome}</span>
-                <span class="price">R$ ${adicional.preco.toFixed(2).replace('.', ',')}</span>
-            </div>
-            <div class="adicional-actions">
-                <button class="decrementar-add" data-id="${adicional.id}">-</button>
-                <span class="quantidade-add">0</span>
-                <button class="incrementar-add" data-id="${adicional.id}">+</button>
-            </div>
-        `;
-        adicionaisGrid.appendChild(adicionalCard);
-    });
-
-    observacaoItemTextarea.value = '';
-    adicionaisModal.style.display = 'flex';
+.boas-vindas-botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    width: 100%;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    construirCardapio();
-    atualizarCarrinho();
+.btn {
+    font-family: var(--fonte-geral);
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
-    document.querySelector('.numero-whatsapp').href = `https://wa.me/${WHATSAPP_NUMERO}`;
-    document.querySelector('.btn-social').href = `https://www.instagram.com/${INSTAGRAM_USUARIO}/`;
-    
-    document.getElementById('abrir-cardapio').addEventListener('click', () => {
-        boasVindasOverlay.style.display = 'none';
-        mainContent.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+.btn-cardapio {
+    background-color: var(--cor-destaque-laranja);
+    color: var(--cor-texto-claro);
+    box-shadow: 0 0 15px var(--cor-destaque-laranja);
+}
+.btn-cardapio:hover {
+    background-color: #E08030;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 20px #E08030;
+}
 
-    openModalBtn.addEventListener('click', () => abrirModal(cartModal));
+.btn-whatsapp {
+    background-color: #25D366;
+    color: white;
+    box-shadow: 0 0 15px #25D366;
+}
+.btn-whatsapp:hover {
+    background-color: #1DA851;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 20px #1DA851;
+}
 
-    closeModalBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            fecharModal(cartModal);
-            fecharModal(adicionaisModal);
-        });
-    });
+/* ==================================== */
+/* 2.2. NAVBAR PRINCIPAL (SEM MUDANÇAS) */
+/* ==================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--cor-fundo-secundario);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.navbar .logo img {
+    max-height: 50px;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+.navbar .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: auto;
+}
+.navbar .nav-links a {
+    text-decoration: none;
+    color: var(--cor-texto-escuro);
+    font-weight: 600;
+    font-family: var(--fonte-geral);
+    font-size: 1.05rem;
+    position: relative;
+    transition: color 0.3s ease;
+}
+.navbar .nav-links a:hover {
+    color: var(--cor-destaque-laranja);
+}
+.navbar .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background-color: var(--cor-destaque-laranja);
+    transition: width 0.3s ease;
+}
+.navbar .nav-links a:hover::after,
+.navbar .nav-links a.active::after {
+    width: 100%;
+}
 
-    menuContainer.addEventListener('click', (event) => {
-        const target = event.target;
-        if (target.classList.contains('btn-add')) {
-            const itemId = parseInt(target.dataset.id);
-            const item = todosOsItens[itemId];
-            
-            if (item.adicionais && item.adicionais.length > 0) {
-                abrirModalAdicionais(item);
-            } else {
-                adicionarItemAoCarrinho({ ...item, quantidade: 1, adicionaisSelecionados: [], observacao: '' });
-            }
-        }
-    });
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 2rem;
+}
 
-    document.getElementById('adicionais-opcoes').addEventListener('click', (event) => {
-        const target = event.target;
-        if (target.classList.contains('incrementar-add')) {
-            const id = parseInt(target.dataset.id);
-            const adicional = itemParaAdicionar.adicionaisSelecionados.find(add => add.id === id);
-            if (adicional) {
-                adicional.quantidade++;
-            } else {
-                itemParaAdicionar.adicionaisSelecionados.push({ id: id, quantidade: 1 });
-            }
-        } else if (target.classList.contains('decrementar-add')) {
-            const id = parseInt(target.dataset.id);
-            const adicionalIndex = itemParaAdicionar.adicionaisSelecionados.findIndex(add => add.id === id);
-            if (adicionalIndex > -1) {
-                if (itemParaAdicionar.adicionaisSelecionados[adicionalIndex].quantidade > 1) {
-                    itemParaAdicionar.adicionaisSelecionados[adicionalIndex].quantidade--;
-                } else {
-                    itemParaAdicionar.adicionaisSelecionados.splice(adicionalIndex, 1);
-                }
-            }
-        }
-        atualizarModalAdicionais();
-    });
+.btn-social {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #b01a75);
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease;
+}
+.btn-social:hover {
+    transform: scale(1.08);
+}
 
-    document.getElementById('confirmar-adicionais').addEventListener('click', () => {
-        itemParaAdicionar.observacao = observacaoItemTextarea.value.trim();
-        adicionarItemAoCarrinho(itemParaAdicionar);
-        fecharModal(adicionaisModal);
-    });
+.btn-carrinho {
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-claro);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-carrinho:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background-color: #2F5731;
+}
+.btn-carrinho i.fas {
+    font-size: 1.5rem;
+    color: var(--cor-texto-claro);
+}
+.contador-carrinho {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--cor-destaque-laranja);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: bounce 0.5s ease-in-out;
+}
 
-    function adicionarItemAoCarrinho(item) {
-        carrinho.push(item);
-        atualizarCarrinho();
+
+.hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--cor-texto-escuro);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+
+/* ==================================== */
+/* 2.3. SEÇÕES DE MENU E CARDS DE ITENS (SEM MUDANÇAS) */
+/* ==================================== */
+.menu-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.menu-section {
+    margin-bottom: 3rem;
+    padding-top: 1rem;
+}
+.menu-section h2 {
+    font-family: var(--fonte-chamada);
+    text-align: center;
+    font-size: 3.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--cor-destaque-laranja);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
+    padding: 1rem;
+}
+.item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid var(--cor-fundo-secundario);
+}
+.item-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-color: var(--cor-destaque-laranja);
+}
+.item-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #eee;
+}
+.item-card h3 {
+    font-family: var(--fonte-chamada);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--cor-destaque-laranja);
+    text-transform: uppercase;
+}
+.item-card p {
+    font-size: 0.95rem;
+    color: var(--cor-texto-escuro);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+.price {
+    font-family: var(--fonte-chamada);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--cor-fundo-principal);
+    margin-top: 0.5rem;
+}
+
+.btn-add {
+    background-color: var(--cor-destaque-laranja);
+    color: var(--cor-texto-claro);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.btn-add:hover {
+    background-color: #E08030;
+    transform: translateY(-2px);
+}
+
+
+/* ==================================== */
+/* 2.4. ESTILOS DO CARRINHO E FORMULÁRIOS (SEM MUDANÇAS) */
+/* ==================================== */
+#carrinho-vazio {
+    text-align: center;
+    font-style: italic;
+    color: var(--cor-cinza-suave);
+    padding: 1rem 0;
+}
+.carrinho-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px dashed #ddd;
+    font-size: 1.05rem;
+    color: var(--cor-texto-escuro);
+}
+.carrinho-item > div:first-child {
+    flex-basis: 65%;
+}
+.carrinho-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-basis: 30%;
+    justify-content: flex-end;
+}
+.carrinho-actions button {
+    background-color: var(--cor-fundo-secundario);
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    color: var(--cor-texto-escuro);
+}
+.carrinho-actions button:hover {
+    background-color: #d2c8bc;
+}
+.carrinho-actions .remover-item {
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 1.3rem;
+    margin-left: 0;
+    transition: color 0.2s;
+}
+.carrinho-actions .remover-item:hover {
+    color: #c0392b;
+}
+.carrinho-actions .total-item {
+    font-weight: 600;
+    min-width: 70px;
+    text-align: right;
+    color: var(--cor-destaque-laranja);
+}
+.item-observacao {
+    font-size: 0.85rem;
+    color: var(--cor-cinza-suave);
+    margin: 5px 0 0;
+    font-style: italic;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.resumo-pedido {
+    margin-top: 1.5rem;
+    border-top: 2px solid var(--cor-fundo-principal);
+    padding-top: 1.5rem;
+    color: var(--cor-texto-escuro);
+}
+.resumo-pedido h3 {
+    font-family: var(--fonte-chamada);
+    font-size: 2rem;
+    color: var(--cor-destaque-laranja);
+    margin-bottom: 1rem;
+}
+.resumo-pedido h4 {
+    font-family: var(--fonte-geral);
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: var(--cor-fundo-principal);
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+.campo-selecao, .campo-endereco, #observacoes-endereco, #observacoes-gerais, #observacao-item {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: var(--fonte-geral);
+    font-size: 1rem;
+    background-color: white;
+    box-sizing: border-box;
+    color: var(--cor-texto-escuro);
+}
+.campo-selecao:focus, .campo-endereco:focus,
+#observacoes-endereco:focus, #observacoes-gerais:focus, #observacao-item:focus {
+    border-color: var(--cor-destaque-laranja);
+    box-shadow: 0 0 0 2px rgba(242, 149, 65, 0.3);
+    outline: none;
+}
+#observacoes-endereco, #observacoes-gerais, #observacao-item {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.btn-full-width {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+.btn.btn-secondary {
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-claro);
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn.btn-secondary:hover {
+    background-color: #2F5731;
+    transform: translateY(-2px);
+}
+
+.status-text {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    color: var(--cor-cinza-suave);
+}
+
+.form-endereco {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+.form-endereco label {
+    color: var(--cor-texto-escuro);
+}
+
+#finalizar-pedido-whatsapp {
+    background-color: #25D366;
+    color: white;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 10px;
+    margin-top: 2.5rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+#finalizar-pedido-whatsapp:hover {
+    background-color: #1DA851;
+    transform: translateY(-3px) scale(1.01);
+}
+
+
+/* ==================================== */
+/* 2.5. MODAL DE ADICIONAIS (SEM MUDANÇAS) */
+/* ==================================== */
+.adicionais-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.adicional-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.adicional-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.adicional-card img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+.adicional-info {
+    font-family: var(--fonte-geral);
+    font-size: 1rem;
+    color: var(--cor-texto-escuro);
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.adicional-info span:first-child {
+    font-weight: 500;
+}
+.adicional-info .price {
+    font-size: 1.2rem;
+    color: var(--cor-destaque-laranja);
+    font-weight: 700;
+    margin-left: 0.5rem;
+}
+.adicional-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 1rem;
+    flex-shrink: 0;
+}
+.adicional-actions button {
+    background-color: var(--cor-fundo-secundario);
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    color: var(--cor-texto-escuro);
+}
+.adicional-actions button:hover {
+    background-color: #d2c8bc;
+}
+.adicional-actions .quantidade-add {
+    font-weight: bold;
+    color: var(--cor-destaque-laranja);
+    font-size: 1.1rem;
+}
+
+
+/* ==================================== */
+/* 3. ANIMAÇÕES */
+/* ==================================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-2px); }
+}
+
+
+/* ==================================== */
+/* 4. RESPONSIVIDADE (MOBILE FIRST) */
+/* ==================================== */
+@media (max-width: 768px) {
+    .titulo-principal-boas-vindas {
+        font-size: 3rem;
+    }
+    .boas-vindas-conteudo {
+        padding: 1rem;
+    }
+    .boas-vindas-botoes {
+        gap: 1rem;
     }
 
-    cartItemsContainer.addEventListener('click', (event) => {
-        const target = event.target;
-        if (target.classList.contains('incrementar')) {
-            const index = parseInt(target.dataset.index);
-            carrinho[index].quantidade++;
-        } else if (target.classList.contains('decrementar')) {
-            const index = parseInt(target.dataset.index);
-            if (carrinho[index].quantidade > 1) {
-                carrinho[index].quantidade--;
-            } else {
-                carrinho.splice(index, 1);
-            }
-        } else if (target.classList.contains('remover-item')) {
-            const index = parseInt(target.dataset.index);
-            carrinho.splice(index, 1);
-        }
-        atualizarCarrinho();
-    });
-
-    Object.keys(estadosCidades).forEach(estado => {
-        const option = document.createElement('option');
-        option.value = estado;
-        estadosList.appendChild(option);
-    });
-
-    campoEstado.addEventListener('input', () => {
-        const estadoSelecionado = campoEstado.value.toUpperCase();
-        cidadesList.innerHTML = '';
-        if (estadosCidades[estadoSelecionado]) {
-            estadosCidades[estadoSelecionado].forEach(cidade => {
-                const option = document.createElement('option');
-                option.value = cidade;
-                cidadesList.appendChild(option);
-            });
-            campoCidade.disabled = false;
-        } else {
-            campoCidade.value = '';
-            campoCidade.disabled = true;
-        }
-    });
-
-    btnLocalizacao.addEventListener('click', () => {
-        if (navigator.geolocation) {
-            localizacaoStatus.textContent = 'Obtendo sua localização...';
-            navigator.geolocation.getCurrentPosition(
-                (posicao) => {
-                    localizacaoAtual = `https://www.google.com/maps/search/?api=1&query=${posicao.coords.latitude},${posicao.coords.longitude}`;
-                    localizacaoStatus.textContent = 'Localização obtida com sucesso!';
-                },
-                (erro) => {
-                    localizacaoStatus.textContent = 'Não foi possível obter sua localização. Por favor, digite o endereço manualmente.';
-                    console.error('Erro ao obter localização:', erro);
-                }
-            );
-        } else {
-            localizacaoStatus.textContent = 'Seu navegador não suporta geolocalização.';
-        }
-    });
-
-    finalizeOrderBtn.addEventListener('click', () => {
-        if (carrinho.length === 0) {
-            alert('Seu carrinho está vazio. Adicione itens antes de finalizar o pedido.');
-            return;
-        }
-
-        let mensagem = `Olá, tudo bem? Gostaria de dar continuidade ao meu pedido:\n\n`;
-        let total = 0;
-
-        carrinho.forEach(item => {
-            const subtotal = calcularPrecoItem(item);
-            total += subtotal * item.quantidade;
-
-            mensagem += `* - ${item.quantidade}x ${item.nome} (R$ ${(subtotal * item.quantidade).toFixed(2).replace('.', ',')})\n`;
-
-            if (item.adicionaisSelecionados && item.adicionaisSelecionados.length > 0) {
-                mensagem += item.adicionaisSelecionados.map(add => {
-                    const adicionalItem = todosOsItens[add.id];
-                    return `   + ${add.quantidade}x ${adicionalItem.nome} (R$ ${(adicionalItem.preco * add.quantidade).toFixed(2).replace('.', ',')})`;
-                }).join('\n') + '\n';
-            }
-
-            if (item.observacao && item.observacao.trim() !== '') {
-                mensagem += `   *Obs:* ${item.observacao}\n`;
-            }
-        });
-        
-        const formaPagamento = paymentMethodSelect.options[paymentMethodSelect.selectedIndex].text;
-        const obsGerais = observacoesGeraisTextarea.value.trim();
-        const obsEndereco = observacoesEnderecoTextarea.value.trim();
-        const estado = campoEstado.value.trim();
-        const cidade = campoCidade.value.trim();
-        const rua = campoRua.value.trim();
-        const numero = campoNumero.value.trim();
-
-        mensagem += `\n*Endereço para Entrega:*`;
-        if (localizacaoAtual) {
-            mensagem += `\n- Localização GPS: ${localizacaoAtual}`;
-        } else if (estado || cidade || rua || numero) {
-            if (rua) mensagem += `\n- Rua: ${rua}`;
-            if (numero) mensagem += `\n- Número: ${numero}`;
-            if (cidade) mensagem += `\n- Cidade: ${cidade}`;
-            if (estado) mensagem += `\n- Estado: ${estado}`;
-        } else {
-            mensagem += `\n- Endereço não informado`;
-        }
-
-        if (obsEndereco) {
-            mensagem += `\n- Observações do Endereço: ${obsEndereco}`;
-        }
-
-        mensagem += `\n\n*Resumo do Pagamento:*`;
-        mensagem += `\n- Total: R$ ${total.toFixed(2).replace('.', ',')}`;
-        mensagem += `\n- Forma de Pagamento: ${formaPagamento}`;
-        
-        if (obsGerais) {
-            mensagem += `\n\n*Observações Gerais do Pedido:* ${obsGerais}`;
-        }
-        
-        const mensagemCodificada = encodeURIComponent(mensagem);
-        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensagemCodificada}`;
-        
-        window.open(whatsappUrl, '_blank');
-    });
-
-    function atualizarModalAdicionais() {
-        document.querySelectorAll('.adicional-card').forEach(card => {
-            const id = parseInt(card.querySelector('.incrementar-add').dataset.id);
-            const quantidadeSpan = card.querySelector('.quantidade-add');
-            const adicionalSelecionado = itemParaAdicionar.adicionaisSelecionados.find(add => add.id === id);
-            quantidadeSpan.textContent = adicionalSelecionado ? adicionalSelecionado.quantidade : 0;
-        });
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0.8rem 1rem;
+    }
+    .navbar .logo {
+        flex-basis: auto;
+        order: 1;
+    }
+    .navbar .action-buttons {
+        order: 2;
+        margin-left: auto;
+    }
+    .navbar .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--cor-fundo-secundario);
+        position: absolute;
+        top: 66px;
+        left: 0;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+        animation: slideDown 0.3s ease-out forwards;
+        order: 3;
+    }
+    .navbar .nav-links.active {
+        display: flex;
+    }
+    .navbar .nav-links a {
+        padding: 0.8rem 1.5rem;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        border-bottom: 1px solid #eee;
+    }
+    .navbar .nav-links a:last-child {
+        border-bottom: none;
+    }
+    .navbar .nav-links a::after {
+        display: none;
+    }
+    .hamburger-menu {
+        display: block;
+        order: 0;
+        margin-right: 1rem;
+    }
+    .hamburger-menu .fas {
+        color: var(--cor-destaque-laranja);
     }
 
-    function abrirModal(modalElement) {
-        modalElement.style.display = 'flex';
+    .menu-section h2 {
+        font-size: 2.5rem;
+    }
+    .item-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .item-card {
+        padding: 1.2rem;
+    }
+    .item-card h3 {
+        font-size: 1.7rem;
+    }
+    .price {
+        font-size: 1.4rem;
     }
 
-    function fecharModal(modalElement) {
-        modalElement.style.display = 'none';
+    .modal-conteudo {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    .carrinho-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .carrinho-item > div:first-child {
+        flex-basis: 100%;
+        text-align: left;
+    }
+    .carrinho-actions {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 5px;
+        flex-basis: 100%;
+    }
+    .carrinho-actions .total-item {
+        order: -1;
+        margin-right: auto;
+    }
+    .remover-item {
+        margin-left: 0;
+    }
+    #finalizar-pedido-whatsapp {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    .adicionais-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        max-height: 250px;
     }
 
-    hamburgerMenuBtn.addEventListener('click', () => {
-        navLinksContainer.classList.toggle('active');
-    });
+}
 
-    navLinksContainer.addEventListener('click', (event) => {
-        if (event.target.tagName === 'A') {
-            navLinksContainer.classList.remove('active');
-        }
-    });
-
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-            navLinksContainer.classList.remove('active');
-        }
-    });
-});
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

@@ -76,59 +76,57 @@ body {
 
 
 /* ==================================== */
-/* 2.1. TELA DE BOAS-VINDAS */
+/* 2.1. TELA DE BOAS-VINDAS - NOVO LAYOUT */
 /* ==================================== */
 .boas-vindas-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: var(--cor-fundo-principal);
-    display: flex; justify-content: center; align-items: center; z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     padding: 2rem;
     box-sizing: border-box;
+    text-align: center;
 }
-
 .boas-vindas-conteudo {
     display: flex;
-    max-width: 1200px;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
     width: 100%;
-    background-color: var(--cor-fundo-principal);
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-    flex-direction: row;
     animation: fadeInScale 0.6s ease-out forwards;
 }
 
-.boas-vindas-esquerda {
-    flex: 1;
-    background-color: var(--cor-fundo-principal);
-    padding: 3rem 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    z-index: 2;
+.titulo-principal-boas-vindas {
+    font-family: var(--fonte-titulo-principal);
+    font-size: 4.5rem;
+    line-height: 1;
+    color: var(--cor-destaque-laranja);
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+    margin-bottom: 1rem;
 }
 
 .logo-principal {
-    max-width: 90%;
+    max-width: 80%;
     height: auto;
     margin-bottom: 1rem;
-    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.3));
+    animation: fadeIn 1s ease-out;
+}
+@media (max-width: 480px) {
+    .titulo-principal-boas-vindas {
+        font-size: 3.5rem;
+    }
 }
 
 .tagline {
-    font-family: var(--fonte-chamada);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
     font-size: 1.8rem;
-    color: var(--cor-destaque-laranja);
-    margin: -1.5rem 0 2rem;
-    font-weight: 700;
+    color: var(--cor-texto-claro);
+    margin: 0 0 1rem;
+    font-weight: 500;
 }
 
-.boas-vindas-chamada {
-    margin-top: 2rem;
-}
 .boas-vindas-chamada p {
     font-family: var(--fonte-chamada);
     font-size: 1.5rem;
@@ -148,80 +146,52 @@ body {
     color: #FFC080;
 }
 
-.boas-vindas-direita {
-    flex: 1;
-    background-color: var(--cor-fundo-secundario);
+.boas-vindas-botoes {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 3rem 2rem;
-    position: relative;
-    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
-    z-index: 1;
-    margin-left: -10%;
-}
-@media (max-width: 768px) {
-    .boas-vindas-direita {
-        clip-path: none;
-        margin-left: 0;
-    }
+    gap: 1.5rem;
+    margin-top: 2rem;
+    width: 100%;
 }
 
-
-.vai-um-ai {
-    font-family: var(--fonte-chamada);
-    font-size: 2.5rem;
+.btn {
+    font-family: var(--fonte-geral);
+    font-size: 1.1rem;
     font-weight: 700;
-    color: var(--cor-destaque-laranja);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
     text-align: center;
-    margin-bottom: 1rem;
-}
-
-.imagem-hamburguer-boas-vindas {
-    max-width: 80%;
-    height: auto;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.a-partir-de {
-    font-family: var(--fonte-chamada);
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--cor-texto-escuro);
-    margin-bottom: 0.5rem;
-}
-
-.preco-inicial {
-    font-family: var(--fonte-chamada);
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: var(--cor-destaque-laranja);
-    margin-bottom: 2rem;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
 }
 
 .btn-cardapio {
     background-color: var(--cor-destaque-laranja);
     color: var(--cor-texto-claro);
-    padding: 1.2rem 2.5rem;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0 15px var(--cor-destaque-laranja);
 }
 .btn-cardapio:hover {
     background-color: #E08030;
     transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 20px #E08030;
 }
 
+.btn-whatsapp {
+    background-color: #25D366;
+    color: white;
+    box-shadow: 0 0 15px #25D366;
+}
+.btn-whatsapp:hover {
+    background-color: #1DA851;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 20px #1DA851;
+}
 
 /* ==================================== */
-/* 2.2. NAVBAR PRINCIPAL */
+/* 2.2. NAVBAR PRINCIPAL (SEM MUDANÇAS) */
 /* ==================================== */
 .navbar {
     display: flex;
@@ -336,6 +306,7 @@ body {
     animation: bounce 0.5s ease-in-out;
 }
 
+
 .hamburger-menu {
     display: none;
     background: none;
@@ -347,7 +318,7 @@ body {
 
 
 /* ==================================== */
-/* 2.3. SEÇÕES DE MENU E CARDS DE ITENS */
+/* 2.3. SEÇÕES DE MENU E CARDS DE ITENS (SEM MUDANÇAS) */
 /* ==================================== */
 .menu-container {
     padding: 2rem;
@@ -442,7 +413,7 @@ body {
 
 
 /* ==================================== */
-/* 2.4. ESTILOS DO CARRINHO E FORMULÁRIOS */
+/* 2.4. ESTILOS DO CARRINHO E FORMULÁRIOS (SEM MUDANÇAS) */
 /* ==================================== */
 #carrinho-vazio {
     text-align: center;
@@ -612,7 +583,7 @@ body {
 
 
 /* ==================================== */
-/* 2.5. MODAL DE ADICIONAIS */
+/* 2.5. MODAL DE ADICIONAIS (SEM MUDANÇAS) */
 /* ==================================== */
 .adicionais-grid {
     display: flex;
@@ -691,6 +662,7 @@ body {
     font-size: 1.1rem;
 }
 
+
 /* ==================================== */
 /* 3. ANIMAÇÕES */
 /* ==================================== */
@@ -710,50 +682,19 @@ body {
     60% { transform: translateY(-2px); }
 }
 
+
 /* ==================================== */
 /* 4. RESPONSIVIDADE (MOBILE FIRST) */
 /* ==================================== */
 @media (max-width: 768px) {
+    .titulo-principal-boas-vindas {
+        font-size: 3rem;
+    }
     .boas-vindas-conteudo {
-        flex-direction: column;
-        height: 100%;
-        max-height: none;
-        overflow-y: auto;
+        padding: 1rem;
     }
-
-    .boas-vindas-esquerda, .boas-vindas-direita {
-        padding: 2rem 1rem;
-        width: 100%;
-        clip-path: none;
-        margin-left: 0;
-    }
-    .boas-vindas-direita {
-        border-top: 5px solid var(--cor-destaque-laranja);
-        background-color: var(--cor-fundo-secundario);
-    }
-
-    .logo-principal {
-        max-width: 80%;
-    }
-    .tagline {
-        font-size: 1.5rem;
-        margin: -1rem 0 1.5rem;
-    }
-    .boas-vindas-chamada p {
-        font-size: 1.3rem;
-    }
-    .numero-whatsapp {
-        font-size: 1.8rem;
-    }
-    .vai-um-ai {
-        font-size: 2rem;
-    }
-    .preco-inicial {
-        font-size: 2.2rem;
-    }
-    .btn-cardapio {
-        padding: 1rem 2rem;
-        font-size: 1.1rem;
+    .boas-vindas-botoes {
+        gap: 1rem;
     }
 
     .navbar {
@@ -864,51 +805,4 @@ body {
 @keyframes slideDown {
     from { transform: translateY(-20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .boas-vindas-conteudo {
-        flex-direction: row;
-    }
-    .boas-vindas-direita {
-        clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
-        margin-left: -5%;
-    }
-    .navbar { padding: 1rem 1.5rem; }
-    .navbar .nav-links { gap: 1rem; }
-    .menu-container { padding: 1.5rem; }
-    .menu-section h2 { font-size: 3rem; }
-    .item-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
-}
-
-@media (min-width: 1025px) {
-    .boas-vindas-conteudo {
-        height: 70vh;
-    }
-    .boas-vindas-esquerda {
-        padding: 4rem 3rem;
-    }
-    .logo-principal {
-        max-width: 400px;
-    }
-    .tagline {
-        font-size: 2.2rem;
-    }
-    .boas-vindas-chamada p {
-        font-size: 1.8rem;
-    }
-    .numero-whatsapp {
-        font-size: 2.5rem;
-    }
-    .boas-vindas-direita {
-        padding: 4rem 3rem;
-    }
-    .vai-um-ai {
-        font-size: 3rem;
-    }
-    .preco-inicial {
-        font-size: 3.5rem;
-    }
-    .navbar { padding: 1rem 4rem; }
-    .menu-container { max-width: 1200px; margin: auto; padding: 2rem; }
 }

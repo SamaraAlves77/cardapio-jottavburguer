@@ -48,7 +48,6 @@ body {
 
 main {
     padding-top: 80px;
-    display: none;
 }
 
 header {
@@ -341,6 +340,72 @@ footer {
     transition: opacity 0.5s;
 }
 
+.adicionais-opcoes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.adicional-card {
+    background-color: var(--cor-fundo-principal);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.adicional-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.adicional-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.adicional-info span {
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.adicional-info .price {
+    color: var(--cor-terciaria);
+    font-weight: normal;
+}
+
+.adicional-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.adicional-actions button {
+    background-color: var(--cor-primaria);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.adicional-actions button:hover {
+    background-color: #e63946;
+}
+
+/* Responsividade */
 .hamburger-menu-btn {
     display: none;
 }
@@ -356,6 +421,7 @@ footer {
         background-color: var(--cor-fundo-secundario);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         padding: 10px 20px;
+        box-sizing: border-box;
     }
 
     .nav-links.active {

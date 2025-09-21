@@ -23,69 +23,61 @@ document.addEventListener('DOMContentLoaded', () => {
     let carrinho = [];
     let itemAtualParaAdicionais = null;
 
-    // Dados do cardápio (AGORA COMPLETO E SINCRONIZADO COM AMBAS AS IMAGENS)
+    // Dados do cardápio com caminhos de imagem locais
     const cardapioData = {
         'Hambúrgueres': [
-            // Hambúrgueres da Imagem 2 (Principal)
-            { id: 1, nome: 'Smash Original', descricao: 'Pão, Carne 80g prensada na chapa, queijo Muçarela, cebola caramelizada, alface, tomate e molho da casa.', preco: 18.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_original.jpg?raw=true' }, // ATUALIZADO
-            { id: 2, nome: 'Smash Duplo', descricao: 'Pão, 2 carnes 80g prensadas na chapa, 2 queijos muçarela, cebola caramelizada, alface, tomate e molho da casa.', preco: 24.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/smash_duplo.jpg?raw=true' }, // ATUALIZADO
-            { id: 3, nome: 'Jotta Básico', descricao: 'Pão, Carne 120g prensada na chapa com cebola, queijo muçarela e molho da casa.', preco: 14.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/jotta_basico.jpg?raw=true' }, // NOVO
-            { id: 4, nome: 'Jotta Classic', descricao: 'Pão, Carne 120g, molho barbecue, tomate, alface, bacon e queijo muçarela.', preco: 25.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/jotta_classic.jpg?raw=true' }, // NOVO
-            { id: 5, nome: 'Burguer do Xerife', descricao: 'Pão, carne de 120g, (queijo muçarela ou requeijão longa) e farofa (bacon ou alho).', preco: 22.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/burguer_xerife.jpg?raw=true' }, // NOVO
-            { id: 6, nome: 'Duplo Brutão', descricao: 'Pão, 2 carnes de 120g, (queijo muçarela ou requeijão longa) , molho da casa, 2 fatias de bacon.', preco: 37.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/duplo_brutao.jpg?raw=true' }, // NOVO
-
-            // Hambúrgueres da Imagem 1 (Novidades) - IDs ajustados para não conflitar
-            { id: 7, nome: 'Calabresa Prime', descricao: 'Pão, molho, alface, tomate, calabresa, queijo, cebola caramelizada, ( carne ou frango. )', preco: 26.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/calabresa_prime.jpg?raw=true' }, // NOVO
-            { id: 8, nome: 'Burguer Salame', descricao: 'Pão, requeijão, carne e salame.', preco: 28.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/burguer_salame.jpg?raw=true' }, // NOVO
-            { id: 9, nome: 'Calabresa Básico', descricao: 'Pão, molho da casa, calabresa e queijo muçarela.', preco: 15.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/calabresa_basico.jpg?raw=true' }, // NOVO
-            // Misto do cardápio anterior, mantido se ainda for válido
-            { id: 10, nome: 'Misto', descricao: 'Pão prensado, milho, presunto e queijo mussarela.', preco: 13.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_hamburgueres/misto.jpg?raw=true' }
-
+            { id: 1, nome: 'Smash Original', descricao: 'Pão, Carne 80g prensada na chapa, queijo Muçarela, cebola caramelizada, alface, tomate e molho da casa.', preco: 18.99, imagem: 'imagens/smash_original.jpg' },
+            { id: 2, nome: 'Smash Duplo', descricao: 'Pão, 2 carnes 80g prensadas na chapa, 2 queijos muçarela, cebola caramelizada, alface, tomate e molho da casa.', preco: 24.99, imagem: 'imagens/smash_duplo.jpg' },
+            { id: 3, nome: 'Jotta Básico', descricao: 'Pão, Carne 120g prensada na chapa com cebola, queijo muçarela e molho da casa.', preco: 14.99, imagem: 'imagens/jotta_basico.jpg' },
+            { id: 4, nome: 'Jotta Classic', descricao: 'Pão, Carne 120g, molho barbecue, tomate, alface, bacon e queijo muçarela.', preco: 25.99, imagem: 'imagens/jotta_classic.jpg' },
+            { id: 5, nome: 'Burguer do Xerife', descricao: 'Pão, carne de 120g, (queijo muçarela ou requeijão longa) e farofa (bacon ou alho).', preco: 22.99, imagem: 'imagens/burguer_xerife.jpg' },
+            { id: 6, nome: 'Duplo Brutão', descricao: 'Pão, 2 carnes de 120g, (queijo muçarela ou requeijão longa) , molho da casa, 2 fatias de bacon.', preco: 37.99, imagem: 'imagens/duplo_brutao.jpg' },
+            { id: 7, nome: 'Calabresa Prime', descricao: 'Pão, molho, alface, tomate, calabresa, queijo, cebola caramelizada, ( carne ou frango. )', preco: 26.99, imagem: 'imagens/calabresa_prime.jpg' },
+            { id: 8, nome: 'Burguer Salame', descricao: 'Pão, requeijão, carne e salame.', preco: 28.99, imagem: 'imagens/burguer_salame.jpg' },
+            { id: 9, nome: 'Calabresa Básico', descricao: 'Pão, molho da casa, calabresa e queijo muçarela.', preco: 15.00, imagem: 'imagens/calabresa_basico.jpg' },
+            { id: 10, nome: 'Misto', descricao: 'Pão prensado, milho, presunto e queijo mussarela.', preco: 13.00, imagem: 'imagens/misto.jpg' }
         ],
         'Combos': [
-            // Novos Combos baseados na Imagem 2
-            { id: 11, nome: 'Combo Econômico', descricao: '1 Smash Original + batata frita + refrigerante lata.', preco: 31.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_economico.jpg?raw=true' }, // NOVO
-            { id: 12, nome: 'Combo do Chef', descricao: '1 Jotta Classic + batata frita + refrigerante lata.', preco: 41.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_do_chef.jpg?raw=true' }, // NOVO
-            { id: 13, nome: 'Combo Smash Duplo', descricao: '1 Smash duplo + batata frita + refrigerante lata.', preco: 37.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_smash_duplo.jpg?raw=true' }, // NOVO
-            { id: 14, nome: 'Combo Premium', descricao: '1 Duplo Brutão + batata frita + refrigerante lata.', preco: 53.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/combo_premium.jpg?raw=true' }, // NOVO
-
-            { id: 15, nome: 'Casal: 2x Smash Original', descricao: '2 Smash Original + batata frita + Guaraná 1L.', preco: 49.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/casal_smash_original.jpg?raw=true' }, // NOVO
-            { id: 16, nome: 'Casal: 2x Jotta Classic', descricao: '2 Jotta Classic + batata frita + Guaraná 1L.', preco: 63.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/casal_jotta_classic.jpg?raw=true' }, // NOVO
-            { id: 17, nome: 'Casal: 2x Smash Duplo', descricao: '2 Smash duplo + batata frita + Guaraná 1L.', preco: 61.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/casal_smash_duplo.jpg?raw=true' }, // NOVO
-            { id: 18, nome: 'Casal: 2x Duplo Brutão', descricao: '2 Duplo Brutão + batata frita + Guaraná 1L.', preco: 87.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/casal_duplo_brutao.jpg?raw=true' }, // NOVO
-
-            { id: 19, nome: 'Família: 4x Smash Original', descricao: '4 Smash Original + batata frita + Guaraná 1L.', preco: 87.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/familia_smash_original.jpg?raw=true' }, // NOVO
-            { id: 20, nome: 'Família: 4x Jotta Classic', descricao: '4 Jotta Classic + batata frita + Guaraná 1L.', preco: 115.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/familia_jotta_classic.jpg?raw=true' }, // NOVO
-            { id: 21, nome: 'Família: 4x Smash Duplo', descricao: '4 Smash duplo + batata frita + Guaraná 1L.', preco: 111.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/familia_smash_duplo.jpg?raw=true' }, // NOVO
-            { id: 22, nome: 'Família: 4x Duplo Brutão', descricao: '4 Duplo Brutão + batata frita + Guaraná 1L.', preco: 154.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_combos/familia_duplo_brutao.jpg?raw=true' }, // NOVO
+            { id: 11, nome: 'Combo Econômico', descricao: '1 Smash Original + batata frita + refrigerante lata.', preco: 31.99, imagem: 'imagens/combo_economico.jpg' },
+            { id: 12, nome: 'Combo do Chef', descricao: '1 Jotta Classic + batata frita + refrigerante lata.', preco: 41.99, imagem: 'imagens/combo_do_chef.jpg' },
+            { id: 13, nome: 'Combo Smash Duplo', descricao: '1 Smash duplo + batata frita + refrigerante lata.', preco: 37.99, imagem: 'imagens/combo_smash_duplo.jpg' },
+            { id: 14, nome: 'Combo Premium', descricao: '1 Duplo Brutão + batata frita + refrigerante lata.', preco: 53.99, imagem: 'imagens/combo_premium.jpg' },
+            { id: 15, nome: 'Casal: 2x Smash Original', descricao: '2 Smash Original + batata frita + Guaraná 1L.', preco: 49.99, imagem: 'imagens/casal_smash_original.jpg' },
+            { id: 16, nome: 'Casal: 2x Jotta Classic', descricao: '2 Jotta Classic + batata frita + Guaraná 1L.', preco: 63.99, imagem: 'imagens/casal_jotta_classic.jpg' },
+            { id: 17, nome: 'Casal: 2x Smash Duplo', descricao: '2 Smash duplo + batata frita + Guaraná 1L.', preco: 61.99, imagem: 'imagens/casal_smash_duplo.jpg' },
+            { id: 18, nome: 'Casal: 2x Duplo Brutão', descricao: '2 Duplo Brutão + batata frita + Guaraná 1L.', preco: 87.99, imagem: 'imagens/casal_duplo_brutao.jpg' },
+            { id: 19, nome: 'Família: 4x Smash Original', descricao: '4 Smash Original + batata frita + Guaraná 1L.', preco: 87.99, imagem: 'imagens/familia_smash_original.jpg' },
+            { id: 20, nome: 'Família: 4x Jotta Classic', descricao: '4 Jotta Classic + batata frita + Guaraná 1L.', preco: 115.99, imagem: 'imagens/familia_jotta_classic.jpg' },
+            { id: 21, nome: 'Família: 4x Smash Duplo', descricao: '4 Smash duplo + batata frita + Guaraná 1L.', preco: 111.99, imagem: 'imagens/familia_smash_duplo.jpg' },
+            { id: 22, nome: 'Família: 4x Duplo Brutão', descricao: '4 Duplo Brutão + batata frita + Guaraná 1L.', preco: 154.99, imagem: 'imagens/familia_duplo_brutao.jpg' },
         ],
         'Acompanhamentos': [
-            { id: 23, nome: 'Batata Palito', descricao: 'Porção individual de batata frita palito.', preco: 11.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_acompanhamentos/batata_palito_nova.jpg?raw=true' }, // NOVO (da Imagem 2)
-            { id: 24, nome: 'Batata com Bacon', descricao: 'Porção de batata frita com bacon.', preco: 17.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_acompanhamentos/batata_bacon.jpg?raw=true' }, // NOVO (da Imagem 2)
-            { id: 25, nome: 'Nuggets (6 unid.)', descricao: '6 unidades de nuggets crocantes.', preco: 12.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_acompanhamentos/nuggets.jpg?raw=true' }
+            { id: 23, nome: 'Batata Palito', descricao: 'Porção individual de batata frita palito.', preco: 11.99, imagem: 'imagens/batata_palito_nova.jpg' },
+            { id: 24, nome: 'Batata com Bacon', descricao: 'Porção de batata frita com bacon.', preco: 17.99, imagem: 'imagens/batata_bacon.jpg' },
+            { id: 25, nome: 'Nuggets (6 unid.)', descricao: '6 unidades de nuggets crocantes.', preco: 12.00, imagem: 'imagens/nuggets.jpg' }
         ],
         'Bebidas': [
-            { id: 26, nome: 'Coca-Cola Lata', descricao: 'Refrigerante Coca-Cola 350ml.', preco: 7.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/coca_lata.jpg?raw=true' }, // PREÇO ATUALIZADO
-            { id: 27, nome: 'Guaraná Lata', descricao: 'Refrigerante Guaraná Antarctica 350ml.', preco: 6.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/guarana_lata.jpg?raw=true' },
-            { id: 28, nome: 'Guaraná 1L', descricao: 'Refrigerante Guaraná Antarctica 1 Litro.', preco: 9.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/guarana_1l.jpg?raw=true' },
-            { id: 29, nome: 'Água Mineral', descricao: 'Água mineral sem gás 500ml.', preco: 4.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_bebidas/agua.jpg?raw=true' }
+            { id: 26, nome: 'Coca-Cola Lata', descricao: 'Refrigerante Coca-Cola 350ml.', preco: 7.00, imagem: 'imagens/coca_lata.jpg' },
+            { id: 27, nome: 'Guaraná Lata', descricao: 'Refrigerante Guaraná Antarctica 350ml.', preco: 6.00, imagem: 'imagens/guarana_lata.jpg' },
+            { id: 28, nome: 'Guaraná 1L', descricao: 'Refrigerante Guaraná Antarctica 1 Litro.', preco: 9.00, imagem: 'imagens/guarana_1l.jpg' },
+            { id: 29, nome: 'Água Mineral', descricao: 'Água mineral sem gás 500ml.', preco: 4.00, imagem: 'imagens/agua.jpg' }
         ]
     };
 
-    // Dados de adicionais (AGORA COMPLETOS)
+    // Dados de adicionais com caminhos de imagem locais
     const adicionaisData = [
-        { id: 101, nome: 'Creme de Requeijão', preco: 4.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/creme_requeijao.jpg?raw=true' },
-        { id: 102, nome: 'Queijo Muçarela', preco: 4.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/queijo_mucarela.jpg?raw=true' },
-        { id: 103, nome: 'Bacon', preco: 4.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/bacon.jpg?raw=true' }, // PREÇO ATUALIZADO PARA R$ 4,00 (da Image 2)
-        { id: 104, nome: 'Farofa de Bacon', preco: 3.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/farofa_bacon.jpg?raw=true' },
-        { id: 105, nome: 'Cebola Caramelizada', preco: 3.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/cebola_caramelizada.jpg?raw=true' },
-        { id: 106, nome: 'Molho Barbecue', preco: 2.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/molho_barbecue.jpg?raw=true' }, // PREÇO ATUALIZADO PARA R$ 2,00 (da Image 2)
-        { id: 107, nome: 'Molho da Casa', preco: 2.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/molho_da_casa.jpg?raw=true' }, // PREÇO ATUALIZADO PARA R$ 2,00 (da Image 2)
-        { id: 108, nome: 'Batata Palito (Add)', preco: 9.99, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/batata_palito.jpg?raw=true' }, // Nome ajustado para diferenciar do acompanhamento
-        { id: 109, nome: 'Farofa de Alho', preco: 3.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/farofa_alho.jpg?raw=true' },
-        { id: 110, nome: 'Ovo Frito', preco: 2.50, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/ovo_frito.jpg?raw=true' },
-        { id: 111, nome: 'Calabresa', preco: 5.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/calabresa_add.jpg?raw=true' }, // NOVO (da Imagem 1)
-        { id: 112, nome: 'Salame', preco: 7.00, imagem: 'https://github.com/SamaraAlves77/cardapio-jottavburguer/blob/main/imagens_adicionais/salame_add.jpg?raw=true' } // NOVO (da Imagem 1)
+        { id: 101, nome: 'Creme de Requeijão', preco: 4.00, imagem: 'imagens/creme_requeijao.jpg' },
+        { id: 102, nome: 'Queijo Muçarela', preco: 4.00, imagem: 'imagens/queijo_mucarela.jpg' },
+        { id: 103, nome: 'Bacon', preco: 4.00, imagem: 'imagens/bacon.jpg' },
+        { id: 104, nome: 'Farofa de Bacon', preco: 3.00, imagem: 'imagens/farofa_bacon.jpg' },
+        { id: 105, nome: 'Cebola Caramelizada', preco: 3.00, imagem: 'imagens/cebola_caramelizada.jpg' },
+        { id: 106, nome: 'Molho Barbecue', preco: 2.00, imagem: 'imagens/molho_barbecue.jpg' },
+        { id: 107, nome: 'Molho da Casa', preco: 2.00, imagem: 'imagens/molho_da_casa.jpg' },
+        { id: 108, nome: 'Batata Palito (Add)', preco: 9.99, imagem: 'imagens/batata_palito.jpg' },
+        { id: 109, nome: 'Farofa de Alho', preco: 3.00, imagem: 'imagens/farofa_alho.jpg' },
+        { id: 110, nome: 'Ovo Frito', preco: 2.50, imagem: 'imagens/ovo_frito.jpg' },
+        { id: 111, nome: 'Calabresa', preco: 5.00, imagem: 'imagens/calabresa_add.jpg' },
+        { id: 112, nome: 'Salame', preco: 7.00, imagem: 'imagens/salame_add.jpg' }
     ];
 
     // Funções de inicialização
@@ -116,8 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const section = document.createElement('section');
             section.classList.add('menu-section');
-            section.id = `section-${categoria.toLowerCase().replace(/á/g, 'a').replace(/ç/g, 'c').replace(/ã/g, 'a').replace(/\s/g, '-')}`; // Ajusta IDs para URL e espaços
-            section.innerHTML = `<h2>${categoria}</h2><div class="item-grid" id="grid-${categoria.toLowerCase().replace(/á/g, 'a').replace(/ç/g, 'c').replace(/ã/g, 'a').replace(/\s/g, '-')}"></div>`;
+            // Ajusta IDs para URL e espaços, remove acentos
+            const sectionId = `section-${categoria.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '-')}`;
+            section.id = sectionId;
+            section.innerHTML = `<h2>${categoria}</h2><div class="item-grid" id="grid-${sectionId}"></div>`;
             menuContainer.appendChild(section);
 
             const grid = section.querySelector('.item-grid');
@@ -135,7 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cardapioData[categoria].length === 0) continue;
 
             const link = document.createElement('a');
-            link.href = `#section-${categoria.toLowerCase().replace(/á/g, 'a').replace(/ç/g, 'c').replace(/ã/g, 'a').replace(/\s/g, '-')}`;
+            // Ajusta IDs para URL e espaços, remove acentos
+            const sectionId = `section-${categoria.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '-')}`;
+            link.href = `#${sectionId}`;
             link.textContent = categoria;
             navLinksContainer.appendChild(link);
             

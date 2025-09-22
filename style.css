@@ -118,7 +118,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
+    background-color: #f1f8e9; /* Fundo verde claro para o cabeçalho */
     padding: 15px 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -132,6 +132,12 @@ header .logo img {
     height: 50px;
 }
 
+#jottav-burguer-logo {
+    background-color: #f1f8e9;
+    border-radius: 8px;
+    padding: 5px;
+}
+
 .nav-links {
     display: flex;
     gap: 25px;
@@ -141,9 +147,10 @@ header .logo img {
     color: #555;
     font-weight: 600;
     position: relative;
+    transition: color 0.3s;
 }
 
-.nav-links a.active {
+.nav-links a.active, .nav-links a:hover {
     color: #e53935;
 }
 
@@ -266,7 +273,7 @@ header .logo img {
 }
 
 .btn-add {
-    background-color: #e53935;
+    background-color: #ff5252;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -278,7 +285,7 @@ header .logo img {
 }
 
 .btn-add:hover {
-    background-color: #c62828;
+    background-color: #d62d2d;
 }
 
 .notificacao {
@@ -456,18 +463,30 @@ footer {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
 }
 
 .adicional-item {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
-    padding: 12px 15px;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease-in-out;
+    text-align: center;
+}
+
+.adicional-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .adicional-item:hover {
@@ -478,7 +497,7 @@ footer {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    text-align: left;
+    text-align: center;
 }
 
 .adicional-info span:first-child {
@@ -497,10 +516,11 @@ footer {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-top: 15px;
 }
 
 .adicional-actions button {
-    background-color: #e53935;
+    background-color: #ff5252;
     color: white;
     border: none;
     border-radius: 50%;
@@ -515,7 +535,7 @@ footer {
 }
 
 .adicional-actions button:hover {
-    background-color: #c62828;
+    background-color: #d62d2d;
     transform: scale(1.05);
 }
 
@@ -600,68 +620,60 @@ footer {
     }
 
     .item-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
-
+    
     .item-card {
-        padding: 10px;
-        height: 250px;
+        padding: 15px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        text-align: center;
     }
 
     .item-card img {
-        height: 80px;
+        height: 150px;
         width: 100%;
         object-fit: cover;
     }
 
     .item-card h3 {
-        font-size: 1em;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        font-size: 1.2em;
     }
 
     .item-card p {
-        font-size: 0.7em;
+        font-size: 0.85em;
     }
-
+    
     .price {
-        font-size: 1em;
-        margin-bottom: 5px;
+        font-size: 1.2em;
+        margin-bottom: 10px;
     }
 
     .btn-add {
-        font-size: 0.9em;
-        padding: 8px 15px;
+        font-size: 0.95em;
+        padding: 10px 20px;
     }
 
-    /* Ajustes para o Modal de Opcionais em telas menores */
-    #adicionais-modal .modal-content {
-        height: 90%;
-        max-height: 90vh;
-        width: 95%;
-        padding: 15px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
+    .modal-content {
+        padding: 20px;
     }
     
     .adicionais-list {
-        flex-grow: 1;
-        overflow-y: auto;
-        padding-right: 5px;
+        grid-template-columns: 1fr;
     }
 
-    .observacao-item-container {
-        margin-top: 10px;
+    .adicional-item {
+        flex-direction: row;
+        gap: 15px;
     }
 
-    #confirmar-adicionais {
-        margin-top: 15px;
-        width: 100%;
+    .adicional-item img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .adicional-info {
+        text-align: left;
     }
 }

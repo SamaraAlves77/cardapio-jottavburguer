@@ -356,17 +356,26 @@ footer {
         padding: 10px;
         border-radius: 12px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        aspect-ratio: 1 / 1; /* Transforma o card em um quadrado perfeito */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
-    
+
     .item-card img {
-        height: 100px; /* Mantém a imagem em um tamanho fixo */
+        width: 100%;
+        height: 50%; /* Faz a imagem ocupar 50% da altura do card quadrado */
+        object-fit: cover;
         border-radius: 8px;
+        margin-bottom: 5px;
     }
-    
+
     /* Diminui o tamanho da fonte para melhor visualização */
     .item-card h3 {
-        font-size: 1em;
-        margin: 5px 0;
+        font-size: 0.9em;
+        margin: 0;
+        text-align: left;
+        flex-grow: 1; /* Permite que o título ocupe o espaço restante */
     }
 
     .item-card p {
@@ -374,12 +383,16 @@ footer {
     }
     
     .price {
-        font-size: 1em;
-        margin-top: 5px;
+        font-size: 0.9em;
+        font-weight: bold;
+        margin-top: auto;
+        text-align: left;
     }
 
     .btn-add {
-        font-size: 0.8em;
-        padding: 6px 8px;
+        font-size: 0.7em;
+        padding: 5px 8px;
+        width: 100%;
+        margin-top: 5px;
     }
 }

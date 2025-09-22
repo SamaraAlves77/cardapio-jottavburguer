@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const carrinhoBtn = document.querySelector('.carrinho-btn');
 
     // Mapeamento de categorias que possuem adicionais
-    const categoriasComAdicionais = ["Hambúrguer Artesanal", "Acompanhamentos"];
+    const categoriasComAdicionais = ["Hambúrgueres Artesanais", "Acompanhamentos"];
 
     // Funções de manipulação do localStorage
     const salvarCarrinho = () => {
@@ -69,7 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
         menuContainer.innerHTML = '';
         navLinks.innerHTML = '';
 
-        const categoriasParaRenderizar = Object.keys(cardapio).filter(cat => cat !== "Opcionais");
+        // Filtra as categorias para não incluir "Adicionais" na página principal
+        const categoriasParaRenderizar = Object.keys(cardapio).filter(cat => cat !== "Opcionais" && cat !== "Adicionais");
 
         categoriasParaRenderizar.forEach(categoria => {
             // Cria os links de navegação para cada categoria
@@ -126,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adicionarAoCarrinho = (item, categoria) => {
         itemSelecionado = { ...item, categoria, adicionais: [], observacao: '' };
         
-        const temAdicionais = cardapio.Opcionais && categoriasComAdicionais.includes(categoria);
+        const temAdicionais = cardapio.Adicionais && categoriasComAdicionais.includes(categoria);
 
         if (temAdicionais) {
             abrirModalAdicionais(item);
@@ -205,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         adicionaisOpcoesUl.innerHTML = '';
         observacaoItemTextarea.value = '';
 
-        cardapio.Opcionais.forEach(adicional => {
+        cardapio.Adicionais.forEach(adicional => {
             const li = document.createElement('li');
             li.classList.add('adicional-item');
             li.setAttribute('data-adicional-id', adicional.id);
@@ -348,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const id = parseInt(li.getAttribute('data-adicional-id'));
             const quantidade = parseInt(li.querySelector('.adicional-quantidade').textContent);
             if (quantidade > 0) {
-                const adicional = cardapio.Opcionais.find(op => op.id === id);
+                const adicional = cardapio.Adicionais.find(op => op.id === id);
                 if (adicional) {
                     adicionaisSelecionados.push({
                         ...adicional,

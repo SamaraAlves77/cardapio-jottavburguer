@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mainContainer = document.querySelector('main');
-    const cartCountElement = document.getElementById('cart-count');
-    const carrinhoBtn = document.querySelector('.carrinho-btn');
+    const cartCountElement = document.getElementById('contador-carrinho');
+    const carrinhoBtn = document.getElementById('carrinho-btn');
     const modal = document.getElementById('carrinho-modal');
     const closeModalBtn = document.querySelector('.fechar-modal');
-    const carrinhoItensContainer = document.querySelector('.carrinho-itens');
+    const carrinhoItensContainer = document.getElementById('carrinho-itens');
     const carrinhoTotalElement = document.getElementById('carrinho-total');
     const finalizarPedidoBtn = document.getElementById('btn-finalizar-pedido');
-    const hamburguerMenuBtn = document.querySelector('.hamburger-menu-btn');
+    const hamburguerMenuBtn = document.getElementById('hamburger-menu-btn');
     const navLinks = document.querySelector('.nav-links');
     const notificacao = document.getElementById('notificacao');
 
@@ -21,64 +21,90 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderizarMenu() {
         if (!menuData) return;
         mainContainer.innerHTML = '';
-        menuData.categories.forEach(category => {
-            const section = document.createElement('section');
-            section.classList.add('menu-section');
-            section.id = category.name.toLowerCase().replace(/\s/g, '-');
+        for (const categoria in menuData) {
+            if (menuData.hasOwnProperty(categoria)) {
+                criarSecaoCardapio(categoria, menuData[categoria]);
+            }
+        }
+    }
 
-            const title = document.createElement('h2');
-            title.textContent = category.name;
-            section.appendChild(title);
+    function criarSecaoCardapio(titulo, itens) {
+        let containerId = '';
+        switch(titulo) {
+            case 'Hambúrgueres Artesanais':
+                containerId = 'hamburgueres-artesanais-grid';
+                break;
+            case 'Combos e Família':
+                containerId = 'combos-e-familia-grid';
+                break;
+            case 'Acompanhamentos':
+                containerId = 'acompanhamentos-grid';
+                break;
+            case 'Bebidas':
+                containerId = 'bebidas-grid';
+                break;
+            case 'Adicionais':
+                containerId = 'adicionais-grid';
+                break;
+            default:
+                console.warn(`Categoria desconhecida: ${titulo}`);
+                return;
+        }
 
-            const grid = document.createElement('div');
-            grid.classList.add('item-grid');
+        const container = document.getElementById(containerId);
 
-            category.items.forEach(item => {
-                const card = document.createElement('div');
-                card.classList.add('item-card');
+        if (!container) {
+            console.error(`Contêiner não encontrado para a categoria: ${titulo}`);
+            return;
+        }
 
-                const img = document.createElement('img');
-                img.src = item.image;
-                img.alt = item.name;
-
-                const content = document.createElement('div');
-                content.classList.add('item-card-content');
-
-                const itemTitle = document.createElement('h3');
-                itemTitle.textContent = item.name;
-
-                const itemDescription = document.createElement('p');
-                itemDescription.textContent = item.description;
-
-                const itemPrice = document.createElement('p');
-                itemPrice.classList.add('price');
-                itemPrice.textContent = `R$ ${item.price.toFixed(2).replace('.', ',')}`;
-
-                const addButton = document.createElement('button');
-                addButton.classList.add('btn-add');
-                addButton.textContent = 'Adicionar';
-                addButton.onclick = () => adicionarAoCarrinho(item);
-
-                content.appendChild(itemTitle);
-                if (item.description) {
-                    content.appendChild(itemDescription);
-                }
-                content.appendChild(itemPrice);
-                content.appendChild(addButton);
-
-                card.appendChild(img);
-                card.appendChild(content);
-                grid.appendChild(card);
-            });
-
-            section.appendChild(grid);
-            mainContainer.appendChild(section);
+        itens.forEach(item => {
+            const itemElemento = criarItemCardapio(item);
+            container.appendChild(itemElemento);
         });
+    }
+
+    function criarItemCardapio(item) {
+        const divItem = document.createElement('div');
+        divItem.className = 'item-card';
+
+        const img = document.createElement('img');
+        img.src = `imagem_cardapio/${item.imagem}`;
+        img.alt = item.nome;
+
+        const content = document.createElement('div');
+        content.classList.add('item-card-content');
+
+        const itemTitle = document.createElement('h3');
+        itemTitle.textContent = item.nome;
+
+        const pPreco = document.createElement('p');
+        pPreco.className = 'price';
+        pPreco.textContent = `R$ ${item.preco.toFixed(2).replace('.', ',')}`;
+
+        const addButton = document.createElement('button');
+        addButton.className = 'btn-add';
+        addButton.textContent = 'Adicionar';
+        addButton.onclick = () => adicionarAoCarrinho(item);
+
+        content.appendChild(itemTitle);
+        if (item.descricao) {
+            const itemDescription = document.createElement('p');
+            itemDescription.textContent = item.descricao;
+            content.appendChild(itemDescription);
+        }
+        content.appendChild(pPreco);
+        content.appendChild(addButton);
+
+        divItem.appendChild(img);
+        divItem.appendChild(content);
+
+        return divItem;
     }
 
     async function carregarMenu() {
         try {
-            const response = await fetch('cardapio.json');
+            const response = await fetch('./cardapio.json');
             menuData = await response.json();
             renderizarMenu();
         } catch (error) {
@@ -96,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         salvarCarrinho();
         atualizarContadorCarrinho();
-        exibirNotificacao(`${item.name} adicionado!`);
+        exibirNotificacao(`${item.nome} adicionado!`);
     }
 
     function removerDoCarrinho(itemId) {
@@ -114,19 +140,19 @@ document.addEventListener('DOMContentLoaded', () => {
         carrinhoItensContainer.innerHTML = '';
         let total = 0;
         carrinho.forEach(item => {
-            total += item.price * item.quantidade;
+            total += item.preco * item.quantidade;
             const li = document.createElement('li');
             li.classList.add('carrinho-item');
             li.innerHTML = `
-                <span>${item.name} (${item.quantidade})</span>
-                <span>R$ ${(item.price * item.quantidade).toFixed(2).replace('.', ',')}</span>
-                <button class="remover-item" data-id="${item.id}">&times;</button>
+                <span>${item.nome} (${item.quantidade}x)</span>
+                <span>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</span>
+                <button class="btn-remove" data-id="${item.id}">&times;</button>
             `;
             carrinhoItensContainer.appendChild(li);
         });
-        carrinhoTotalElement.textContent = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+        carrinhoTotalElement.textContent = total.toFixed(2).replace('.', ',');
 
-        document.querySelectorAll('.remover-item').forEach(button => {
+        document.querySelectorAll('.btn-remove').forEach(button => {
             button.onclick = (e) => removerDoCarrinho(parseInt(e.target.dataset.id));
         });
     }
@@ -153,13 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let total = 0;
         carrinho.forEach(item => {
-            mensagem += `* ${item.name} (${item.quantidade}x) - R$ ${(item.price * item.quantidade).toFixed(2).replace('.', ',')}\n`;
-            total += item.price * item.quantidade;
+            mensagem += `* ${item.nome} (${item.quantidade}x) - R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}\n`;
+            total += item.preco * item.quantidade;
         });
 
         mensagem += `\n*Total do Pedido: R$ ${total.toFixed(2).replace('.', ',')}*`;
 
-        const whatsappUrl = `https://wa.me/5586994793836?text=${encodeURIComponent(mensagem)}`;
+        const whatsappUrl = `https://wa.me/5586981147596?text=${encodeURIComponent(mensagem)}`;
         window.open(whatsappUrl, '_blank');
 
         carrinho = [];
@@ -174,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     carrinhoBtn.onclick = () => {
         renderizarCarrinho();
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
     };
 
     closeModalBtn.onclick = () => {

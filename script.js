@@ -26,7 +26,6 @@ async function carregarCardapio() {
 
 // Função para criar uma seção (título da categoria) no HTML
 function criarSecaoCardapio(titulo, itens) {
-  // AQUI ESTÁ A CORREÇÃO: Pega a div correta baseada no ID gerado no HTML
   let containerId = '';
   switch(titulo) {
       case 'Hambúrgueres Artesanais':
@@ -70,7 +69,7 @@ function criarItemCardapio(item) {
   divItem.className = 'item-card';
 
   const img = document.createElement('img');
-  // CORREÇÃO: A rota da imagem foi ajustada para a pasta 'imagem_cardapio'
+  // Ajusta o caminho da imagem, pois suas imagens estão na pasta 'imagem_cardapio'
   img.src = `imagem_cardapio/${item.imagem}`;
   img.alt = item.nome;
   divItem.appendChild(img);

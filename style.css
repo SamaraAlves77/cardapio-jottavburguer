@@ -116,8 +116,9 @@ main {
 /* --- Grid de Itens (Cards) --- */
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
+    justify-content: center;
 }
 
 .item-card {
@@ -129,6 +130,7 @@ main {
     flex-direction: column;
     text-align: center;
     transition: transform 0.3s ease;
+    padding-bottom: 1rem;
 }
 
 .item-card:hover {
@@ -400,37 +402,55 @@ footer {
         font-size: 2rem;
     }
 
-    /* Ajuste para que o cliente possa ver mais cards */
+    /* Grid com cards menores, como os do iFood */
     .item-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
-
+    
     .item-card {
-        padding-bottom: 0.5rem;
-        border-radius: 10px; /* Borda arredondada */
+        padding: 0;
+        border-radius: 10px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
     }
-    
-    .item-card p {
-        display: none; /* Esconde a descrição para economizar espaço em mobile */
-    }
-    
+
     .item-card img {
+        width: 100%;
         height: 120px;
+        object-fit: cover;
+    }
+    
+    .item-card-info {
+        padding: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
     }
 
     .item-card h3 {
         font-size: 1rem;
-        margin: 0.5rem 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .item-card p {
+        font-size: 0.75rem;
+        color: #666;
+        padding: 0;
+        margin: 0.25rem 0;
+        flex-grow: 1;
     }
 
     .item-card .price {
         font-size: 1rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
     }
 
     .btn-add {
-        padding: 0.6rem;
-        font-size: 0.9rem;
+        display: none; /* O botão de adicionar não precisa estar visível no card */
     }
 
     .modal-content {

@@ -218,7 +218,9 @@ main {
 }
 
 .menu-section h2 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
+    font-family: 'Luckiest Guy', cursive; /* Nova fonte */
+    text-transform: uppercase;
     color: var(--primary-color);
     text-align: center;
     margin-bottom: var(--spacing-md);

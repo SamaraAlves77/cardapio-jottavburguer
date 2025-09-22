@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JottaV Burguer</title>
+    <title>JottaV Burguer - Início</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
@@ -16,45 +14,17 @@
         </div>
         <nav class="nav-menu">
             <ul class="nav-links">
-                <li><a href="#hamburgueres-artesanais">Hambúrgueres</a></li>
-                <li><a href="#combos">Combos</a></li>
-                <li><a href="#petiscos">Petiscos</a></li>
-                <li><a href="#bebidas">Bebidas</a></li>
-                <li><a href="#adicionais">Adicionais</a></li>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="cardapio.html">Ver Cardápio</a></li>
             </ul>
         </nav>
-        <div class="header-actions">
-            <button class="carrinho-btn">
-                <i class="fas fa-shopping-cart"></i>
-                <span id="cart-count">0</span>
-            </button>
-            <button class="hamburger-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
     </header>
 
-    <main></main>
+    <main>
+        <h1>Bem-vindo ao JottaV Burguer!</h1>
+        <p>Clique no botão abaixo para conhecer nosso delicioso cardápio.</p>
+        <a href="cardapio.html" class="btn-principal">Ver Cardápio</a>
+    </main>
 
-    <div id="carrinho-modal" class="modal">
-        <div class="modal-content">
-            <span class="fechar-modal">&times;</span>
-            <h2>Seu Carrinho</h2>
-            <ul class="carrinho-itens"></ul>
-            <p id="carrinho-total"></p>
-            
-            <div class="carrinho-finalizar">
-                <p>Preencha seus dados para finalizar o pedido:</p>
-                <input type="text" id="nome-cliente" placeholder="Seu Nome Completo" required>
-                <input type="text" id="endereco-cliente" placeholder="Endereço de Entrega" required>
-                <input type="text" id="telefone-cliente" placeholder="Telefone com DDD" required>
-                <button id="btn-finalizar-pedido">Finalizar Pedido</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="notificacao" class="notificacao"></div>
-
-    <script src="script.js"></script>
 </body>
 </html>

@@ -123,7 +123,7 @@ main {
 /* --- Layout de Grade para Desktop --- */
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Ajuste para exibir mais cards */
     gap: 30px;
 }
 
@@ -157,8 +157,8 @@ main {
     display: flex;
     flex-direction: column;
     text-align: left;
-    flex-grow: 1; /* Permite que o conteúdo cresça e preencha o espaço */
-    justify-content: space-between; /* Alinha o conteúdo e o botão de forma ideal */
+    flex-grow: 1;
+    justify-content: space-between;
 }
 
 .item-card-content h3 {

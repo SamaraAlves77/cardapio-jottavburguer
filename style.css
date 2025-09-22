@@ -121,7 +121,7 @@ main {
 /* --- Grid de Itens --- */
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Força 4 colunas */
+    grid-template-columns: repeat(4, 1fr); /* FORÇA 4 COLUNAS */
     gap: 20px;
 }
 
@@ -131,7 +131,7 @@ main {
     overflow: hidden;
     background-color: #fff;
     border: 1px solid #eee;
-    border-radius: 15px; /* Bordas arredondadas */
+    border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
@@ -144,7 +144,7 @@ main {
 
 .item-card img {
     width: 100%;
-    height: 180px; /* Altura fixa da imagem */
+    height: 180px;
     object-fit: cover;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -154,7 +154,7 @@ main {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza o texto horizontalmente */
+    align-items: center;
     text-align: center;
 }
 
@@ -168,11 +168,11 @@ main {
     font-size: 0.9em;
     margin: 0;
     color: #666;
-    height: 40px; /* Limita a altura da descrição para 2 linhas */
-    overflow: hidden; /* Esconde o texto que excede a altura */
-    text-overflow: ellipsis; /* Adiciona "..." se o texto for muito longo */
-    display: -webkit-box; /* Necessário para -webkit-line-clamp */
-    -webkit-line-clamp: 2; /* Limita o texto a 2 linhas */
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
@@ -193,7 +193,7 @@ main {
     font-weight: bold;
     transition: background-color 0.3s;
     font-size: 0.9em;
-    width: 100%; /* Botão ocupa a largura total do conteúdo */
+    width: 100%;
 }
 
 .btn-add:hover {

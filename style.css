@@ -7,10 +7,9 @@ body {
     padding: 0;
     background-color: #f0f0f0;
     color: #333;
-    transition: background-color 0.5s ease;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     margin: 0;
     padding: 0;
 }
@@ -20,55 +19,54 @@ a {
     color: inherit;
 }
 
-/* Container de entrada visual */
+/* Container da tela de entrada */
 .entrada-visual-container {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #1d6a36, #144923);
+    background: #144923; /* Fundo verde escuro */
     color: white;
     text-align: center;
 }
 
 .card-visita {
     display: flex;
-    flex-direction: row;
-    background-color: #278d48;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1d6a36; /* Fundo verde mais claro */
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     padding: 30px;
-    max-width: 800px;
+    max-width: 450px;
     width: 90%;
 }
 
-.card-left {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-right: 20px;
-    border-right: 2px solid rgba(255, 255, 255, 0.2);
+.logo-container {
+    text-align: center;
+    margin-bottom: 25px;
 }
 
-.card-left img {
-    max-width: 150px;
-    margin-bottom: 20px;
+.logo-container img {
+    max-width: 180px;
+    height: auto;
+    margin-bottom: 10px;
 }
 
-.mensagem-boas-vindas {
-    font-size: 1.2em;
-    font-weight: 500;
+.logo-text {
+    font-size: 2.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #e53935; /* Vermelho dos botões */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.card-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-left: 20px;
+.slogan {
+    font-size: 1em;
+    font-weight: 400;
+    color: white;
+    opacity: 0.8;
 }
 
 .entrada-visual-botoes {
@@ -76,7 +74,6 @@ a {
     flex-direction: column;
     gap: 15px;
     width: 100%;
-    max-width: 250px;
 }
 
 .btn-social {
@@ -514,22 +511,6 @@ footer {
 
 /* Responsividade */
 @media (max-width: 768px) {
-    .card-visita {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .card-left, .card-right {
-        border-right: none;
-        padding-right: 0;
-        padding-left: 0;
-    }
-
-    .card-left {
-        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-        padding-bottom: 20px;
-    }
-
     .nav-links {
         display: none;
         flex-direction: column;

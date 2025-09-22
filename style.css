@@ -366,19 +366,16 @@ footer {
 /* --- ESTILOS ADICIONAIS PARA MÓBILE (TELAS ATÉ 480PX) --- */
 @media (max-width: 480px) {
     .item-grid {
-        /* Layout de uma única coluna para telas bem pequenas */
         grid-template-columns: repeat(1, 1fr);
     }
 
     .item-card {
-        /* Estilo do card para mobile */
         display: flex;
-        flex-direction: column; /* Alinha a imagem e o texto verticalmente */
+        flex-direction: column;
         align-items: center;
     }
 
     .item-card img {
-        /* A imagem ocupa a largura total do card */
         width: 100%;
         height: auto;
         border-bottom-left-radius: 0;
@@ -386,7 +383,29 @@ footer {
     }
 
     .item-card-content {
-        /* O conteúdo do card se ajusta à largura total */
         width: 100%;
+        padding: 10px;
+    }
+    
+    .item-card-content h3 {
+        font-size: 1.5em;
+        margin-bottom: 5px;
+    }
+
+    .item-card-content p {
+        height: auto;
+        -webkit-line-clamp: unset;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    .price {
+        font-size: 1.8em;
+        margin: 10px 0;
+    }
+    
+    .btn-add {
+        font-size: 1.1em;
+        padding: 12px 18px;
     }
 }

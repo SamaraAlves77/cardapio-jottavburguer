@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const enderecoClienteInput = document.getElementById('endereco-cliente');
     const telefoneClienteInput = document.getElementById('telefone-cliente');
 
-    // Botões de fechar os modais
-    const fecharAdicionaisBtn = adicionaisModal.querySelector('.fechar-modal');
-    const fecharCarrinhoBtn = carrinhoModal.querySelector('.fechar-modal');
-
+    // Botões de fechar os modais agora têm IDs para uma busca mais precisa
+    const fecharAdicionaisBtn = document.getElementById('fechar-adicionais-btn');
+    const fecharCarrinhoBtn = document.getElementById('fechar-carrinho-btn');
+    
     // Botão do carrinho
     const carrinhoBtn = document.querySelector('.carrinho-btn');
 

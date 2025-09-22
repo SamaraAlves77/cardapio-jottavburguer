@@ -1,4 +1,4 @@
-// array para armazenar os itens do carrinho
+// Array para armazenar os itens do carrinho
 let carrinho = [];
 
 // A função principal que carrega e exibe os dados do cardápio
@@ -109,7 +109,6 @@ function criarItemCardapio(item) {
 // Função para adicionar o item ao carrinho e atualizar o contador
 function adicionarAoCarrinho(item) {
   carrinho.push(item);
-  // Por enquanto, apenas atualizamos o console e o contador de itens no carrinho
   console.log('Item adicionado ao carrinho:', item);
   atualizarContadorCarrinho();
 }
@@ -125,5 +124,5 @@ function atualizarContadorCarrinho() {
 // Inicia o carregamento do cardápio quando a página é completamente carregada
 document.addEventListener('DOMContentLoaded', () => {
   carregarCardapio();
-  atualizarContadorCarrinho(); // Garante que o contador comece em 0
+  atualizarContadorCarrinho();
 });

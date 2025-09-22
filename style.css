@@ -451,7 +451,7 @@ footer {
     cursor: not-allowed;
 }
 
-/* Novo estilo para a listagem de adicionais */
+/* Estilo para a listagem de adicionais (agora mais moderno) */
 .adicionais-list {
     list-style: none;
     padding: 0;
@@ -462,33 +462,41 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
+    background-color: #fff;
+    padding: 12px 15px;
+    border-radius: 8px;
     margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease-in-out;
+}
+
+.adicional-item:hover {
+    transform: translateY(-2px);
 }
 
 .adicional-info {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    text-align: left;
 }
 
 .adicional-info span:first-child {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1.1em;
+    color: #333;
 }
 
 .adicional-info span:last-child {
     color: #e53935;
-    font-size: 0.9em;
+    font-size: 0.95em;
+    margin-top: 2px;
 }
 
 .adicional-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .adicional-actions button {
@@ -496,15 +504,77 @@ footer {
     color: white;
     border: none;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 1.2em;
+    width: 28px;
+    height: 28px;
+    font-size: 1em;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .adicional-actions button:hover {
     background-color: #c62828;
+    transform: scale(1.05);
+}
+
+.adicional-quantidade {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #333;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Estilo do campo de observações */
+.observacao-item-container {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.observacao-item-container h3 {
+    font-size: 1.1em;
+    color: #444;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+#observacao-item {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    resize: vertical;
+    min-height: 70px;
+    max-height: 120px;
+}
+
+#observacao-item::placeholder {
+    color: #bbb;
+}
+
+/* Botão de confirmação dos adicionais */
+#confirmar-adicionais {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#confirmar-adicionais:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
 }
 
 /* Responsividade - Ajustes para Mobile */
@@ -569,7 +639,7 @@ footer {
         padding: 8px 15px;
     }
 
-    /* Novos ajustes para o Modal de Opcionais em telas menores */
+    /* Ajustes para o Modal de Opcionais em telas menores */
     #adicionais-modal .modal-content {
         height: 90%;
         max-height: 90vh;
@@ -583,7 +653,7 @@ footer {
     .adicionais-list {
         flex-grow: 1;
         overflow-y: auto;
-        padding-right: 5px; /* Adiciona um pequeno espaçamento para a barra de rolagem */
+        padding-right: 5px;
     }
 
     .observacao-item-container {

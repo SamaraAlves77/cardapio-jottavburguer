@@ -64,7 +64,7 @@
             "imagem": "calabresa_basico.jpeg"
         }
     ],
-    "Combos e Família": [
+    "Combos": [
         {
             "id": 10,
             "nome": "Combo Econômico",
@@ -150,7 +150,7 @@
             "imagem": "familia_brutao.jpeg"
         }
     ],
-    "Acompanhamentos": [
+    "Petiscos": [
         {
             "id": 22,
             "nome": "Batata Frita",

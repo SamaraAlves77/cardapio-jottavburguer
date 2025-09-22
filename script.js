@@ -1,18 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Carrega o menu e configura os event listeners
     loadMenu();
-
-    // Event listener para o botão de carrinho no cabeçalho
-    document.querySelector('.carrinho-btn').addEventListener('click', showCartModal);
-
-    // Event listener para fechar o modal
-    document.querySelector('.fechar-modal').addEventListener('click', hideCartModal);
-    
-    // Amarração do botão para finalizar o pedido
-    document.getElementById('btn-finalizar-pedido').addEventListener('click', finalizeOrder);
+    setupEventListeners();
 });
 
 let cartItems = [];
+
+// Função para configurar todos os event listeners
+function setupEventListeners() {
+    // Event listener para o botão de carrinho no cabeçalho
+    const carrinhoBtn = document.querySelector('.carrinho-btn');
+    if (carrinhoBtn) {
+        carrinhoBtn.addEventListener('click', showCartModal);
+    }
+
+    // Event listener para fechar o modal
+    const fecharModalBtn = document.querySelector('.fechar-modal');
+    if (fecharModalBtn) {
+        fecharModalBtn.addEventListener('click', hideCartModal);
+    }
+    
+    // Amarração do botão para finalizar o pedido
+    const finalizarPedidoBtn = document.getElementById('btn-finalizar-pedido');
+    if (finalizarPedidoBtn) {
+        finalizarPedidoBtn.addEventListener('click', finalizeOrder);
+    }
+}
 
 // Função para carregar o menu a partir do JSON
 async function loadMenu() {
@@ -25,14 +38,24 @@ async function loadMenu() {
         renderMenu(menuData);
     } catch (error) {
         console.error('Erro ao carregar o menu:', error);
+        // Exibe uma mensagem amigável para o usuário
+        const mainContent = document.querySelector('main');
+        mainContent.innerHTML = '<p style="text-align: center; color: #e53935; font-size: 1.5em; margin-top: 50px;">O cardápio não pode ser carregado. Por favor, tente novamente mais tarde.</p>';
     }
 }
 
 // Função para renderizar o menu na página
 function renderMenu(menu) {
     const mainContent = document.querySelector('main');
-    mainContent.innerHTML = ''; // Limpa o conteúdo existente
+    mainContent.innerHTML = '';
 
+    // Verifica se o JSON tem a estrutura 'categories'
+    if (!menu.categories) {
+        console.error("A estrutura do JSON não é a esperada. 'categories' não foi encontrado.");
+        mainContent.innerHTML = '<p style="text-align: center; color: #e53935; font-size: 1.5em; margin-top: 50px;">O cardápio não pode ser carregado devido a um erro de estrutura.</p>';
+        return;
+    }
+    
     menu.categories.forEach(category => {
         const section = document.createElement('section');
         section.className = 'menu-section';
@@ -50,8 +73,14 @@ function renderMenu(menu) {
             card.className = 'item-card';
 
             const img = document.createElement('img');
-            img.src = item.image;
-            img.alt = item.name;
+            // Verificando se a imagem existe no JSON
+            if (item.image) {
+                img.src = item.image;
+                img.alt = item.name;
+            } else {
+                img.src = ''; // Ou uma imagem placeholder
+                img.alt = 'Imagem não disponível';
+            }
 
             const content = document.createElement('div');
             content.className = 'item-card-content';
@@ -60,7 +89,7 @@ function renderMenu(menu) {
             itemName.textContent = item.name;
 
             const itemDescription = document.createElement('p');
-            itemDescription.textContent = item.description;
+            itemDescription.textContent = item.description || 'Descrição não disponível';
 
             const itemPrice = document.createElement('span');
             itemPrice.className = 'price';

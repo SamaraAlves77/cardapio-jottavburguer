@@ -121,27 +121,20 @@ main {
 /* --- Grid de Itens --- */
 .item-grid {
     display: grid;
-    /* Ajusta para 180px de largura e organiza lado a lado */
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    /* Ajusta automaticamente a quantidade de colunas */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
 }
 
-/* --- Estilo dos Cards (Modelo aiqfome) --- */
+/* --- Estilo dos Cards (Modelo Aiqfome) --- */
 .item-card {
     position: relative;
-    background-color: #fff;
-    border: 1px solid #eee;
+    overflow: hidden;
+    aspect-ratio: 1 / 1; /* Força o formato quadrado */
     border-radius: 15px;
-    padding: 15px;
-    text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    
-    /* Configuração para o card ficar no formato desejado */
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    cursor: pointer;
 }
 
 .item-card:hover {
@@ -151,48 +144,67 @@ main {
 
 .item-card img {
     width: 100%;
-    height: 180px; /* Altura fixa para a imagem */
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    transition: transform 0.3s ease;
 }
 
-.item-card h3 {
-    font-size: 1.2em;
-    margin: 0;
-    color: #e53935;
+.item-card:hover img {
+    transform: scale(1.05); /* Efeito de zoom na imagem ao passar o mouse */
 }
 
-.item-card p {
+/* Camada de overlay semi-transparente para o texto */
+.item-card-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente preto */
+    color: #fff; /* Texto branco */
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    z-index: 2; /* Garante que o conteúdo fique sobre a imagem */
+}
+
+.item-card-content h3 {
     font-size: 0.9em;
-    margin: 5px 0 10px 0;
-    color: #666;
-    height: 40px;
+    margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.price {
-    font-size: 1.3em;
+.item-card-content .price {
+    font-size: 1.1em;
     font-weight: bold;
-    color: #e53935;
-    margin-bottom: 10px;
+    color: #fff;
+    margin: 5px 0;
 }
 
-.btn-add {
+.item-card-content p,
+.item-card-content .btn-add {
+    display: none; /* Oculta a descrição e o botão Add */
+}
+
+/* O botão "Adicionar" aparece apenas ao passar o mouse */
+.item-card:hover .btn-add {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     background-color: #e53935;
     color: #fff;
     border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 8px 12px;
+    border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 0.8em;
     transition: background-color 0.3s;
-    font-size: 0.9em;
-    width: 100%;
+    z-index: 3;
 }
 
-.btn-add:hover {
+.item-card:hover .btn-add:hover {
     background-color: #d32f2f;
 }
 

@@ -23,6 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mapeamento de categorias que possuem adicionais
     const categoriasComAdicionais = ["Hambúrguer Artesanal", "Acompanhamentos"];
 
+    // Funções de manipulação do localStorage
+    const salvarCarrinho = () => {
+        localStorage.setItem('carrinhoJottaV', JSON.stringify(carrinho));
+    };
+
+    const carregarCarrinho = () => {
+        const carrinhoSalvo = localStorage.getItem('carrinhoJottaV');
+        if (carrinhoSalvo) {
+            carrinho = JSON.parse(carrinhoSalvo);
+            atualizarCarrinho();
+        }
+    };
+
     // Função para carregar o cardápio do arquivo JSON
     const carregarCardapio = async () => {
         try {
@@ -32,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             cardapio = await response.json();
             renderizarCardapio();
+            carregarCarrinho();
         } catch (error) {
             console.error('Erro ao carregar o cardápio:', error);
             alert('Não foi possível carregar o cardápio. Verifique se o arquivo cardapio.json existe e está na pasta correta.');
@@ -65,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
                 link.classList.add('active');
                 document.getElementById(categoria.toLowerCase().replace(/ /g, '-')).scrollIntoView({ behavior: 'smooth' });
-                toggleMenu(true); // Fecha o menu hambúrguer após a seleção
+                toggleMenu(true);
             });
             navLinks.appendChild(link);
 
@@ -117,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Atualiza a visualização do carrinho
+    // Atualiza a visualização do carrinho e salva no localStorage
     const atualizarCarrinho = () => {
         carrinhoItensContainer.innerHTML = '';
         let total = 0;
@@ -171,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         contadorCarrinho.textContent = carrinho.length;
         valorTotal.textContent = total.toFixed(2).replace('.', ',');
         finalizarPedidoBtn.disabled = carrinho.length === 0;
+        salvarCarrinho();
     };
 
     // Remove um item do carrinho
@@ -288,8 +303,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const linkWhatsapp = `https://api.whatsapp.com/send?phone=${numeroWhatsapp}&text=${encodeURIComponent(mensagem)}`;
         window.open(linkWhatsapp, '_blank');
         
-        // Limpa o carrinho e fecha o modal
+        // Limpa o carrinho, fecha o modal e remove do localStorage
         carrinho = [];
+        salvarCarrinho();
         atualizarCarrinho();
         fecharModalCarrinho();
     };

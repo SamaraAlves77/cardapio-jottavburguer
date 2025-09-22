@@ -1,14 +1,32 @@
-/* --- Estilos Gerais --- */
-body {
-    background-color: #f7f7f7;
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #333;
+/* --- Variáveis de Estilo --- */
+:root {
+    --primary-color: #e53935; /* Vermelho JottaV Burguer */
+    --secondary-color: #212121; /* Preto */
+    --background-color: #f5f5f5; /* Cinza claro */
+    --card-background: #fff; /* Branco para os cards */
+    --text-color: #333; /* Cor do texto */
+    --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
+/* Importação da fonte */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* --- ESTILOS GERAIS --- */
 h1, h2, h3 {
-    color: #e53935;
+    color: var(--primary-color);
     text-align: center;
 }
 
@@ -17,412 +35,381 @@ a {
     color: inherit;
 }
 
-/* --- Card de Boas-Vindas (index.html) --- */
-.welcome-card {
+/* --- PÁGINA DE ENTRADA (index.html) --- */
+.landing-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.landing-card {
+    background-color: var(--card-background);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    padding: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    padding: 40px 30px;
-    max-width: 900px;
+    gap: 2rem;
+    max-width: 800px;
     width: 100%;
-    box-sizing: border-box;
-    margin: 50px auto;
-}
-
-.logo-section {
     text-align: center;
-    margin-bottom: 20px;
 }
 
-.logo-section img {
-    width: 150px;
-    margin-bottom: 10px;
+.logo-landing {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 1rem;
 }
 
-.welcome-text h1 {
-    font-size: 2.5em;
-    color: #333;
-    margin: 0;
-}
-
-.welcome-text p {
-    font-size: 1.1em;
+.slogan {
+    font-size: 1.2rem;
     color: #666;
-    margin-top: 5px;
+    margin-top: 1rem;
 }
 
-.divider {
-    width: 100%;
-    height: 1px;
-    background-color: #ddd;
-    margin: 20px 0;
-}
-
-.social-buttons {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 15px;
-}
-
-.social-button {
+.social-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px 20px;
-    font-size: 1em;
-    font-weight: bold;
-    color: #fff;
+    padding: 1rem;
+    border-radius: 10px;
     text-decoration: none;
-    border-radius: 8px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
 }
 
-.social-button:hover {
+.social-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.social-button i {
-    margin-right: 10px;
+.social-btn i {
+    margin-right: 0.5rem;
 }
 
 .instagram {
-    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d, #f56040, #ffdc80);
+    background: #E1306C;
+    color: white;
 }
 
 .whatsapp {
-    background-color: #25D366;
+    background: #25D366;
+    color: white;
 }
 
 .cardapio {
-    background-color: #d9534f;
+    background: var(--primary-color);
+    color: white;
 }
 
-/* --- Estilos do Cardápio (cardapio.html) --- */
-
-/* Cabeçalho */
+/* --- PÁGINA DO CARDÁPIO (cardapio.html) --- */
 header {
+    background-color: var(--card-background);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px var(--shadow-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    background-color: #fff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .logo img {
-    width: 60px;
-    height: auto;
+    height: 60px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary-color);
 }
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 1.5rem;
 }
 
-/* Menu de Navegação */
-.nav-links {
-    list-style: none;
+.carrinho-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    position: relative;
     display: flex;
-    gap: 30px;
-    margin: 0;
-    padding: 0;
+    align-items: center;
 }
 
-.nav-links a {
-    font-weight: 600;
-    color: #e53935;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: #d32f2f;
+#contador-carrinho {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    position: absolute;
+    top: -5px;
+    right: -10px;
 }
 
 .hamburger-menu-btn {
+    display: none;
+    font-size: 2rem;
     background: none;
     border: none;
-    font-size: 28px;
     cursor: pointer;
-    display: none;
-    color: #e53935;
+    color: var(--secondary-color);
 }
 
-/* Botão do Carrinho */
-.carrinho-btn {
-    background: #e53935;
-    color: #fff;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    position: relative;
-    transition: background-color 0.3s;
-}
-
-.carrinho-btn:hover {
-    background-color: #d32f2f;
-}
-
-#cart-count {
-    background-color: #fff;
-    color: #e53935;
-    border-radius: 50%;
-    padding: 3px 8px;
-    font-size: 14px;
-    font-weight: bold;
-    position: absolute;
-    top: -8px;
-    right: -8px;
-}
-
-/* Conteúdo Principal */
 main {
-    padding: 40px 20px;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .menu-section {
-    margin-bottom: 50px;
+    margin-bottom: 3rem;
 }
 
 .menu-section h2 {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #333;
-    border-bottom: 3px solid #e53935;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid var(--primary-color);
     display: inline-block;
-    padding-bottom: 5px;
-    margin-bottom: 30px;
 }
 
-/* Layout de Grade para Desktop */
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-content: center;
 }
 
-/* Estilo dos Cards */
 .item-card {
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--shadow-color);
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    text-align: center;
+    transition: transform 0.3s ease;
 }
 
 .item-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .item-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    object-position: center;
 }
 
 .item-card-content {
-    padding: 20px;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    text-align: left;
     flex-grow: 1;
-    justify-content: space-between;
 }
 
 .item-card-content h3 {
-    font-size: 1.5em;
-    margin: 0 0 5px 0;
-    color: #e53935;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    color: var(--primary-color);
     text-align: left;
 }
 
 .item-card-content p {
-    font-size: 1em;
-    margin: 0 0 10px 0;
+    font-size: 0.9rem;
     color: #666;
-    line-height: 1.4;
     flex-grow: 1;
+    margin-bottom: 1rem;
+    text-align: left;
 }
 
-.price {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #e53935;
-    margin: 15px 0 10px 0;
+.item-card .price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: left;
+    margin-top: auto;
 }
 
 .btn-add {
     background-color: #4caf50;
-    color: #fff;
+    color: white;
     border: none;
-    padding: 12px 25px;
-    border-radius: 50px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+    border-radius: 8px;
     width: 100%;
 }
 
 .btn-add:hover {
-    background-color: #43a047;
+    background-color: #388e3c;
 }
 
-/* Modal e Outros Elementos */
+/* --- Modais (Pop-ups) --- */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 2000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
+    background-color: var(--card-background);
+    padding: 2rem;
     border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .fechar-modal {
     color: #aaa;
-    float: right;
-    font-size: 28px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 2rem;
     font-weight: bold;
     cursor: pointer;
 }
 
-.fechar-modal:hover,
-.fechar-modal:focus {
-    color: #000;
+.fechar-modal:hover {
+    color: var(--primary-color);
 }
 
 .carrinho-itens {
-    margin-top: 20px;
     max-height: 300px;
     overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .carrinho-item {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.carrinho-actions {
+    display: flex;
     align-items: center;
-    border-bottom: 1px solid #eee;
-    padding: 10px 0;
+    gap: 1rem;
 }
 
-.carrinho-finalizar input {
+.btn-remove {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.carrinho-total {
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.carrinho-finalizar input,
+.carrinho-finalizar select {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
-#btn-finalizar-pedido {
+.carrinho-finalizar button {
     width: 100%;
-    background-color: #4caf50;
+    padding: 1rem;
+    background-color: #25D366; /* Cor do WhatsApp para o botão */
     color: white;
-    padding: 15px;
     border: none;
     border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 700;
     cursor: pointer;
-    font-size: 1.1em;
-    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-#btn-finalizar-pedido:hover {
-    background-color: #43a047;
+.carrinho-finalizar button:hover {
+    background-color: #128C7E;
 }
 
+/* --- Notificação --- */
 .notificacao {
-    display: none;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #333;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(150%);
+    background-color: #4caf50;
     color: white;
-    padding: 15px 20px;
+    padding: 1rem 2rem;
     border-radius: 5px;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.5s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.5s ease-in-out;
+    z-index: 3000;
 }
 
 .notificacao.show {
-    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
-/* Rodapé */
+/* --- Footer --- */
 footer {
-    background-color: #222;
-    color: #fff;
+    background-color: var(--secondary-color);
+    color: white;
     text-align: center;
-    padding: 30px 0;
-    border-top: 5px solid #e53935;
+    padding: 1.5rem;
+    margin-top: 3rem;
 }
 
-.footer-content {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.social-links {
-    margin-bottom: 20px;
-}
-
-.social-link {
-    color: #fff;
-    font-size: 28px;
-    margin: 0 15px;
-    transition: color 0.3s;
-}
-
-.social-link:hover {
-    color: #e53935;
-}
-
-.footer-info p {
-    margin: 5px 0;
-    font-size: 0.9em;
-}
-
-/* Responsividade (Media Queries) */
+/* --- MEDIA QUERIES (RESPONSIVIDADE) --- */
 @media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-    }
-
-    .hamburger-menu-btn {
-        display: block;
+    header {
+        padding: 1rem;
     }
 
     .nav-links {
@@ -432,30 +419,45 @@ footer {
         position: absolute;
         top: 80px;
         left: 0;
-        background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        z-index: 99;
+        background-color: var(--card-background);
+        box-shadow: 0 2px 4px var(--shadow-color);
+        text-align: center;
     }
 
     .nav-links.active {
         display: flex;
     }
 
-    .item-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .hamburger-menu-btn {
+        display: block;
     }
-}
 
-@media (max-width: 480px) {
+    main {
+        padding: 1rem 0.5rem;
+    }
+
+    .menu-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
     .item-grid {
         grid-template-columns: 1fr;
+        gap: 0.8rem;
     }
 
-    .item-card {
-        flex-direction: column;
-    }
-    
     .item-card img {
-        height: auto;
+        height: 200px;
+    }
+
+    .item-card-content p {
+        display: block; /* Mantém a descrição visível */
+    }
+
+    .btn-add {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+        width: 100%;
     }
 }

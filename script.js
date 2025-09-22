@@ -1,198 +1,148 @@
-// Array para armazenar os itens do carrinho
-let carrinho = [];
-
-// Funções para o modal do carrinho
-const modal = document.getElementById('carrinho-modal');
-const btnCarrinho = document.getElementById('carrinho-btn');
-const spanFechar = document.getElementsByClassName('fechar-modal')[0];
-
-btnCarrinho.onclick = function() {
-    modal.style.display = 'block';
-    exibirItensCarrinho();
-}
-
-spanFechar.onclick = function() {
-    modal.style.display = 'none';
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
-}
-
-// Funcionalidade do menu hambúrguer
-document.getElementById('hamburger-menu-btn').addEventListener('click', function() {
-    const navMenu = document.getElementById('nav-menu');
-    navMenu.classList.toggle('active');
-});
-
-// Ação para o novo botão de localização
-document.getElementById('btn-localizacao').addEventListener('click', function() {
-    // Substitua estas coordenadas pela sua localização exata (latitude e longitude)
-    const latitude = -2.91523; // Exemplo de latitude
-    const longitude = -41.76189; // Exemplo de longitude
-
-    const urlMaps = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
-    window.open(urlMaps, '_blank');
-});
-
-
-// A função principal que carrega e exibe os dados do cardápio
-async function carregarCardapio() {
-  try {
-    const response = await fetch('./cardapio.json');
-    
-    if (!response.ok) {
-        throw new Error(`Erro HTTP: ${response.status}`);
-    }
-    
-    const cardapioData = await response.json();
-
-    for (const categoria in cardapioData) {
-      if (cardapioData.hasOwnProperty(categoria)) {
-        criarSecaoCardapio(categoria, cardapioData[categoria]);
-      }
-    }
-  } catch (error) {
-    console.error('Erro ao carregar o cardápio:', error);
-    document.body.innerHTML = `<h1>Erro ao carregar o cardápio. Tente novamente mais tarde.</h1>`;
-  }
-}
-
-function criarSecaoCardapio(titulo, itens) {
-  let containerId = '';
-  switch(titulo) {
-      case 'Hambúrgueres Artesanais':
-          containerId = 'hamburgueres-artesanais-grid';
-          break;
-      case 'Combos e Família':
-          containerId = 'combos-e-familia-grid';
-          break;
-      case 'Acompanhamentos':
-          containerId = 'acompanhamentos-grid';
-          break;
-      case 'Bebidas':
-          containerId = 'bebidas-grid';
-          break;
-      case 'Adicionais':
-          containerId = 'adicionais-grid';
-          break;
-      default:
-          console.warn(`Categoria desconhecida: ${titulo}`);
-          return;
-  }
-  
-  const container = document.getElementById(containerId);
-
-  if (!container) {
-    console.error(`Contêiner não encontrado para a categoria: ${titulo}`);
-    return;
-  }
-
-  itens.forEach(item => {
-    const itemElemento = criarItemCardapio(item);
-    container.appendChild(itemElemento);
-  });
-}
-
-function criarItemCardapio(item) {
-  const divItem = document.createElement('div');
-  divItem.className = 'item-card';
-
-  const img = document.createElement('img');
-  img.src = `imagem_cardapio/${item.imagem}`;
-  img.alt = item.nome;
-  divItem.appendChild(img);
-
-  const h3 = document.createElement('h3');
-  h3.textContent = item.nome;
-  divItem.appendChild(h3);
-
-  if (item.descricao) {
-      const pDescricao = document.createElement('p');
-      pDescricao.textContent = item.descricao;
-      divItem.appendChild(pDescricao);
-  }
-
-  const pPreco = document.createElement('p');
-  pPreco.className = 'price';
-  pPreco.textContent = `R$ ${item.preco.toFixed(2).replace('.', ',')}`;
-  divItem.appendChild(pPreco);
-
-  const btnAdicionar = document.createElement('button');
-  btnAdicionar.className = 'btn-add';
-  btnAdicionar.textContent = 'Adicionar';
-  
-  btnAdicionar.addEventListener('click', () => {
-    adicionarAoCarrinho(item);
-  });
-  
-  divItem.appendChild(btnAdicionar);
-
-  return divItem;
-}
-
-function adicionarAoCarrinho(item) {
-  carrinho.push(item);
-  console.log('Item adicionado ao carrinho:', item);
-  atualizarContadorCarrinho();
-  exibirNotificacao();
-}
-
-function atualizarContadorCarrinho() {
-  const contadorElemento = document.getElementById('cart-count');
-  if (contadorElemento) {
-    contadorElemento.textContent = carrinho.length;
-  }
-}
-
-function exibirItensCarrinho() {
-    const containerItens = document.getElementById('carrinho-itens');
-    containerItens.innerHTML = '';
-    let total = 0;
-
-    if (carrinho.length === 0) {
-        containerItens.innerHTML = '<p>O seu carrinho está vazio.</p>';
-        document.getElementById('carrinho-total').textContent = '0,00';
-        return;
-    }
-
-    carrinho.forEach((item, index) => {
-        const itemElemento = document.createElement('div');
-        itemElemento.className = 'carrinho-item';
-        itemElemento.innerHTML = `
-            <p>${item.nome}</p>
-            <p>R$ ${item.preco.toFixed(2).replace('.', ',')}</p>
-            <button class="remover-item" data-index="${index}">&times;</button>
-        `;
-        containerItens.appendChild(itemElemento);
-        total += item.preco;
-    });
-
-    document.getElementById('carrinho-total').textContent = total.toFixed(2).replace('.', ',');
-
-    document.querySelectorAll('.remover-item').forEach(botao => {
-        botao.addEventListener('click', removerItemCarrinho);
-    });
-}
-
-function removerItemCarrinho(event) {
-    const index = event.target.getAttribute('data-index');
-    carrinho.splice(index, 1);
-    atualizarContadorCarrinho();
-    exibirItensCarrinho();
-}
-
-function exibirNotificacao() {
-    const notificacao = document.getElementById('notificacao');
-    notificacao.classList.add('mostrar');
-    setTimeout(() => {
-        notificacao.classList.remove('mostrar');
-    }, 2000);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-  carregarCardapio();
-  atualizarContadorCarrinho();
+    const carrinhoBtn = document.getElementById('carrinho-btn');
+    const carrinhoModal = document.getElementById('carrinho-modal');
+    const fecharModalBtn = document.querySelector('.fechar-modal');
+    const navLinks = document.querySelector('.nav-links');
+    const hamburgerBtn = document.getElementById('hamburger-menu-btn');
+
+    let carrinho = [];
+
+    // Função para abrir o modal do carrinho
+    function abrirModal() {
+        carrinhoModal.classList.add('visivel');
+    }
+
+    // Função para fechar o modal do carrinho
+    function fecharModal() {
+        carrinhoModal.classList.remove('visivel');
+    }
+
+    // Evento para abrir o modal do carrinho
+    carrinhoBtn.addEventListener('click', () => {
+        atualizarCarrinhoModal();
+        abrirModal();
+    });
+
+    // Evento para fechar o modal
+    fecharModalBtn.addEventListener('click', () => {
+        fecharModal();
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === carrinhoModal) {
+            fecharModal();
+        }
+    });
+
+    // Adiciona evento de clique para cada botão "Adicionar"
+    document.querySelectorAll('.btn-add').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const itemCard = event.target.closest('.item-card');
+            const item = {
+                id: itemCard.getAttribute('data-id'),
+                nome: itemCard.querySelector('h3').innerText,
+                preco: parseFloat(itemCard.querySelector('.price').innerText.replace('R$ ', '').replace(',', '.'))
+            };
+            adicionarAoCarrinho(item);
+        });
+    });
+
+    function adicionarAoCarrinho(item) {
+        const itemExistente = carrinho.find(cartItem => cartItem.id === item.id);
+        if (itemExistente) {
+            itemExistente.quantidade++;
+        } else {
+            carrinho.push({ ...item, quantidade: 1 });
+        }
+        atualizarCarrinho();
+        mostrarNotificacao();
+    }
+
+    function removerDoCarrinho(itemId) {
+        carrinho = carrinho.filter(item => item.id !== itemId);
+        atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+        const cartCountElement = document.getElementById('cart-count');
+        const totalItems = carrinho.reduce((total, item) => total + item.quantidade, 0);
+        cartCountElement.innerText = totalItems;
+        atualizarCarrinhoModal();
+    }
+
+    function atualizarCarrinhoModal() {
+        const carrinhoItensDiv = document.getElementById('carrinho-itens');
+        const carrinhoTotalSpan = document.getElementById('carrinho-total');
+        let total = 0;
+        carrinhoItensDiv.innerHTML = '';
+        if (carrinho.length === 0) {
+            carrinhoItensDiv.innerHTML = '<p>Seu carrinho está vazio.</p>';
+        } else {
+            carrinho.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('carrinho-item');
+                itemElement.innerHTML = `
+                    <p>${item.nome} (${item.quantidade})</p>
+                    <p>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</p>
+                    <button class="remover-item" data-id="${item.id}">×</button>
+                `;
+                carrinhoItensDiv.appendChild(itemElement);
+                total += item.preco * item.quantidade;
+            });
+        }
+        carrinhoTotalSpan.innerText = total.toFixed(2).replace('.', ',');
+    }
+
+    carrinhoModal.addEventListener('click', (event) => {
+        if (event.target.classList.contains('remover-item')) {
+            const itemId = event.target.getAttribute('data-id');
+            removerDoCarrinho(itemId);
+        }
+    });
+
+    // Função para mostrar notificação de item adicionado
+    function mostrarNotificacao() {
+        const notificacao = document.getElementById('notificacao');
+        notificacao.classList.add('mostrar');
+        setTimeout(() => {
+            notificacao.classList.remove('mostrar');
+        }, 2000);
+    }
+
+    // Botão de menu hambúrguer para celular
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Carregar itens do cardápio do arquivo JSON
+    fetch('cardapio.json')
+        .then(response => response.json())
+        .then(data => {
+            renderizarItens(data.hamburgueres, 'hamburgueres-artesanais-grid');
+            renderizarItens(data.combos, 'combos-e-familia-grid');
+            renderizarItens(data.acompanhamentos, 'acompanhamentos-grid');
+            renderizarItens(data.bebidas, 'bebidas-grid');
+            renderizarItens(data.adicionais, 'adicionais-grid');
+        })
+        .catch(error => console.error('Erro ao carregar o cardápio:', error));
+
+    function renderizarItens(itens, gridId) {
+        const grid = document.getElementById(gridId);
+        grid.innerHTML = '';
+        itens.forEach(item => {
+            const itemCard = document.createElement('div');
+            itemCard.classList.add('item-card');
+            itemCard.setAttribute('data-id', item.id);
+            itemCard.innerHTML = `
+                <img src="${item.imagem}" alt="${item.nome}">
+                <h3>${item.nome}</h3>
+                <p>${item.descricao}</p>
+                <div class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</div>
+                <button class="btn-add">Adicionar</button>
+            `;
+            grid.appendChild(itemCard);
+        });
+    }
 });

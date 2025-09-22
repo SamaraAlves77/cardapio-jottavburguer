@@ -2,17 +2,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContainer = document.querySelector('main');
     const cartCountElement = document.getElementById('contador-carrinho');
     const carrinhoBtn = document.getElementById('carrinho-btn');
-    const modal = document.getElementById('carrinho-modal');
-    const closeModalBtn = document.querySelector('.fechar-modal');
+    const carrinhoModal = document.getElementById('carrinho-modal');
+    const adicionaisModal = document.getElementById('adicionais-modal');
+    const fecharCarrinhoBtn = document.querySelector('.fechar-carrinho');
+    const fecharAdicionaisBtn = document.querySelector('.fechar-adicionais');
     const carrinhoItensContainer = document.getElementById('carrinho-itens');
     const carrinhoTotalElement = document.getElementById('carrinho-total');
     const finalizarPedidoBtn = document.getElementById('btn-finalizar-pedido');
     const hamburguerMenuBtn = document.getElementById('hamburger-menu-btn');
     const navLinks = document.querySelector('.nav-links');
     const notificacao = document.getElementById('notificacao');
+    const adicionaisGrid = document.getElementById('adicionais-grid');
+    const btnAdicionarComAdicionais = document.getElementById('btn-adicionar-com-adicionais');
+    const btnCancelarAdicionais = document.getElementById('btn-cancelar-adicionais');
 
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     let menuData = null;
+    let adicionaisData = null;
+    let itemAtualParaAdicionar = null;
 
     function atualizarContadorCarrinho() {
         cartCountElement.textContent = carrinho.reduce((total, item) => total + item.quantidade, 0);
@@ -22,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!menuData) return;
         
         for (const categoria in menuData) {
-            if (menuData.hasOwnProperty(categoria)) {
+            // Ignora a categoria "Adicionais" no menu principal
+            if (menuData.hasOwnProperty(categoria) && categoria !== 'Adicionais') {
                 criarSecaoCardapio(categoria, menuData[categoria]);
             }
         }
@@ -42,9 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             case 'Bebidas':
                 containerId = 'bebidas-grid';
-                break;
-            case 'Adicionais':
-                containerId = 'adicionais-grid';
                 break;
             default:
                 console.warn(`Categoria desconhecida: ${titulo}`);
@@ -86,7 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const addButton = document.createElement('button');
             addButton.classList.add('btn-add');
             addButton.textContent = 'Adicionar';
-            addButton.onclick = () => adicionarAoCarrinho(item);
+            // Novo evento de clique para abrir o modal
+            addButton.onclick = () => abrirModalAdicionais(item);
 
             content.appendChild(itemTitle);
             content.appendChild(itemDescription);
@@ -103,27 +109,94 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('./cardapio.json');
             menuData = await response.json();
+            adicionaisData = menuData['Adicionais'];
             renderizarMenu();
+            renderizarAdicionaisModal();
         } catch (error) {
             console.error('Erro ao carregar o menu:', error);
             mainContainer.innerHTML = '<p>Não foi possível carregar o cardápio. Tente novamente mais tarde.</p>';
         }
     }
 
-    function adicionarAoCarrinho(item) {
-        const itemExistente = carrinho.find(c => c.id === item.id);
+    function renderizarAdicionaisModal() {
+        adicionaisGrid.innerHTML = '';
+        adicionaisData.forEach(item => {
+            const adicionalCard = document.createElement('div');
+            adicionalCard.classList.add('adicional-card');
+            adicionalCard.dataset.id = item.id;
+
+            const img = document.createElement('img');
+            img.src = `imagem_cardapio/${item.imagem}`;
+            img.alt = item.nome;
+
+            const nome = document.createElement('p');
+            nome.textContent = item.nome;
+
+            const preco = document.createElement('p');
+            preco.classList.add('price');
+            preco.textContent = `R$ ${item.preco.toFixed(2).replace('.', ',')}`;
+
+            adicionalCard.appendChild(img);
+            adicionalCard.appendChild(nome);
+            adicionalCard.appendChild(preco);
+
+            adicionalCard.onclick = () => {
+                adicionalCard.classList.toggle('selected');
+            };
+
+            adicionaisGrid.appendChild(adicionalCard);
+        });
+    }
+
+    function abrirModalAdicionais(item) {
+        itemAtualParaAdicionar = item;
+        adicionaisModal.style.display = 'flex';
+    }
+
+    function fecharModalAdicionais() {
+        adicionaisModal.style.display = 'none';
+        itemAtualParaAdicionar = null;
+        // Limpa a seleção dos cards
+        document.querySelectorAll('.adicional-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+    }
+
+    function adicionarComAdicionais() {
+        const adicionaisSelecionados = [];
+        document.querySelectorAll('.adicional-card.selected').forEach(card => {
+            const id = parseInt(card.dataset.id);
+            const adicional = adicionaisData.find(item => item.id === id);
+            if (adicional) {
+                adicionaisSelecionados.push(adicional);
+            }
+        });
+
+        // Adiciona o item principal
+        adicionarAoCarrinho(itemAtualParaAdicionar, 1);
+
+        // Adiciona os adicionais
+        adicionaisSelecionados.forEach(adicional => {
+            adicionarAoCarrinho(adicional, 1, `(adicional de ${itemAtualParaAdicionar.nome})`);
+        });
+
+        fecharModalAdicionais();
+        atualizarContadorCarrinho();
+        exibirNotificacao(`${itemAtualParaAdicionar.nome} adicionado(s)!`);
+    }
+
+    function adicionarAoCarrinho(item, quantidade, nota = '') {
+        const itemExistente = carrinho.find(c => c.id === item.id && c.nota === nota);
         if (itemExistente) {
             itemExistente.quantidade++;
         } else {
-            carrinho.push({ ...item, quantidade: 1 });
+            carrinho.push({ ...item, quantidade: quantidade, nota: nota });
         }
         salvarCarrinho();
-        atualizarContadorCarrinho();
-        exibirNotificacao(`${item.nome} adicionado!`);
     }
 
-    function removerDoCarrinho(itemId) {
-        carrinho = carrinho.filter(item => item.id !== itemId);
+    function removerDoCarrinho(itemId, itemNota) {
+        carrinho = carrinho.filter(item => !(item.id === itemId && item.nota === itemNota));
         salvarCarrinho();
         renderizarCarrinho();
         atualizarContadorCarrinho();
@@ -137,16 +210,16 @@ document.addEventListener('DOMContentLoaded', () => {
         carrinhoItensContainer.innerHTML = '';
         let total = 0;
         if (carrinho.length === 0) {
-            carrinhoItensContainer.innerHTML = '<p style="text-align: center;">Seu carrinho está vazio.</p>';
+            carrinhoItensContainer.innerHTML = '<p style="text-align: center; color: #666;">Seu carrinho está vazio.</p>';
         } else {
             carrinho.forEach(item => {
                 total += item.preco * item.quantidade;
                 const li = document.createElement('li');
                 li.classList.add('carrinho-item');
                 li.innerHTML = `
-                    <span>${item.nome} (${item.quantidade}x)</span>
+                    <span>${item.nome} (${item.quantidade}x) ${item.nota ? item.nota : ''}</span>
                     <span>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</span>
-                    <button class="btn-remove" data-id="${item.id}">&times;</button>
+                    <button class="btn-remove" data-id="${item.id}" data-nota="${item.nota}">&times;</button>
                 `;
                 carrinhoItensContainer.appendChild(li);
             });
@@ -154,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
         carrinhoTotalElement.textContent = total.toFixed(2).replace('.', ',');
 
         document.querySelectorAll('.btn-remove').forEach(button => {
-            button.onclick = (e) => removerDoCarrinho(parseInt(e.target.dataset.id));
+            button.onclick = (e) => removerDoCarrinho(parseInt(e.target.dataset.id), e.target.dataset.nota);
         });
     }
 
@@ -180,7 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let total = 0;
         carrinho.forEach(item => {
-            mensagem += `* ${item.nome} (${item.quantidade}x) - R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}\n`;
+            const itemNome = item.nome + (item.nota ? ` ${item.nota}` : '');
+            mensagem += `* ${itemNome} (${item.quantidade}x) - R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}\n`;
             total += item.preco * item.quantidade;
         });
 
@@ -193,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
         salvarCarrinho();
         renderizarCarrinho();
         atualizarContadorCarrinho();
-        modal.style.display = 'none';
+        carrinhoModal.style.display = 'none';
         document.getElementById('nome-cliente').value = '';
         document.getElementById('endereco-cliente').value = '';
         document.getElementById('telefone-cliente').value = '';
@@ -201,16 +275,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     carrinhoBtn.onclick = () => {
         renderizarCarrinho();
-        modal.style.display = 'flex';
+        carrinhoModal.style.display = 'flex';
     };
 
-    closeModalBtn.onclick = () => {
-        modal.style.display = 'none';
+    fecharCarrinhoBtn.onclick = () => {
+        carrinhoModal.style.display = 'none';
     };
+
+    fecharAdicionaisBtn.onclick = () => {
+        fecharModalAdicionais();
+    };
+
+    btnAdicionarComAdicionais.onclick = adicionarComAdicionais;
+    btnCancelarAdicionais.onclick = fecharModalAdicionais;
 
     window.onclick = (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+        if (event.target === carrinhoModal) {
+            carrinhoModal.style.display = 'none';
+        }
+        if (event.target === adicionaisModal) {
+            fecharModalAdicionais();
         }
     };
 

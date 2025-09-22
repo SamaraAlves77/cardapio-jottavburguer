@@ -27,6 +27,16 @@ document.getElementById('hamburger-menu-btn').addEventListener('click', function
     navMenu.classList.toggle('active');
 });
 
+// Ação para o novo botão de localização
+document.getElementById('btn-localizacao').addEventListener('click', function() {
+    // Substitua estas coordenadas pela sua localização exata (latitude e longitude)
+    const latitude = -2.91523; // Exemplo de latitude
+    const longitude = -41.76189; // Exemplo de longitude
+
+    const urlMaps = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+    window.open(urlMaps, '_blank');
+});
+
 
 // A função principal que carrega e exibe os dados do cardápio
 async function carregarCardapio() {

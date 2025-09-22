@@ -130,24 +130,26 @@ main {
 /* --- Estilo dos Cards (Layout Unificado) --- */
 .item-card {
     background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .item-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .item-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 .item-card-content {
@@ -155,27 +157,30 @@ main {
     display: flex;
     flex-direction: column;
     text-align: left;
+    flex-grow: 1; /* Permite que o conteúdo cresça e preencha o espaço */
+    justify-content: space-between; /* Alinha o conteúdo e o botão de forma ideal */
 }
 
 .item-card-content h3 {
     font-size: 1.5em;
-    margin: 0;
+    margin: 0 0 5px 0;
     color: #e53935;
     text-align: left;
 }
 
 .item-card-content p {
     font-size: 1em;
-    margin: 10px 0;
+    margin: 0 0 10px 0;
     color: #666;
     line-height: 1.4;
+    flex-grow: 1;
 }
 
 .price {
     font-size: 1.8em;
     font-weight: bold;
     color: #e53935;
-    margin: 15px 0;
+    margin: 15px 0 10px 0;
 }
 
 .btn-add {
@@ -195,8 +200,99 @@ main {
     background-color: #43a047;
 }
 
-/* --- Modal e Outros Elementos (Manter como estavam) --- */
-/* (O código do modal e demais elementos não foi alterado, pode manter o que você já tem.) */
+/* --- Modal e Outros Elementos --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fechar-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.fechar-modal:hover,
+.fechar-modal:focus {
+    color: #000;
+}
+
+.carrinho-itens {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.carrinho-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.carrinho-finalizar input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#btn-finalizar-pedido {
+    width: 100%;
+    background-color: #4caf50;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+#btn-finalizar-pedido:hover {
+    background-color: #43a047;
+}
+
+.notificacao {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.notificacao.show {
+    opacity: 1;
+}
 
 /* --- Rodapé (Footer) --- */
 footer {
@@ -267,45 +363,12 @@ footer {
     .item-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .item-card {
-        flex-direction: row;
-        text-align: left;
-    }
-
-    .item-card img {
-        width: 120px;
-        height: 120px;
-        border-radius: 15px;
-        margin-right: 15px;
-        object-fit: cover;
-    }
-
-    .item-card-content {
-        flex: 1;
-        padding: 15px 0;
-        display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
     }
     
-    .item-card-content h3 {
-        text-align: left;
-        font-size: 1.3em;
-        margin-top: 0;
-    }
-    
-    .item-card-content p {
-        font-size: 0.9em;
-    }
-    
-    .price {
-        font-size: 1.4em;
-        margin: 5px 0;
-    }
-
-    .btn-add {
-        display: none; /* Esconde o botão e mostra o card como clicável */
+    .item-card img {
+        height: auto;
     }
 }

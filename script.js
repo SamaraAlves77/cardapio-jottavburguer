@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener para fechar o modal
     document.querySelector('.fechar-modal').addEventListener('click', hideCartModal);
     
-    // NOVO: Event listener para finalizar o pedido
+    // Amarração do botão para finalizar o pedido
     document.getElementById('btn-finalizar-pedido').addEventListener('click', finalizeOrder);
 });
 
@@ -31,7 +31,7 @@ async function loadMenu() {
 // Função para renderizar o menu na página
 function renderMenu(menu) {
     const mainContent = document.querySelector('main');
-    mainContent.innerHTML = '';
+    mainContent.innerHTML = ''; // Limpa o conteúdo existente
 
     menu.categories.forEach(category => {
         const section = document.createElement('section');

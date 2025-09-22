@@ -1,108 +1,56 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Dados do cardápio
-    const cardapio = {
-        "Hambúrguer Artesanal": [
-            { "id": 1, "nome": "Smash Original", "descricao": "Pão, Carne 80g prensada na chapa, queijo Muçarela, cebola caramelizada, alface, tomate e molho da casa.", "preco": 18.99, "imagem": "smash_original.jpeg" },
-            { "id": 2, "nome": "Smash Duplo", "descricao": "Pão, 2 carnes 80g prensadas na chapa, 2 queijos muçarela, cebola caramelizada, alface, tomate e molho da casa.", "preco": 24.99, "imagem": "smash_duplo.jpeg" },
-            { "id": 3, "nome": "Jotta Básico", "descricao": "Pão, Carne 120g prensada na chapa com cebola, queijo muçarela e molho da casa.", "preco": 14.99, "imagem": "jotta_basico.jpeg" },
-            { "id": 4, "nome": "Jotta Classic", "descricao": "Pão, Carne 120g, molho barbecue, tomate, alface, bacon e queijo muçarela.", "preco": 25.99, "imagem": "jotta_classic.jpeg" },
-            { "id": 5, "nome": "Burguer do Xerife", "descricao": "Pão, carne de 120g, requeijão longá e farofa de bacon.", "preco": 22.99, "imagem": "burguer_do_xerife.jpeg" },
-            { "id": 6, "nome": "Duplo Brutão", "descricao": "Pão, 2 carnes de 120g,requeijão longa, molho da casa, 2 fatias de bacon.", "preco": 37.99, "imagem": "duplo_brutao.jpeg" },
-            { "id": 7, "nome": "Calabresa Prime", "descricao": "Pão, molho, alface, tomate, calabresa, queijo, cebola caramelizada,carne 80g prensada na chapa", "preco": 26.99, "imagem": "calabresa_prime.jpeg" },
-            { "id": 8, "nome": "Burguer Salame", "descricao": "Pão, requeijão, carne e salame.", "preco": 28.99, "imagem": "burguer_salame.jpeg" },
-            { "id": 9, "nome": "Calabresa Básico", "descricao": "Pão, molho da casa, calabresa e queijo muçarela.", "preco": 15.00, "imagem": "calabresa_basico.jpeg" }
-        ],
-        "Combos": [
-            { "id": 11, "nome": "Combo Econômico", "descricao": "1 Smash Original + batata frita + refrigerante lata.", "preco": 31.99, "imagem": "combo_economico_smash.jpeg" },
-            { "id": 12, "nome": "Combo do Chef", "descricao": "1 Jotta Classic + batata frita + refrigerante lata.", "preco": 41.99, "imagem": "combo_do_chef.jpeg" },
-            { "id": 13, "nome": "Combo Smash Duplo", "descricao": "1 Smash duplo + batata frita + refrigerante lata.", "preco": 37.99, "imagem": "combo_smash_duplo.jpeg" },
-            { "id": 14, "nome": "Combo Premium", "descricao": "1 Duplo Brutão + batata frita + refrigerante lata.", "preco": 53.99, "imagem": "combo_premium.jpeg" },
-            { "id": 15, "nome": "Casal: 2x Smash Original", "descricao": "2 Smash Original + batata frita + Guaraná 1L.", "preco": 49.99, "imagem": "combo_economico_casal_smash.jpeg" },
-            { "id": 16, "nome": "Casal: 2x Jotta Classic", "descricao": "2 Jotta Classic + batata frita + Guaraná 1L.", "preco": 63.99, "imagem": "casal_jotta_classic.jpeg" },
-            { "id": 17, "nome": "Casal: 2x Smash Duplo", "descricao": "2 Smash duplo + batata frita + Guaraná 1L.", "preco": 61.99, "imagem": "casal_smash_duplo.jpeg" },
-            { "id": 18, "nome": "Casal: 2x Duplo Brutão", "descricao": "2 Duplo Brutão + batata frita + Guaraná 1L.", "preco": 87.99, "imagem": "casal_duplo_brutao.jpeg" },
-            { "id": 19, "nome": "Família: 4x Smash Original", "descricao": "4 Smash Original + batata frita + Guaraná 1L.", "preco": 87.99, "imagem": "familia_smash_original.jpeg" },
-            { "id": 20, "nome": "Família: 4x Jotta Classic", "descricao": "4 Jotta Classic + batata frita + Guaraná 1L.", "preco": 115.99, "imagem": "familia_jotta_classic.jpeg" },
-            { "id": 21, "nome": "Família: 4x Smash Duplo", "descricao": "4 Smash duplo + batata frita + Guaraná 1L.", "preco": 111.99, "imagem": "familia_smash_duplo.jpeg" },
-            { "id": 22, "nome": "Família: 4x Duplo Brutão", "descricao": "4 Duplo Brutão + batata frita + Guaraná 1L.", "preco": 154.99, "imagem": "familia_duplo_brutao.jpeg" }
-        ],
-        "Acompanhamentos": [
-            { "id": 23, "nome": "Batata Palito", "descricao": "Porção individual de batata frita palito.", "preco": 11.99, "imagem": "batata_palito_nova.jpeg" },
-            { "id": 24, "nome": "Anéis de Cebola", "descricao": "Porção individual de anéis de cebola empanados.", "preco": 13.99, "imagem": "aneis_de_cebola.jpeg" },
-            { "id": 25, "nome": "Nuggets de Frango", "descricao": "Porção de nuggets de frango.", "preco": 12.99, "imagem": "nuggets_frango.jpeg" },
-            { "id": 26, "nome": "Queijo Cheddar", "descricao": "Porção de queijo cheddar cremoso.", "preco": 5.00, "imagem": "cheddar.jpeg" },
-            { "id": 27, "nome": "Cebola Caramelizada", "descricao": "Porção de cebola caramelizada.", "preco": 4.00, "imagem": "cebola_caramelizada.jpeg" }
-        ],
-        "Bebidas": [
-            { "id": 28, "nome": "Refrigerante Lata", "descricao": "Coca-Cola, Guaraná, Fanta Uva, Sprite.", "preco": 6.00, "imagem": "refrigerante_lata.jpeg" },
-            { "id": 29, "nome": "Refrigerante 1L", "descricao": "Coca-Cola, Guaraná, Fanta Uva, Sprite.", "preco": 10.00, "imagem": "refrigerante_1l.jpeg" },
-            { "id": 30, "nome": "Água Mineral", "descricao": "Água mineral sem gás.", "preco": 3.00, "imagem": "agua_mineral.jpeg" },
-            { "id": 31, "nome": "Suco Natural", "descricao": "Suco de Laranja, Limão ou Maracujá.", "preco": 8.00, "imagem": "suco_natural.jpeg" }
-        ],
-        "Opcionais": [
-            { "id": 32, "nome": "Cheddar", "preco": 5.00, "imagem": "cheddar.jpeg" },
-            { "id": 33, "nome": "Bacon", "preco": 6.00, "imagem": "bacon.jpeg" },
-            { "id": 34, "nome": "Ovo", "preco": 3.00, "imagem": "ovo.jpeg" },
-            { "id": 35, "nome": "Molho da Casa Extra", "preco": 3.00, "imagem": "molho_da_casa.jpeg" },
-            { "id": 36, "nome": "Catupiry", "preco": 6.00, "imagem": "catupiry.jpeg" },
-            { "id": 37, "nome": "Salame", "preco": 7.00, "imagem": "salame.jpeg" },
-            { "id": 38, "nome": "Requeijão Longá", "preco": 5.00, "imagem": "requeijao_longa.jpeg" }
-        ]
-    };
-
+    let cardapio = {};
     let carrinho = [];
     let itemSelecionado = {};
 
-    const entradaVisual = document.getElementById('entrada-visual');
-    const mainContent = document.getElementById('main-content');
-    const abrirCardapioVisual = document.getElementById('abrir-cardapio-visual');
-    const menuContainer = document.getElementById('menu-container');
+    // Obter os elementos do DOM
     const navLinks = document.getElementById('nav-links');
+    const menuContainer = document.getElementById('main-content');
+    const hamburgerMenuBtn = document.querySelector('.hamburger-menu-btn');
     const carrinhoModal = document.getElementById('carrinho-modal');
-    const abrirCarrinhoBtn = document.getElementById('abrir-carrinho');
-    const fecharModalBtns = document.querySelectorAll('.fechar-modal');
-    const contadorCarrinho = document.getElementById('contador-carrinho');
-    const carrinhoItens = document.getElementById('carrinho-itens');
-    const carrinhoVazio = document.getElementById('carrinho-vazio');
-    const totalPedido = document.getElementById('total-pedido');
-    const finalizarPedidoBtn = document.getElementById('finalizar-pedido-whatsapp');
-    const hamburgerMenuBtn = document.getElementById('hamburger-menu');
-    const notificacao = document.getElementById('notificacao-flutuante');
     const adicionaisModal = document.getElementById('adicionais-modal');
-    const adicionaisOpcoes = document.getElementById('adicionais-opcoes');
+    const carrinhoItensContainer = document.getElementById('carrinho-itens');
+    const valorTotal = document.getElementById('valor-total');
+    const contadorCarrinho = document.getElementById('contador-carrinho');
     const confirmarAdicionaisBtn = document.getElementById('confirmar-adicionais');
-    const observacaoItem = document.getElementById('observacao-item');
-    const campoRua = document.getElementById('campo-rua');
-    const campoNumero = document.getElementById('campo-numero');
-    const campoBairro = document.getElementById('campo-bairro');
-    const formaPagamento = document.getElementById('forma-pagamento');
-    const observacoesGerais = document.getElementById('observacoes-gerais');
-    const btnLocalizacao = document.getElementById('btn-localizacao');
-    const localizacaoStatus = document.getElementById('localizacao-status');
+    const adicionaisOpcoesUl = document.getElementById('adicionais-opcoes');
+    const observacaoItemTextarea = document.getElementById('observacao-item');
+    const finalizarPedidoBtn = document.querySelector('.btn-principal');
+    const nomeClienteInput = document.getElementById('nome-cliente');
+    const enderecoClienteInput = document.getElementById('endereco-cliente');
+    const telefoneClienteInput = document.getElementById('telefone-cliente');
 
     // Mapeamento de categorias para exibir o modal de adicionais
     const categoriasComAdicionais = ["Hambúrguer Artesanal", "Acompanhamentos"];
 
-    // Função para mostrar a tela do cardápio e esconder a de entrada
-    const mostrarCardapio = () => {
-        entradaVisual.style.display = 'none';
-        mainContent.style.display = 'block';
-        window.scrollTo(0, 0); // Volta para o topo da página
+    // Função para carregar o cardápio do arquivo JSON
+    const carregarCardapio = async () => {
+        try {
+            const response = await fetch('dados.json');
+            cardapio = await response.json();
+            renderizarCardapio();
+        } catch (error) {
+            console.error('Erro ao carregar o cardápio:', error);
+            alert('Não foi possível carregar o cardápio. Tente novamente mais tarde.');
+        }
     };
 
-    // Função para renderizar o cardápio
+    // Funções de manipulação do DOM
     const renderizarCardapio = () => {
         menuContainer.innerHTML = '';
         navLinks.innerHTML = '';
 
-        // Obter as categorias, excluindo "Opcionais"
         const categoriasParaRenderizar = Object.keys(cardapio).filter(cat => cat !== "Opcionais");
 
         categoriasParaRenderizar.forEach(categoria => {
             const link = document.createElement('a');
             link.href = `#${categoria.toLowerCase().replace(/ /g, '-')}`;
             link.textContent = categoria;
+            link.classList.add('nav-link');
+            if (categoria === "Hambúrguer Artesanal") {
+                link.classList.add('active');
+            }
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -111,299 +59,258 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             navLinks.appendChild(link);
 
-            // Seção de itens
             const section = document.createElement('section');
             section.id = categoria.toLowerCase().replace(/ /g, '-');
             section.classList.add('menu-section');
-            section.innerHTML = `<h2>${categoria}</h2>`;
-
-            const grid = document.createElement('div');
-            grid.classList.add('item-grid');
-
+            section.innerHTML = `<h2>${categoria}</h2><div class="item-grid"></div>`;
+            
+            const itemGrid = section.querySelector('.item-grid');
             cardapio[categoria].forEach(item => {
                 const card = document.createElement('div');
                 card.classList.add('item-card');
+                card.setAttribute('data-item-id', item.id);
+                
+                const imagemSrc = `Imagens/${item.imagem}`; 
                 card.innerHTML = `
-                    <img src="${item.imagem}" alt="${item.nome}">
+                    <img src="${imagemSrc}" alt="${item.nome}">
                     <h3>${item.nome}</h3>
                     <p>${item.descricao}</p>
                     <span class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
-                    <button class="btn-add" data-id="${item.id}" data-categoria="${categoria}">Adicionar</button>
+                    <button class="btn-add">Adicionar</button>
                 `;
-                grid.appendChild(card);
+                
+                itemGrid.appendChild(card);
+
+                const btnAdd = card.querySelector('.btn-add');
+                btnAdd.addEventListener('click', () => {
+                    adicionarAoCarrinho(item, categoria);
+                });
             });
 
-            section.appendChild(grid);
             menuContainer.appendChild(section);
         });
-
-        // Torna a primeira categoria ativa por padrão
-        const primeiraCategoriaLink = navLinks.querySelector('a');
-        if (primeiraCategoriaLink) {
-            primeiraCategoriaLink.classList.add('active');
-        }
     };
 
-    // Função para renderizar o modal de adicionais
-    const renderizarAdicionais = () => {
-        adicionaisOpcoes.innerHTML = '';
-        cardapio["Opcionais"].forEach(adicional => {
-            const adicionalCard = document.createElement('div');
-            adicionalCard.classList.add('adicional-card');
-            adicionalCard.innerHTML = `
-                <img src="${adicional.imagem}" alt="${adicional.nome}">
-                <div class="adicional-info">
-                    <span>${adicional.nome}</span>
-                    <span class="price">R$ ${adicional.preco.toFixed(2).replace('.', ',')}</span>
-                </div>
-                <div class="adicional-actions">
-                    <button class="btn-decrease-adicional" data-id="${adicional.id}">-</button>
-                    <span id="adicional-count-${adicional.id}">0</span>
-                    <button class="btn-increase-adicional" data-id="${adicional.id}">+</button>
-                </div>
-            `;
-            adicionaisOpcoes.appendChild(adicionalCard);
-        });
-    };
-
-    // Função para adicionar item ao carrinho
     const adicionarAoCarrinho = (item, categoria) => {
-        const itemExistente = carrinho.find(c => c.item.id === item.id);
-        if (itemExistente) {
-            itemExistente.quantidade++;
+        itemSelecionado = { ...item, categoria, adicionais: [], observacao: '' };
+        
+        const temAdicionais = cardapio.Opcionais && categoriasComAdicionais.includes(categoria);
+
+        if (temAdicionais) {
+            abrirModalAdicionais(item);
         } else {
-            carrinho.push({ item, quantidade: 1, adicionais: [], observacao: '' });
+            carrinho.push(itemSelecionado);
+            atualizarCarrinho();
+            mostrarNotificacao(`${item.nome} adicionado ao carrinho!`);
         }
-        mostrarNotificacao(`${item.nome} adicionado ao carrinho!`);
-        atualizarCarrinho();
     };
 
-    // Função para atualizar o modal do carrinho
     const atualizarCarrinho = () => {
-        carrinhoItens.innerHTML = '';
+        carrinhoItensContainer.innerHTML = '';
         let total = 0;
+        
         if (carrinho.length === 0) {
-            carrinhoVazio.style.display = 'block';
-            finalizarPedidoBtn.disabled = true;
+            carrinhoItensContainer.innerHTML = '<p class="carrinho-vazio">Seu carrinho está vazio.</p>';
         } else {
-            carrinhoVazio.style.display = 'none';
-            finalizarPedidoBtn.disabled = false;
-            carrinho.forEach(c => {
-                let precoItem = c.item.preco * c.quantidade;
-                const adicionaisTexto = c.adicionais.map(a => `${a.nome} (${a.quantidade})`).join(', ');
-                const observacaoTexto = c.observacao ? `<br>Obs: ${c.observacao}` : '';
-                
-                c.adicionais.forEach(adicional => {
-                    precoItem += adicional.preco * adicional.quantidade;
-                });
+            carrinho.forEach((item, index) => {
+                let precoItem = item.preco;
+                let adicionaisTexto = '';
+
+                if (item.adicionais && item.adicionais.length > 0) {
+                    adicionaisTexto = item.adicionais.map(adicional => {
+                        precoItem += adicional.preco * adicional.quantidade;
+                        return `${adicional.nome} (${adicional.quantidade})`
+                    }).join(', ');
+                }
+
                 total += precoItem;
 
-                const itemDiv = document.createElement('div');
-                itemDiv.classList.add('carrinho-item');
-                itemDiv.innerHTML = `
-                    <p>${c.item.nome} (${c.quantidade}) R$ ${precoItem.toFixed(2).replace('.', ',')}
-                    ${adicionaisTexto ? `<br><small>Opcionais: ${adicionaisTexto}</small>` : ''}
-                    ${observacaoTexto}</p>
+                const itemHTML = document.createElement('div');
+                itemHTML.classList.add('carrinho-item');
+                itemHTML.innerHTML = `
+                    <p>${item.nome}</p>
                     <div class="carrinho-actions">
-                        <button class="btn-decrease" data-id="${c.item.id}">-</button>
-                        <button class="btn-increase" data-id="${c.item.id}">+</button>
-                        <button class="btn-remove" data-id="${c.item.id}"><i class="fas fa-trash"></i></button>
+                        <button class="btn-remove" data-index="${index}">&times;</button>
                     </div>
                 `;
-                carrinhoItens.appendChild(itemDiv);
+
+                carrinhoItensContainer.appendChild(itemHTML);
             });
         }
-        totalPedido.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-        contadorCarrinho.textContent = carrinho.reduce((sum, item) => sum + item.quantidade, 0);
+        
+        contadorCarrinho.textContent = carrinho.length;
+        valorTotal.textContent = total.toFixed(2).replace('.', ',');
+
+        finalizarPedidoBtn.disabled = carrinho.length === 0;
     };
 
-    // Função para mostrar notificação
+    const abrirModalAdicionais = (item) => {
+        adicionaisOpcoesUl.innerHTML = '';
+        observacaoItemTextarea.value = item.observacao;
+
+        const adicionaisMap = new Map(item.adicionais.map(a => [a.id, a.quantidade]));
+
+        cardapio.Opcionais.forEach(adicional => {
+            const quantidade = adicionaisMap.get(adicional.id) || 0;
+
+            const li = document.createElement('li');
+            li.classList.add('adicional-item');
+            li.setAttribute('data-adicional-id', adicional.id);
+            li.innerHTML = `
+                <div class="adicional-info">
+                    <span>${adicional.nome}</span>
+                    <span>R$ ${adicional.preco.toFixed(2).replace('.', ',')}</span>
+                </div>
+                <div class="adicional-actions">
+                    <button class="btn-decrease">-</button>
+                    <span class="adicional-quantidade">${quantidade}</span>
+                    <button class="btn-increase">+</button>
+                </div>
+            `;
+            adicionaisOpcoesUl.appendChild(li);
+        });
+
+        adicionaisModal.style.display = 'flex';
+    };
+
+    const fecharModalAdicionais = () => {
+        adicionaisModal.style.display = 'none';
+        itemSelecionado = {};
+    };
+
+    const abrirModalCarrinho = () => {
+        atualizarCarrinho();
+        carrinhoModal.style.display = 'flex';
+    };
+
+    const fecharModalCarrinho = () => {
+        carrinhoModal.style.display = 'none';
+    };
+
     const mostrarNotificacao = (mensagem) => {
-        notificacao.textContent = mensagem;
-        notificacao.classList.add('show');
+        const notificacaoElement = document.createElement('div');
+        notificacaoElement.classList.add('notificacao');
+        notificacaoElement.textContent = mensagem;
+        document.body.appendChild(notificacaoElement);
+
         setTimeout(() => {
-            notificacao.classList.remove('show');
+            notificacaoElement.classList.add('show');
+        }, 10);
+
+        setTimeout(() => {
+            notificacaoElement.classList.remove('show');
+            setTimeout(() => {
+                notificacaoElement.remove();
+            }, 500);
         }, 3000);
     };
 
-    // Função para gerar mensagem de pedido
-    const gerarMensagemPedido = () => {
-        const total = carrinho.reduce((sum, item) => {
-            let precoItem = item.item.preco * item.quantidade;
-            item.adicionais.forEach(a => {
-                precoItem += a.preco * a.quantidade;
-            });
-            return sum + precoItem;
-        }, 0);
+    const finalizarPedido = () => {
+        const nome = nomeClienteInput.value.trim();
+        const endereco = enderecoClienteInput.value.trim();
+        const telefone = telefoneClienteInput.value.trim();
+        const formaPagamento = document.getElementById('forma-pagamento').value;
 
-        let mensagem = `Olá, gostaria de fazer o seguinte pedido:\n\n`;
-        carrinho.forEach(c => {
-            const nomeItem = c.item.nome;
-            const quantidade = c.quantidade;
-            const preco = (c.item.preco * c.quantidade).toFixed(2).replace('.', ',');
-            const adicionais = c.adicionais.map(a => `  - ${a.nome} (${a.quantidade}) (R$ ${(a.preco * a.quantidade).toFixed(2).replace('.', ',')})`).join('\n');
-            const observacao = c.observacao ? `  - Observação: ${c.observacao}` : '';
-            mensagem += `${quantidade}x ${nomeItem} (R$ ${preco})\n${adicionais}\n${observacao}\n\n`;
+        if (!nome || !endereco || !telefone) {
+            alert("Por favor, preencha todos os dados de entrega.");
+            return;
+        }
+
+        let mensagem = `*Novo Pedido - [Seu Negócio]*\n\n`;
+        mensagem += `*Dados do Cliente:*\n`;
+        mensagem += `Nome: ${nome}\n`;
+        mensagem += `Endereço: ${endereco}\n`;
+        mensagem += `Telefone: ${telefone}\n\n`;
+        mensagem += `*Itens do Pedido:*\n`;
+
+        let total = 0;
+        carrinho.forEach(item => {
+            let precoItem = item.preco;
+            let observacao = item.observacao ? ` (Obs: ${item.observacao})` : '';
+
+            mensagem += `- ${item.nome}${observacao}\n`;
+
+            if (item.adicionais && item.adicionais.length > 0) {
+                mensagem += `  Adicionais:\n`;
+                item.adicionais.forEach(adicional => {
+                    precoItem += adicional.preco * adicional.quantidade;
+                    mensagem += `  - ${adicional.nome} (${adicional.quantidade}x) - R$ ${(adicional.preco * adicional.quantidade).toFixed(2).replace('.', ',')}\n`;
+                });
+            }
+            mensagem += `  Preço: R$ ${precoItem.toFixed(2).replace('.', ',')}\n\n`;
+            total += precoItem;
         });
 
-        mensagem += `Total: R$ ${total.toFixed(2).replace('.', ',')}\n\n`;
-        mensagem += `*Forma de Pagamento:* ${formaPagamento.value}\n`;
+        mensagem += `*Total do Pedido: R$ ${total.toFixed(2).replace('.', ',')}*\n\n`;
+        mensagem += `*Forma de Pagamento:* ${formaPagamento}`;
 
-        if (observacoesGerais.value) {
-            mensagem += `*Observações Gerais:* ${observacoesGerais.value}\n`;
-        }
+        const numeroWhatsapp = "SEU_NUMERO_AQUI"; 
+        const linkWhatsapp = `https://api.whatsapp.com/send?phone=${numeroWhatsapp}&text=${encodeURIComponent(mensagem)}`;
+        window.open(linkWhatsapp, '_blank');
         
-        const endereco = `*Endereço:*
-        - Rua: ${campoRua.value}
-        - Número: ${campoNumero.value}
-        - Bairro: ${campoBairro.value}
-        - Observação: ${observacoesGerais.value}`;
+        carrinho = [];
+        atualizarCarrinho();
+        fecharModalCarrinho();
+    };
 
-        mensagem += endereco;
-
-        return encodeURIComponent(mensagem);
+    const toggleMenu = () => {
+        navLinks.classList.toggle('active');
     };
 
     // Event Listeners
-    abrirCardapioVisual.addEventListener('click', mostrarCardapio);
-
-    document.getElementById('menu-container').addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-add')) {
-            const itemId = parseInt(e.target.dataset.id);
-            const categoria = e.target.dataset.categoria;
-            const item = cardapio[categoria].find(i => i.id === itemId);
-
-            itemSelecionado = {
-                item: item,
-                quantidade: 1,
-                adicionais: [],
-                observacao: ''
-            };
-
-            if (categoriasComAdicionais.includes(categoria)) {
-                renderizarAdicionais();
-                adicionaisModal.style.display = 'flex';
-            } else {
-                adicionarAoCarrinho(item, categoria);
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('#adicionais-opcoes .btn-increase')) {
+            const btn = e.target;
+            const itemLi = btn.closest('.adicional-item');
+            const quantidadeSpan = itemLi.querySelector('.adicional-quantidade');
+            let quantidade = parseInt(quantidadeSpan.textContent);
+            quantidade++;
+            quantidadeSpan.textContent = quantidade;
+        } else if (e.target.closest('#adicionais-opcoes .btn-decrease')) {
+            const btn = e.target;
+            const itemLi = btn.closest('.adicional-item');
+            const quantidadeSpan = itemLi.querySelector('.adicional-quantidade');
+            let quantidade = parseInt(quantidadeSpan.textContent);
+            if (quantidade > 0) {
+                quantidade--;
+                quantidadeSpan.textContent = quantidade;
             }
         }
     });
 
     confirmarAdicionaisBtn.addEventListener('click', () => {
-        const adicionaisEscolhidos = [];
-        document.querySelectorAll('.adicional-actions').forEach(actions => {
-            const id = actions.querySelector('button').dataset.id;
-            const quantidade = parseInt(actions.querySelector(`#adicional-count-${id}`).textContent);
+        const adicionaisSelecionados = [];
+        document.querySelectorAll('.adicional-item').forEach(li => {
+            const id = parseInt(li.getAttribute('data-adicional-id'));
+            const quantidade = parseInt(li.querySelector('.adicional-quantidade').textContent);
             if (quantidade > 0) {
-                const adicional = cardapio.Opcionais.find(a => a.id === parseInt(id));
-                adicionaisEscolhidos.push({ ...adicional, quantidade });
-            }
-        });
-
-        itemSelecionado.adicionais = adicionaisEscolhidos;
-        itemSelecionado.observacao = observacaoItem.value;
-
-        const itemExistente = carrinho.find(c => c.item.id === itemSelecionado.item.id);
-        if (itemExistente) {
-            itemExistente.quantidade++;
-            itemExistente.adicionais = itemSelecionado.adicionais;
-            itemExistente.observacao = itemSelecionado.observacao;
-        } else {
-            carrinho.push(itemSelecionado);
-        }
-
-        adicionaisModal.style.display = 'none';
-        mostrarNotificacao(`${itemSelecionado.item.nome} adicionado ao carrinho!`);
-        atualizarCarrinho();
-    });
-
-    adicionaisOpcoes.addEventListener('click', (e) => {
-        const btn = e.target.closest('button');
-        if (!btn) return;
-
-        const id = btn.dataset.id;
-        const countSpan = document.getElementById(`adicional-count-${id}`);
-        let count = parseInt(countSpan.textContent);
-
-        if (btn.classList.contains('btn-increase-adicional')) {
-            count++;
-        } else if (btn.classList.contains('btn-decrease-adicional') && count > 0) {
-            count--;
-        }
-        countSpan.textContent = count;
-    });
-
-    abrirCarrinhoBtn.addEventListener('click', () => {
-        carrinhoModal.style.display = 'flex';
-        atualizarCarrinho();
-    });
-
-    fecharModalBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            carrinhoModal.style.display = 'none';
-            adicionaisModal.style.display = 'none';
-        });
-    });
-
-    carrinhoModal.addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-remove')) {
-            const itemId = parseInt(e.target.dataset.id);
-            carrinho = carrinho.filter(c => c.item.id !== itemId);
-            atualizarCarrinho();
-            mostrarNotificacao("Item removido do carrinho.");
-        } else if (e.target.classList.contains('btn-increase')) {
-            const itemId = parseInt(e.target.dataset.id);
-            const item = carrinho.find(c => c.item.id === itemId);
-            if (item) {
-                item.quantidade++;
-                atualizarCarrinho();
-            }
-        } else if (e.target.classList.contains('btn-decrease')) {
-            const itemId = parseInt(e.target.dataset.id);
-            const item = carrinho.find(c => c.item.id === itemId);
-            if (item && item.quantidade > 1) {
-                item.quantidade--;
-                atualizarCarrinho();
-            }
-        }
-    });
-
-    finalizarPedidoBtn.addEventListener('click', () => {
-        const mensagem = gerarMensagemPedido();
-        const numeroWhatsapp = "55SEUNUMERODOTELEFONECOMDDD"; // Substitua pelo seu número de telefone
-        const url = `https://api.whatsapp.com/send?phone=${numeroWhatsapp}&text=${mensagem}`;
-        window.open(url, '_blank');
-    });
-
-    hamburgerMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-
-    btnLocalizacao.addEventListener('click', () => {
-        if (navigator.geolocation) {
-            localizacaoStatus.textContent = 'Buscando sua localização...';
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    localizacaoStatus.textContent = 'Localização encontrada!';
-                    const { latitude, longitude } = position.coords;
-                    // Você pode usar um serviço de geocodificação reversa aqui (como Google Maps API, Nominatim, etc.)
-                    // para converter as coordenadas em um endereço. Por enquanto, vamos preencher com um texto de exemplo.
-                    const enderecoExemplo = `Latitude: ${latitude}, Longitude: ${longitude}`;
-                    campoRua.value = enderecoExemplo;
-                    campoNumero.value = 'N/A';
-                    campoBairro.value = 'N/A';
-                },
-                (error) => {
-                    localizacaoStatus.textContent = 'Não foi possível obter a localização. Por favor, preencha manualmente.';
-                    console.error('Erro de geolocalização:', error);
+                const adicional = cardapio.Opcionais.find(op => op.id === id);
+                if (adicional) {
+                    adicionaisSelecionados.push({
+                        ...adicional,
+                        quantidade: quantidade
+                    });
                 }
-            );
-        } else {
-            localizacaoStatus.textContent = 'Geolocalização não é suportada pelo seu navegador.';
-        }
+            }
+        });
+        
+        itemSelecionado.adicionais = adicionaisSelecionados;
+        itemSelecionado.observacao = observacaoItemTextarea.value.trim();
+        
+        carrinho.push(itemSelecionado);
+        atualizarCarrinho();
+        fecharModalAdicionais();
+        mostrarNotificacao(`${itemSelecionado.nome} adicionado com sucesso!`);
     });
 
-    // Inicialização
-    renderizarCardapio();
-    atualizarCarrinho();
+    carrinhoItensContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-remove')) {
+            const index = e.target.getAttribute('data-index');
+            carrinho.splice(index, 1);
+            atualizarCarrinho();
+        }
+    });
+    
+    // Inicia o carregamento do cardápio do arquivo JSON
+    carregarCardapio();
 });

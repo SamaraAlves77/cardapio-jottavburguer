@@ -1,4 +1,4 @@
-/* Importação da fonte (opcional, adicione a sua se desejar) */
+/* Importação da fonte (opcional) */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 :root {
@@ -23,7 +23,7 @@ body {
     line-height: 1.6;
 }
 
-/* --- Header e Navegação --- */
+/* --- Layout Principal (Desktop) --- */
 header {
     background-color: var(--card-background);
     padding: 1rem 2rem;
@@ -95,7 +95,6 @@ header {
     color: var(--secondary-color);
 }
 
-/* --- Seções do Cardápio --- */
 main {
     padding: 2rem;
     max-width: 1200px;
@@ -113,7 +112,6 @@ main {
     margin-bottom: 2rem;
 }
 
-/* --- Grid de Itens (Cards) --- */
 .item-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -173,7 +171,7 @@ main {
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin: 1rem 1rem 0;
+    margin: 1rem;
     border-radius: 8px;
     width: calc(100% - 2rem);
 }
@@ -364,12 +362,41 @@ footer {
     margin-top: 3rem;
 }
 
-/* --- Media Queries (Responsividade) --- */
+/* --- MEDIA QUERIES (RESPONSIVIDADE) --- */
 
-/* Força o layout em telas menores que 768px */
+/* Regras específicas para telas de celular (até 768px) */
 @media (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        background-color: var(--card-background);
+        box-shadow: 0 2px 4px var(--shadow-color);
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .hamburger-menu-btn {
+        display: block;
+    }
+
     main {
-        padding: 0.5rem; /* Reduz o padding para ganhar espaço */
+        padding: 1rem 0.5rem;
     }
 
     .menu-section h2 {
@@ -377,7 +404,7 @@ footer {
         margin-bottom: 1rem;
     }
 
-    /* Otimização dos cards para mobile */
+    /* Cards para mobile, lado a lado */
     .item-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
@@ -385,11 +412,10 @@ footer {
 
     .item-card {
         padding: 0.5rem;
-        text-align: center;
     }
 
     .item-card img {
-        height: 80px; /* Altura menor para a imagem */
+        height: 80px;
     }
 
     .item-card h3 {
@@ -398,22 +424,25 @@ footer {
     }
 
     .item-card p {
-        display: none; /* Esconde a descrição para economizar espaço */
+        display: none;
     }
 
     .item-card .price {
         font-size: 0.9rem;
-        margin: 0.2rem 0 0;
+        margin: 0.2rem 0;
     }
 
     .btn-add {
         padding: 0.4rem;
         font-size: 0.8rem;
-        margin: 0.5rem 0 0;
-        width: 100%; /* Ocupa a largura total dentro do card */
+        margin: 0.5rem 0;
+        width: 100%;
     }
+}
 
-    .modal-content {
-        padding: 1rem;
+/* Telas de tablet (769px a 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .item-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }

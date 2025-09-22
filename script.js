@@ -27,7 +27,29 @@ async function carregarCardapio() {
 // Função para criar uma seção (título da categoria) no HTML
 function criarSecaoCardapio(titulo, itens) {
   // AQUI ESTÁ A CORREÇÃO: Pega a div correta baseada no ID gerado no HTML
-  const container = document.getElementById(titulo.toLowerCase().replace(/ç/g, 'c').replace(/ã/g, 'a').replace(/ú/g, 'u').replace(/\s/g, '-'));
+  let containerId = '';
+  switch(titulo) {
+      case 'Hambúrgueres Artesanais':
+          containerId = 'hamburgueres-artesanais-grid';
+          break;
+      case 'Combos e Família':
+          containerId = 'combos-e-familia-grid';
+          break;
+      case 'Acompanhamentos':
+          containerId = 'acompanhamentos-grid';
+          break;
+      case 'Bebidas':
+          containerId = 'bebidas-grid';
+          break;
+      case 'Adicionais':
+          containerId = 'adicionais-grid';
+          break;
+      default:
+          console.warn(`Categoria desconhecida: ${titulo}`);
+          return;
+  }
+  
+  const container = document.getElementById(containerId);
 
   // Se o contêiner não for encontrado, não faz nada
   if (!container) {

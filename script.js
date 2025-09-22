@@ -1,9 +1,14 @@
 // A função principal que carrega e exibe os dados do cardápio
 async function carregarCardapio() {
   try {
-    // A linha mais importante: faz a "amarração" (conexão) entre o JS e o JSON.
-    // É fundamental que o arquivo 'cardapio.json' esteja na mesma pasta que 'index.html' e 'script.js'.
+    // Faz a requisição para o arquivo JSON
     const response = await fetch('./cardapio.json');
+    
+    // Verifica se a requisição foi bem-sucedida
+    if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+    }
+    
     const cardapioData = await response.json();
 
     // Itera sobre cada categoria no JSON e cria a seção correspondente na página
@@ -21,26 +26,20 @@ async function carregarCardapio() {
 
 // Função para criar uma seção (título da categoria) no HTML
 function criarSecaoCardapio(titulo, itens) {
-  const container = document.getElementById('cardapio-container');
+  // AQUI ESTÁ A CORREÇÃO: Pega a div correta baseada no ID gerado no HTML
+  const container = document.getElementById(titulo.toLowerCase().replace(/ç/g, 'c').replace(/ã/g, 'a').replace(/ú/g, 'u').replace(/\s/g, '-'));
 
-  const secao = document.createElement('section');
-  secao.className = 'cardapio-section';
+  // Se o contêiner não for encontrado, não faz nada
+  if (!container) {
+    console.error(`Contêiner não encontrado para a categoria: ${titulo}`);
+    return;
+  }
 
-  const tituloSecao = document.createElement('h2');
-  tituloSecao.textContent = titulo;
-  secao.appendChild(tituloSecao);
-
-  const listaItens = document.createElement('div');
-  listaItens.className = 'item-list';
-
-  // Chama a função para criar os itens dentro da seção
+  // Cria os itens e adiciona ao contêiner correto
   itens.forEach(item => {
     const itemElemento = criarItemCardapio(item);
-    listaItens.appendChild(itemElemento);
+    container.appendChild(itemElemento);
   });
-
-  secao.appendChild(listaItens);
-  container.appendChild(secao);
 }
 
 // Função para criar cada item individual do cardápio
@@ -49,7 +48,8 @@ function criarItemCardapio(item) {
   divItem.className = 'item-card';
 
   const img = document.createElement('img');
-  img.src = `imagens/${item.imagem}`;
+  // CORREÇÃO: A rota da imagem foi ajustada para a pasta 'imagem_cardapio'
+  img.src = `imagem_cardapio/${item.imagem}`;
   img.alt = item.nome;
   divItem.appendChild(img);
 
@@ -57,14 +57,22 @@ function criarItemCardapio(item) {
   h3.textContent = item.nome;
   divItem.appendChild(h3);
 
-  const pDescricao = document.createElement('p');
-  pDescricao.textContent = item.descricao;
-  divItem.appendChild(pDescricao);
+  // Adiciona a descrição apenas se ela existir no JSON
+  if (item.descricao) {
+      const pDescricao = document.createElement('p');
+      pDescricao.textContent = item.descricao;
+      divItem.appendChild(pDescricao);
+  }
 
   const pPreco = document.createElement('p');
   pPreco.className = 'price';
   pPreco.textContent = `R$ ${item.preco.toFixed(2).replace('.', ',')}`;
   divItem.appendChild(pPreco);
+
+  const btnAdicionar = document.createElement('button');
+  btnAdicionar.className = 'btn-add';
+  btnAdicionar.textContent = 'Adicionar';
+  divItem.appendChild(btnAdicionar);
 
   return divItem;
 }

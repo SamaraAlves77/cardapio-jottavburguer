@@ -1,3 +1,6 @@
+// array para armazenar os itens do carrinho
+let carrinho = [];
+
 // A função principal que carrega e exibe os dados do cardápio
 async function carregarCardapio() {
   try {
@@ -93,12 +96,9 @@ function criarItemCardapio(item) {
   btnAdicionar.className = 'btn-add';
   btnAdicionar.textContent = 'Adicionar';
   
-  // AQUI ESTÁ A CORREÇÃO: Adiciona o evento de clique ao botão
+  // AQUI ESTÁ A CORREÇÃO: Adiciona o item ao carrinho e atualiza o contador
   btnAdicionar.addEventListener('click', () => {
-    // A ação do botão. Por enquanto, vamos exibir um alerta simples
-    alert(`${item.nome} foi adicionado ao carrinho!`);
-    console.log('Item adicionado:', item);
-    // Aqui você adicionaria a lógica para adicionar o item a um carrinho de compras real
+    adicionarAoCarrinho(item);
   });
   
   divItem.appendChild(btnAdicionar);
@@ -106,5 +106,24 @@ function criarItemCardapio(item) {
   return divItem;
 }
 
-// Inicia o carregamento do cardápio quando a página é carregada
-document.addEventListener('DOMContentLoaded', carregarCardapio);
+// Função para adicionar o item ao carrinho e atualizar o contador
+function adicionarAoCarrinho(item) {
+  carrinho.push(item);
+  // Por enquanto, apenas atualizamos o console e o contador de itens no carrinho
+  console.log('Item adicionado ao carrinho:', item);
+  atualizarContadorCarrinho();
+}
+
+// Função para atualizar o contador visual do carrinho (ícone)
+function atualizarContadorCarrinho() {
+  const contadorElemento = document.getElementById('cart-count');
+  if (contadorElemento) {
+    contadorElemento.textContent = carrinho.length;
+  }
+}
+
+// Inicia o carregamento do cardápio quando a página é completamente carregada
+document.addEventListener('DOMContentLoaded', () => {
+  carregarCardapio();
+  atualizarContadorCarrinho(); // Garante que o contador comece em 0
+});

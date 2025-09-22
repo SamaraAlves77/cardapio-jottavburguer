@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         try {
-            const response = await fetch('cardapio.json');
+            const response = await fetch('imagem_cardapio/cardapio.json');
             if (!response.ok) {
                 throw new Error(`Erro ao carregar o cardápio: ${response.status} ${response.statusText}`);
             }

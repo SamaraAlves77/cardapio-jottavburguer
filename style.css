@@ -33,31 +33,49 @@ header {
     height: 50px;
 }
 
+nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-}
-
-nav ul li {
-    margin-right: 20px;
+    display: flex; /* Garante que os itens do menu fiquem em linha */
+    gap: 25px;
 }
 
 nav a {
     text-decoration: none;
     color: #333;
     font-weight: 700;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.cart {
+nav a:hover {
+    background-color: #d9534f;
+    color: #fff;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.carrinho-btn {
     position: relative;
     cursor: pointer;
-}
-
-.cart-icon {
-    height: 30px;
-    color: #d9534f;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #333;
+    display: flex;
+    align-items: center;
 }
 
 .cart-count {
@@ -69,6 +87,15 @@ nav a {
     border-radius: 50%;
     padding: 2px 6px;
     font-size: 12px;
+}
+
+.hamburger-menu-btn {
+    display: none; /* Oculta o botão de hambúrguer por padrão em telas grandes */
+    font-size: 1.5em;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #333;
 }
 
 /* Seções do cardápio */
@@ -168,7 +195,7 @@ nav a {
     height: 70vh;
     background: url('imagem_cardapio/jottaV_burguer.png') no-repeat center center/cover;
     color: #fff;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-content {
@@ -204,36 +231,44 @@ nav a {
 /* Footer */
 footer {
     text-align: center;
-    padding: 20px;
+    padding: 30px 20px;
     background-color: #222;
     color: #fff;
     margin-top: 40px;
 }
-/* Estilos para o menu hambúrguer em dispositivos móveis */
-.nav-menu {
+
+.footer-content {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    background-color: #fff;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    gap: 15px;
 }
 
-.nav-menu.active {
+.social-links {
     display: flex;
-}
-
-.hamburger-menu-btn {
-    display: none;
+    gap: 15px;
     font-size: 1.5em;
-    cursor: pointer;
-    background: none;
-    border: none;
-    color: #333;
 }
 
+.social-link {
+    color: #fff;
+    transition: color 0.2s;
+}
+
+.social-link:hover {
+    color: #d9534f;
+}
+
+.footer-info {
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.footer-info p {
+    margin: 5px 0;
+}
+
+/* Estilos para o menu hambúrguer em dispositivos móveis */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -242,7 +277,20 @@ footer {
     .hamburger-menu-btn {
         display: block;
     }
+
+    .nav-menu.active .nav-links {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
 }
+
 /* Estilos para o modal do carrinho */
 .modal {
     display: flex;
@@ -254,7 +302,7 @@ footer {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.4s;

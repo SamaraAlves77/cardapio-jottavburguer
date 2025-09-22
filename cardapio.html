@@ -22,7 +22,6 @@
                 <li><a href="#combos-e-familia">Combos e Família</a></li>
                 <li><a href="#acompanhamentos">Acompanhamentos</a></li>
                 <li><a href="#bebidas">Bebidas</a></li>
-                <li><a href="#adicionais">Adicionais</a></li>
             </ul>
         </nav>
         <div class="header-actions">
@@ -56,16 +55,20 @@
             <h2>Bebidas</h2>
             <div class="item-grid" id="bebidas-grid"></div>
         </section>
-
-        <section id="adicionais" class="menu-section">
-            <h2>Adicionais</h2>
-            <div class="item-grid" id="adicionais-grid"></div>
-        </section>
     </main>
-
+    
+    <div id="adicionais-modal" class="modal">
+        <div class="modal-content">
+            <span class="fechar-modal fechar-adicionais">&times;</span>
+            <h3>Adicionais (Opcional)</h3>
+            <div class="adicionais-grid" id="adicionais-grid"></div>
+            <button id="btn-adicionar-com-adicionais">Adicionar ao Carrinho</button>
+            <button id="btn-cancelar-adicionais">Cancelar</button>
+        </div>
+    </div>
     <div id="carrinho-modal" class="modal">
         <div class="modal-content">
-            <span class="fechar-modal">&times;</span>
+            <span class="fechar-modal fechar-carrinho">&times;</span>
             <h3>Seu Pedido</h3>
             <div class="carrinho-itens" id="carrinho-itens"></div>
             <div class="carrinho-total">

@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const carrinhoModal = document.getElementById('carrinho-modal');
     const fecharModal = document.querySelector('.fechar-modal');
     const hamburgueresGrid = document.getElementById('hamburgueres-grid');
+    const combosGrid = document.getElementById('combos-grid');
+    const acompanhamentosGrid = document.getElementById('acompanhamentos-grid');
+    const bebidasGrid = document.getElementById('bebidas-grid');
     const carrinhoItensContainer = document.getElementById('carrinho-itens');
     const carrinhoTotalSpan = document.getElementById('carrinho-total');
     const contadorCarrinho = document.getElementById('contador-carrinho');
@@ -20,6 +23,18 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 4, nome: 'Duplo Chese', preco: 28.00, imagem: 'imagem_cardapio/duplo_chese.jpg', descricao: 'Pão de brioche, 2 blends de 120g, 2x queijo cheddar e maionese artesanal.' },
             { id: 5, nome: 'Duplo Bacon', preco: 32.00, imagem: 'imagem_cardapio/duplo_bacon.jpg', descricao: 'Pão de brioche, 2 blends de 120g, 2x queijo cheddar, bacon e maionese artesanal.' },
             { id: 6, nome: 'Especial', preco: 35.00, imagem: 'imagem_cardapio/especial.jpg', descricao: 'Pão de brioche, 2 blends de 120g, bacon, queijo mussarela, alface, tomate e maionese especial.' }
+        ],
+        combos: [
+            { id: 7, nome: 'Combo Econômico', preco: 24.99, imagem: 'imagem_cardapio/combo_economico.jpg', descricao: 'Smash Original + batata frita + refrigerante lata.' },
+            { id: 8, nome: 'Combo do Chef', preco: 40.99, imagem: 'imagem_cardapio/combo_do_chef.jpg', descricao: 'Jotta Classic + batata frita + refrigerante 1L.' }
+        ],
+        acompanhamentos: [
+            { id: 9, nome: 'Batata Frita', preco: 12.00, imagem: 'imagem_cardapio/batata_frita.jpg', descricao: 'Batata frita palito, crocante e sequinha.' },
+            { id: 10, nome: 'Batata Cheddar e Bacon', preco: 18.00, imagem: 'imagem_cardapio/batata_cheddar_e_bacon.jpg', descricao: 'Batata coberta com cheddar cremoso e bacon crocante.' }
+        ],
+        bebidas: [
+            { id: 11, nome: 'Refrigerante Lata', preco: 7.00, imagem: 'imagem_cardapio/refrigerante_lata.jpg', descricao: 'Coca-Cola, Guaraná, Fanta.' },
+            { id: 12, nome: 'Refrigerante 1L', preco: 10.00, imagem: 'imagem_cardapio/refrigerante_1l.jpg', descricao: 'Coca-Cola, Guaraná, Fanta.' }
         ]
     };
 
@@ -27,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return preco.toFixed(2).replace('.', ',');
     }
 
-    function renderizarProdutos() {
-        hamburgueresGrid.innerHTML = '';
-        produtos.hamburgueres.forEach(produto => {
+    function renderizarProdutos(secao, gridElement) {
+        gridElement.innerHTML = '';
+        produtos[secao].forEach(produto => {
             const card = document.createElement('div');
             card.classList.add('item-card');
             card.innerHTML = `
@@ -37,9 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3>${produto.nome}</h3>
                 <p>${produto.descricao}</p>
                 <span class="price">R$ ${formatarPreco(produto.preco)}</span>
-                <button class="btn-add" data-id="${produto.id}">Adicionar</button>
+                <button class="btn-add" data-id="${produto.id}" data-secao="${secao}">Adicionar</button>
             `;
-            hamburgueresGrid.appendChild(card);
+            gridElement.appendChild(card);
         });
     }
 
@@ -65,8 +80,16 @@ document.addEventListener('DOMContentLoaded', () => {
         contadorCarrinho.textContent = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
     }
 
-    function adicionarAoCarrinho(produtoId) {
-        const produto = produtos.hamburgueres.find(p => p.id === produtoId);
+    function adicionarAoCarrinho(produtoId, secao) {
+        let produto;
+        // Encontra o produto na seção correta
+        if (secao === 'hamburgueres') produto = produtos.hamburgueres.find(p => p.id === produtoId);
+        else if (secao === 'combos') produto = produtos.combos.find(p => p.id === produtoId);
+        else if (secao === 'acompanhamentos') produto = produtos.acompanhamentos.find(p => p.id === produtoId);
+        else if (secao === 'bebidas') produto = produtos.bebidas.find(p => p.id === produtoId);
+        
+        if (!produto) return;
+
         const itemExistente = carrinho.find(item => item.id === produtoId);
 
         if (itemExistente) {
@@ -92,10 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event Listeners
-    hamburgueresGrid.addEventListener('click', (e) => {
+    document.body.addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-add')) {
             const produtoId = parseInt(e.target.dataset.id);
-            adicionarAoCarrinho(produtoId);
+            const secao = e.target.dataset.secao;
+            adicionarAoCarrinho(produtoId, secao);
         }
     });
 
@@ -125,5 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Iniciar a aplicação
-    renderizarProdutos();
+    renderizarProdutos('hamburgueres', hamburgueresGrid);
+    renderizarProdutos('combos', combosGrid);
+    renderizarProdutos('acompanhamentos', acompanhamentosGrid);
+    renderizarProdutos('bebidas', bebidasGrid);
 });

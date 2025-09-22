@@ -24,18 +24,7 @@ body {
     line-height: 1.6;
 }
 
-/* --- ESTILOS GERAIS --- */
-h1, h2, h3 {
-    color: var(--primary-color);
-    text-align: center;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* --- PÁGINA DE ENTRADA (index.html) --- */
+/* --- ESTILOS PÁGINA DE ENTRADA (index.html) --- */
 .landing-page-container {
     display: flex;
     justify-content: center;
@@ -107,7 +96,7 @@ a {
     color: white;
 }
 
-/* --- PÁGINA DO CARDÁPIO (cardapio.html) --- */
+/* --- ESTILOS PÁGINA DO CARDÁPIO (cardapio.html) --- */
 header {
     background-color: var(--card-background);
     padding: 1rem 2rem;

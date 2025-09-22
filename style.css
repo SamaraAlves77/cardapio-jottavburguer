@@ -19,7 +19,7 @@ body {
 /* Header */
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Mantém o espaçamento entre os elementos */
     align-items: center;
     padding: 15px 20px;
     background-color: #fff;
@@ -33,14 +33,14 @@ header {
     height: 50px;
 }
 
-/* Navegação e links */
-nav {
-    flex-grow: 1; /* Permite que o menu ocupe o espaço disponível */
+/* Navegação e links (agora centralizados) */
+.nav-menu {
+    flex-grow: 1; /* Permite que o menu ocupe o espaço central */
     display: flex;
-    justify-content: center; /* Centraliza os links de navegação */
+    justify-content: center; /* Centraliza os links dentro do seu próprio container */
 }
 
-nav ul {
+.nav-links {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -48,7 +48,7 @@ nav ul {
     gap: 25px; /* Adiciona espaçamento entre os links */
 }
 
-nav a {
+.nav-links li a {
     text-decoration: none;
     color: #333;
     font-weight: 700;
@@ -57,7 +57,7 @@ nav a {
     transition: background-color 0.3s, color 0.3s;
 }
 
-nav a:hover {
+.nav-links li a:hover {
     background-color: #d9534f; /* Cor de destaque ao passar o mouse */
     color: #fff;
 }
@@ -76,6 +76,8 @@ nav a:hover {
     border: none;
     font-size: 1.5em;
     color: #333;
+    display: flex; /* Adicionado para alinhar o ícone e o contador */
+    align-items: center;
 }
 
 .cart-count {

@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderizarMenu() {
         if (!menuData) return;
         
-        // Renderiza cada seção individualmente
         for (const categoria in menuData) {
             if (menuData.hasOwnProperty(categoria)) {
                 criarSecaoCardapio(categoria, menuData[categoria]);

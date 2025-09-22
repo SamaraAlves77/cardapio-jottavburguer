@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio - JottaV Burguer</title>
+    <title>JottaV Burguer - Cardápio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -11,65 +11,141 @@
 
     <header>
         <div class="logo">
-            <img src="imagem_cardapio/jottaV_burguer.png" alt="Logo JottaV Burguer">
+            <a href="index.html">
+                <img src="imagem_cardapio/jottaV_burguer.png" alt="Logo JottaV Burguer">
+            </a>
         </div>
-        <nav class="nav-menu" id="nav-menu">
+        <nav class="nav-menu">
             <ul class="nav-links">
-                <li><a href="#hamburgueres-artesanais">Hambúrgueres</a></li>
-                <li><a href="#combos-e-familia">Combos e Família</a></li>
-                <li><a href="#acompanhamentos">Acompanhamentos</a></li>
-                <li><a href="#bebidas">Bebidas</a></li>
-                <li><a href="#adicionais">Adicionais</a></li>
+                <li><a href="cardapio.html">Hambúrgueres</a></li>
+                <li><a href="#">Combos e Família</a></li>
+                <li><a href="#">Acompanhamentos</a></li>
+                <li><a href="#">Bebidas</a></li>
+                <li><a href="#">Adicionais</a></li>
             </ul>
         </nav>
         <div class="header-actions">
-            <button class="carrinho-btn" id="carrinho-btn">
+            <button class="carrinho-btn" onclick="abrirModal()">
                 <i class="fas fa-shopping-cart"></i>
                 <span id="cart-count">0</span>
             </button>
-            <button class="hamburger-menu-btn" id="hamburger-menu-btn">
+            <button class="hamburger-menu-btn" onclick="toggleMenu()">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </header>
 
     <main>
-        <section id="hamburgueres-artesanais" class="menu-section">
+        <section class="menu-section">
             <h2>Hambúrgueres Artesanais</h2>
-            <div class="item-grid" id="hamburgueres-artesanais-grid"></div>
-        </section>
+            <div class="item-grid">
+                
+                <div class="item-card" data-id="1">
+                    <img src="imagem_cardapio/smash_original.jpeg" alt="Smash Original">
+                    <div class="item-card-content">
+                        <h3>Smash Original</h3>
+                        <p>Pão, carne 80g prensada na chapa, queijo muçarela, cebola caramelizada, alface, tomate e molho da casa.</p>
+                        <span class="price">R$ 18,99</span>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
 
-        <section id="combos-e-familia" class="menu-section">
-            <h2>Combos e Família</h2>
-            <div class="item-grid" id="combos-e-familia-grid"></div>
-        </section>
+                <div class="item-card" data-id="2">
+                    <img src="imagem_cardapio/smash_duplo.jpeg" alt="Smash Duplo">
+                    <div class="item-card-content">
+                        <h3>Smash Duplo</h3>
+                        <p>Pão, 2 carnes 80g prensadas na chapa, 2 queijos muçarela, cebola caramelizada, alface, tomate e molho da casa.</p>
+                        <span class="price">R$ 24,99</span>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
 
-        <section id="acompanhamentos" class="menu-section">
-            <h2>Acompanhamentos</h2>
-            <div class="item-grid" id="acompanhamentos-grid"></div>
-        </section>
+                <div class="item-card" data-id="3">
+                    <img src="imagem_cardapio/jotta_basic.jpeg" alt="Jotta Básico">
+                    <div class="item-card-content">
+                        <h3>Jotta Básico</h3>
+                        <p>Pão, carne 120g prensada na chapa com cebola, queijo muçarela e molho da casa.</p>
+                        <span class="price">R$ 14,99</span>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
 
-        <section id="bebidas" class="menu-section">
-            <h2>Bebidas</h2>
-            <div class="item-grid" id="bebidas-grid"></div>
-        </section>
+                <div class="item-card" data-id="4">
+                    <img src="imagem_cardapio/jotta_classic.jpeg" alt="Jotta Classic">
+                    <div class="item-card-content">
+                        <h3>Jotta Classic</h3>
+                        <p>Pão, carne 120g, molho barbecue, tomate, alface, bacon e queijo muçarela.</p>
+                        <span class="price">R$ 25,99</span>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
 
-        <section id="adicionais" class="menu-section">
-            <h2>Adicionais</h2>
-            <div class="item-grid" id="adicionais-grid"></div>
+                <div class="item-card" data-id="5">
+                    <img src="imagem_cardapio/burguer_do_xerife.jpeg" alt="Burguer do Xerife">
+                    <div class="item-card-content">
+                        <h3>Burguer do Xerife</h3>
+                        <p>Pão, carne de 120g, do queijo muçarela ou requeijão e linguiça. </p>
+                        <span class="price">R$ 22,99</span>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
+
+                <div class="item-card" data-id="6">
+                    <img src="imagem_cardapio/duplo_brutao.jpeg" alt="Duplo Brutão">
+                    <div class="item-card-content">
+                        <h3>Duplo Brutão</h3>
+                        <p>Pão, 2 carnes, queijo, bacon, alface, tomate, calabresa e batata palha.</p>
+                        <span class="price">R$ 37,99</span>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
+                
+                <div class="item-card" data-id="7">
+                    <img src="imagem_cardapio/combo_economico_casal_smash.jpeg" alt="Combo Econômico Casal Smash">
+                    <div class="item-card-content">
+                        <h3>Combo Econômico Casal Smash</h3>
+                        <p>2x Smashs Originais + Batata + 2x Refrigerantes Lata.</p>
+                        <span class="price">R$ 26,99</span>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
+
+                <div class="item-card" data-id="8">
+                    <img src="imagem_cardapio/calabresa_basico.jpeg" alt="Calabresa Básica">
+                    <div class="item-card-content">
+                        <h3>Calabresa Básica</h3>
+                        <p>Pão, carne 120g, calabresa, queijo muçarela e molho da casa.</p>
+                        <span class="price">R$ 28,99</span>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
+                
+            </div>
         </section>
     </main>
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div class="footer-info">
+                <p>&copy; 2024 JottaV Burguer. Todos os direitos reservados.</p>
+                <p>Desenvolvido com <i class="fas fa-heart" style="color: #e53935;"></i> por <a href="https://github.com/samaraalves77" target="_blank" style="color: #fff;">Samara Alves</a></p>
+            </div>
+        </div>
+    </footer>
 
     <div id="carrinho-modal" class="modal">
         <div class="modal-content">
-            <span class="fechar-modal">×</span>
-            <h3>Seu Pedido</h3>
-            <div class="carrinho-itens" id="carrinho-itens"></div>
+            <span class="fechar-modal" onclick="fecharModal()">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <div class="carrinho-itens" id="carrinho-itens">
+                </div>
             <div class="carrinho-total">
-                Total: R$ <span id="carrinho-total">0.00</span>
+                <p>Total: R$ <span id="carrinho-total-valor">0.00</span></p>
             </div>
             <div class="carrinho-finalizar">
-                <button id="btn-localizacao" class="btn-location">Adicionar Localização</button>
                 <input type="text" id="nome-cliente" placeholder="Seu nome">
                 <input type="text" id="endereco-cliente" placeholder="Seu endereço">
                 <input type="text" id="telefone-cliente" placeholder="Seu telefone">
@@ -79,21 +155,8 @@
     </div>
     
     <div id="notificacao" class="notificacao">
-        Item adicionado ao carrinho!
+        <p>Item adicionado ao carrinho!</p>
     </div>
-
-    <footer>
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-            </div>
-            <div class="footer-info">
-                <p>JottaV Burguer &copy; 2024. Todos os direitos reservados.</p>
-                <p>Feito com paixão em Parnaíba - PI</p>
-            </div>
-        </div>
-    </footer>
 
     <script src="script.js"></script>
 </body>

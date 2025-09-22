@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.add('item-card');
                 card.setAttribute('data-item-id', item.id);
                 
-                // Usa a imagem do item ou um placeholder se não existir
-                const imagemSrc = `imagens/${item.imagem}`; 
+                // O caminho da imagem agora aponta para a nova pasta
+                const imagemSrc = `imagem_cardapio/${item.imagem}`; 
                 card.innerHTML = `
                     <img src="${imagemSrc}" alt="${item.nome}" onerror="this.onerror=null;this.src='https://via.placeholder.com/150';">
                     <h3>${item.nome}</h3>
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             li.setAttribute('data-adicional-id', adicional.id);
             li.innerHTML = `
                 <div class="adicional-info">
-                    <img src="imagens/${adicional.imagem}" alt="${adicional.nome}" onerror="this.onerror=null;this.src='https://via.placeholder.com/50';">
+                    <img src="imagem_cardapio/${adicional.imagem}" alt="${adicional.nome}" onerror="this.onerror=null;this.src='https://via.placeholder.com/50';">
                     <div>
                         <span>${adicional.nome}</span>
                         <span>R$ ${adicional.preco.toFixed(2).replace('.', ',')}</span>

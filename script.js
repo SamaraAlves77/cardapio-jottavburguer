@@ -1,142 +1,73 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const carrinhoBtn = document.getElementById('carrinho-btn');
-    const carrinhoModal = document.getElementById('carrinho-modal');
-    const fecharModal = document.querySelector('.fechar-modal');
-    const contadorCarrinho = document.getElementById('contador-carrinho');
-    const notificacao = document.getElementById('notificacao');
-    const hamburgerMenuBtn = document.getElementById('hamburger-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    const carrinhoItensContainer = document.getElementById('carrinho-itens');
-    const carrinhoTotalSpan = document.getElementById('carrinho-total');
+// A função principal que carrega e exibe os dados do cardápio
+async function carregarCardapio() {
+  try {
+    // A linha mais importante: faz a "amarração" (conexão) entre o JS e o JSON.
+    // É fundamental que o arquivo 'cardapio.json' esteja na mesma pasta que 'index.html' e 'script.js'.
+    const response = await fetch('./cardapio.json');
+    const cardapioData = await response.json();
 
-    let carrinho = [];
-    let produtos = {}; // Agora será preenchido pelo JSON
-
-    function formatarPreco(preco) {
-        return preco.toFixed(2).replace('.', ',');
+    // Itera sobre cada categoria no JSON e cria a seção correspondente na página
+    for (const categoria in cardapioData) {
+      if (cardapioData.hasOwnProperty(categoria)) {
+        criarSecaoCardapio(categoria, cardapioData[categoria]);
+      }
     }
+  } catch (error) {
+    console.error('Erro ao carregar o cardápio:', error);
+    // Adiciona uma mensagem de erro na página para o usuário
+    document.body.innerHTML = `<h1>Erro ao carregar o cardápio. Tente novamente mais tarde.</h1>`;
+  }
+}
 
-    function renderizarProdutos(secao) {
-        const gridElement = document.getElementById(secao.toLowerCase().replace(/[\s\u00C0-\u00FF]/g, '-') + '-grid');
-        gridElement.innerHTML = '';
-        if (produtos[secao]) {
-            produtos[secao].forEach(produto => {
-                const card = document.createElement('div');
-                card.classList.add('item-card');
-                card.innerHTML = `
-                    <img src="imagem_cardapio/${produto.imagem}" alt="${produto.nome}">
-                    <h3>${produto.nome}</h3>
-                    <p>${produto.descricao || ''}</p>
-                    <span class="price">R$ ${formatarPreco(produto.preco)}</span>
-                    <button class="btn-add" data-id="${produto.id}" data-secao="${secao}">Adicionar</button>
-                `;
-                gridElement.appendChild(card);
-            });
-        }
-    }
+// Função para criar uma seção (título da categoria) no HTML
+function criarSecaoCardapio(titulo, itens) {
+  const container = document.getElementById('cardapio-container');
 
-    function atualizarCarrinhoModal() {
-        carrinhoItensContainer.innerHTML = '';
-        let total = 0;
-        if (carrinho.length === 0) {
-            carrinhoItensContainer.innerHTML = '<p>Seu carrinho está vazio.</p>';
-        } else {
-            carrinho.forEach(item => {
-                total += item.preco * item.quantidade;
-                const itemDiv = document.createElement('div');
-                itemDiv.classList.add('carrinho-item');
-                itemDiv.innerHTML = `
-                    <span>${item.nome} (x${item.quantidade})</span>
-                    <span>R$ ${formatarPreco(item.preco * item.quantidade)}</span>
-                    <button class="btn-remove" data-id="${item.id}">&times;</button>
-                `;
-                carrinhoItensContainer.appendChild(itemDiv);
-            });
-        }
-        carrinhoTotalSpan.textContent = formatarPreco(total);
-        contadorCarrinho.textContent = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
-    }
+  const secao = document.createElement('section');
+  secao.className = 'cardapio-section';
 
-    function adicionarAoCarrinho(produtoId, secao) {
-        const produto = produtos[secao].find(p => p.id === produtoId);
-        if (!produto) return;
+  const tituloSecao = document.createElement('h2');
+  tituloSecao.textContent = titulo;
+  secao.appendChild(tituloSecao);
 
-        const itemExistente = carrinho.find(item => item.id === produtoId);
+  const listaItens = document.createElement('div');
+  listaItens.className = 'item-list';
 
-        if (itemExistente) {
-            itemExistente.quantidade++;
-        } else {
-            carrinho.push({ ...produto, quantidade: 1 });
-        }
+  // Chama a função para criar os itens dentro da seção
+  itens.forEach(item => {
+    const itemElemento = criarItemCardapio(item);
+    listaItens.appendChild(itemElemento);
+  });
 
-        mostrarNotificacao();
-        atualizarCarrinhoModal();
-    }
+  secao.appendChild(listaItens);
+  container.appendChild(secao);
+}
 
-    function removerDoCarrinho(produtoId) {
-        carrinho = carrinho.filter(item => item.id !== produtoId);
-        atualizarCarrinhoModal();
-    }
+// Função para criar cada item individual do cardápio
+function criarItemCardapio(item) {
+  const divItem = document.createElement('div');
+  divItem.className = 'item-card';
 
-    function mostrarNotificacao() {
-        notificacao.classList.add('show');
-        setTimeout(() => {
-            notificacao.classList.remove('show');
-        }, 3000);
-    }
+  const img = document.createElement('img');
+  img.src = `imagens/${item.imagem}`;
+  img.alt = item.nome;
+  divItem.appendChild(img);
 
-    // Event Listeners
-    document.body.addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-add')) {
-            const produtoId = parseInt(e.target.dataset.id);
-            const secao = e.target.dataset.secao;
-            adicionarAoCarrinho(produtoId, secao);
-        }
-    });
+  const h3 = document.createElement('h3');
+  h3.textContent = item.nome;
+  divItem.appendChild(h3);
 
-    carrinhoItensContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-remove')) {
-            const produtoId = parseInt(e.target.dataset.id);
-            removerDoCarrinho(produtoId);
-        }
-    });
+  const pDescricao = document.createElement('p');
+  pDescricao.textContent = item.descricao;
+  divItem.appendChild(pDescricao);
 
-    carrinhoBtn.addEventListener('click', () => {
-        carrinhoModal.style.display = 'flex';
-    });
+  const pPreco = document.createElement('p');
+  pPreco.className = 'price';
+  pPreco.textContent = `R$ ${item.preco.toFixed(2).replace('.', ',')}`;
+  divItem.appendChild(pPreco);
 
-    fecharModal.addEventListener('click', () => {
-        carrinhoModal.style.display = 'none';
-    });
+  return divItem;
+}
 
-    window.addEventListener('click', (e) => {
-        if (e.target === carrinhoModal) {
-            carrinhoModal.style.display = 'none';
-        }
-    });
-
-    hamburgerMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-
-    // Iniciar a aplicação
-    async function carregarProdutos() {
-        try {
-            const response = await fetch('imagem_cardapio/cardapio.json');
-            if (!response.ok) {
-                throw new Error('Não foi possível carregar o cardápio.');
-            }
-            produtos = await response.json();
-            
-            Object.keys(produtos).forEach(secao => {
-                renderizarProdutos(secao);
-            });
-
-        } catch (error) {
-            console.error('Erro ao carregar os dados:', error);
-            document.querySelector('main').innerHTML = '<p style="text-align: center; margin-top: 50px; font-size: 1.2rem;">Erro ao carregar os produtos. Por favor, verifique se o arquivo cardapio.json está na pasta correta.</p>';
-        }
-    }
-
-    carregarProdutos();
-});
+// Inicia o carregamento do cardápio quando a página é carregada
+document.addEventListener('DOMContentLoaded', carregarCardapio);

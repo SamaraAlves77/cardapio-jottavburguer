@@ -1,20 +1,44 @@
 // Array para armazenar os itens do carrinho
 let carrinho = [];
 
+// Funções para o modal do carrinho
+const modal = document.getElementById('carrinho-modal');
+const btnCarrinho = document.getElementById('carrinho-btn');
+const spanFechar = document.getElementsByClassName('fechar-modal')[0];
+
+btnCarrinho.onclick = function() {
+    modal.style.display = 'block';
+    exibirItensCarrinho();
+}
+
+spanFechar.onclick = function() {
+    modal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Funcionalidade do menu hambúrguer
+document.getElementById('hamburger-menu-btn').addEventListener('click', function() {
+    const navMenu = document.getElementById('nav-menu');
+    navMenu.classList.toggle('active');
+});
+
+
 // A função principal que carrega e exibe os dados do cardápio
 async function carregarCardapio() {
   try {
-    // Faz a requisição para o arquivo JSON
     const response = await fetch('./cardapio.json');
     
-    // Verifica se a requisição foi bem-sucedida
     if (!response.ok) {
         throw new Error(`Erro HTTP: ${response.status}`);
     }
     
     const cardapioData = await response.json();
 
-    // Itera sobre cada categoria no JSON e cria a seção correspondente na página
     for (const categoria in cardapioData) {
       if (cardapioData.hasOwnProperty(categoria)) {
         criarSecaoCardapio(categoria, cardapioData[categoria]);
@@ -22,12 +46,10 @@ async function carregarCardapio() {
     }
   } catch (error) {
     console.error('Erro ao carregar o cardápio:', error);
-    // Adiciona uma mensagem de erro na página para o usuário
     document.body.innerHTML = `<h1>Erro ao carregar o cardápio. Tente novamente mais tarde.</h1>`;
   }
 }
 
-// Função para criar uma seção (título da categoria) no HTML
 function criarSecaoCardapio(titulo, itens) {
   let containerId = '';
   switch(titulo) {
@@ -53,20 +75,17 @@ function criarSecaoCardapio(titulo, itens) {
   
   const container = document.getElementById(containerId);
 
-  // Se o contêiner não for encontrado, não faz nada
   if (!container) {
     console.error(`Contêiner não encontrado para a categoria: ${titulo}`);
     return;
   }
 
-  // Cria os itens e adiciona ao contêiner correto
   itens.forEach(item => {
     const itemElemento = criarItemCardapio(item);
     container.appendChild(itemElemento);
   });
 }
 
-// Função para criar cada item individual do cardápio
 function criarItemCardapio(item) {
   const divItem = document.createElement('div');
   divItem.className = 'item-card';
@@ -80,7 +99,6 @@ function criarItemCardapio(item) {
   h3.textContent = item.nome;
   divItem.appendChild(h3);
 
-  // Adiciona a descrição apenas se ela existir no JSON
   if (item.descricao) {
       const pDescricao = document.createElement('p');
       pDescricao.textContent = item.descricao;
@@ -96,7 +114,6 @@ function criarItemCardapio(item) {
   btnAdicionar.className = 'btn-add';
   btnAdicionar.textContent = 'Adicionar';
   
-  // AQUI ESTÁ A CORREÇÃO: Adiciona o item ao carrinho e atualiza o contador
   btnAdicionar.addEventListener('click', () => {
     adicionarAoCarrinho(item);
   });
@@ -106,14 +123,13 @@ function criarItemCardapio(item) {
   return divItem;
 }
 
-// Função para adicionar o item ao carrinho e atualizar o contador
 function adicionarAoCarrinho(item) {
   carrinho.push(item);
   console.log('Item adicionado ao carrinho:', item);
   atualizarContadorCarrinho();
+  exibirNotificacao();
 }
 
-// Função para atualizar o contador visual do carrinho (ícone)
 function atualizarContadorCarrinho() {
   const contadorElemento = document.getElementById('cart-count');
   if (contadorElemento) {
@@ -121,7 +137,51 @@ function atualizarContadorCarrinho() {
   }
 }
 
-// Inicia o carregamento do cardápio quando a página é completamente carregada
+function exibirItensCarrinho() {
+    const containerItens = document.getElementById('carrinho-itens');
+    containerItens.innerHTML = '';
+    let total = 0;
+
+    if (carrinho.length === 0) {
+        containerItens.innerHTML = '<p>O seu carrinho está vazio.</p>';
+        document.getElementById('carrinho-total').textContent = '0,00';
+        return;
+    }
+
+    carrinho.forEach((item, index) => {
+        const itemElemento = document.createElement('div');
+        itemElemento.className = 'carrinho-item';
+        itemElemento.innerHTML = `
+            <p>${item.nome}</p>
+            <p>R$ ${item.preco.toFixed(2).replace('.', ',')}</p>
+            <button class="remover-item" data-index="${index}">&times;</button>
+        `;
+        containerItens.appendChild(itemElemento);
+        total += item.preco;
+    });
+
+    document.getElementById('carrinho-total').textContent = total.toFixed(2).replace('.', ',');
+
+    document.querySelectorAll('.remover-item').forEach(botao => {
+        botao.addEventListener('click', removerItemCarrinho);
+    });
+}
+
+function removerItemCarrinho(event) {
+    const index = event.target.getAttribute('data-index');
+    carrinho.splice(index, 1);
+    atualizarContadorCarrinho();
+    exibirItensCarrinho();
+}
+
+function exibirNotificacao() {
+    const notificacao = document.getElementById('notificacao');
+    notificacao.classList.add('mostrar');
+    setTimeout(() => {
+        notificacao.classList.remove('mostrar');
+    }, 2000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   carregarCardapio();
   atualizarContadorCarrinho();

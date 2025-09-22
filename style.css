@@ -67,7 +67,7 @@ header {
     border: none;
     font-size: 24px;
     cursor: pointer;
-    display: none; /* Oculto por padrão em telas grandes */
+    display: none;
 }
 
 /* --- Botão do Carrinho --- */
@@ -121,7 +121,7 @@ main {
 /* --- Grid de Itens (para todas as telas) --- */
 .item-grid {
     display: grid;
-    /* Faz o grid ter de 3 a 4 colunas em telas maiores e se ajustar em mobile */
+    /* Ajusta para 2 colunas em mobile e adiciona mais em desktop, com espaçamento flexível */
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 20px;
 }
@@ -129,10 +129,10 @@ main {
 .item-card {
     background-color: #fff;
     border: 1px solid #eee;
-    border-radius: 15px; /* Bordas arredondadas */
+    border-radius: 15px;
     padding: 15px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra suave */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     
     /* Propriedade para tornar o card um quadrado perfeito */
@@ -151,7 +151,7 @@ main {
 
 .item-card img {
     width: 100%;
-    height: 60%; /* A imagem ocupa a maior parte do quadrado */
+    height: 60%;
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 5px;
@@ -161,14 +161,14 @@ main {
     font-size: 0.9em;
     margin: 0;
     text-align: left;
-    flex-grow: 1; /* Permite que o título ocupe o espaço restante */
-    overflow: hidden; /* Garante que o texto não saia do card */
-    text-overflow: ellipsis; /* Adiciona "..." se o título for muito longo */
-    white-space: nowrap; /* Impede que o texto quebre a linha */
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .item-card p {
-    display: none; /* Oculta a descrição para manter o design limpo */
+    display: none;
 }
 
 .price {
@@ -326,7 +326,6 @@ footer {
 
 /* --- Estilos para Mobile (Telas de até 768px de largura) --- */
 @media (max-width: 768px) {
-    /* Ajusta a navegação para mobile */
     .nav-menu {
         display: none;
     }
@@ -336,16 +335,15 @@ footer {
     }
 
     .hamburger-menu-btn {
-        display: block; /* Mostra o botão do menu hambúrguer */
+        display: block;
     }
 
-    /* Oculta o menu de navegação no topo da tela */
     .nav-links {
         display: none;
         flex-direction: column;
         width: 100%;
         position: absolute;
-        top: 60px; /* Ajusta para a altura do seu header */
+        top: 60px;
         left: 0;
         background-color: #fff;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

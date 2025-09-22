@@ -1,185 +1,195 @@
 document.addEventListener('DOMContentLoaded', () => {
-    carregarItens();
+    // Carrega o menu e configura os event listeners
+    loadMenu();
 
-    document.querySelector('main').addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-add')) {
-            const card = e.target.closest('.item-card');
-            if (card) {
-                const itemId = card.dataset.id;
-                adicionarAoCarrinho(itemId);
-            }
-        }
-    });
+    // Event listener para o botão de carrinho no cabeçalho
+    document.querySelector('.carrinho-btn').addEventListener('click', showCartModal);
 
-    document.getElementById('btn-finalizar-pedido').addEventListener('click', finalizarPedido);
+    // Event listener para fechar o modal
+    document.querySelector('.fechar-modal').addEventListener('click', hideCartModal);
+    
+    // NOVO: Event listener para finalizar o pedido
+    document.getElementById('btn-finalizar-pedido').addEventListener('click', finalizeOrder);
 });
 
-async function carregarItens() {
+let cartItems = [];
+
+// Função para carregar o menu a partir do JSON
+async function loadMenu() {
     try {
-        // CORRIGIDO: Agora o código busca por 'cardapio.json'
-        const response = await fetch('cardapio.json');
-        
+        const response = await fetch('./menu.json');
         if (!response.ok) {
-            throw new Error(`Erro ao carregar o arquivo JSON: ${response.statusText}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
-        const data = await response.json();
-        const mainContent = document.querySelector('main');
-        
-        mainContent.innerHTML = '';
-
-        for (const categoriaNome in data) {
-            if (Object.hasOwnProperty.call(data, categoriaNome)) {
-                const itensDaCategoria = data[categoriaNome];
-
-                const section = document.createElement('section');
-                section.className = 'menu-section';
-
-                const title = document.createElement('h2');
-                title.textContent = categoriaNome;
-                section.appendChild(title);
-
-                const gridContainer = document.createElement('div');
-                gridContainer.className = 'item-grid';
-
-                itensDaCategoria.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'item-card';
-                    card.dataset.id = item.id;
-                    
-                    const descricaoHTML = item.descricao ? `<p>${item.descricao}</p>` : '';
-                    
-                    card.innerHTML = `
-                        <img src="imagem_cardapio/${item.imagem}" alt="${item.nome}">
-                        <div class="item-card-content">
-                            <h3>${item.nome}</h3>
-                            ${descricaoHTML}
-                            <span class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
-                            <button class="btn-add">Adicionar</button>
-                        </div>
-                    `;
-                    gridContainer.appendChild(card);
-                });
-
-                section.appendChild(gridContainer);
-                mainContent.appendChild(section);
-            }
-        }
+        const menuData = await response.json();
+        renderMenu(menuData);
     } catch (error) {
-        console.error('Erro ao carregar os itens:', error);
+        console.error('Erro ao carregar o menu:', error);
     }
 }
 
-// O restante das suas funções do carrinho permanecem as mesmas.
-let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-const carrinhoItensEl = document.getElementById('carrinho-itens');
-const carrinhoTotalEl = document.getElementById('carrinho-total-valor');
-const carrinhoModal = document.getElementById('carrinho-modal');
-const cartCountEl = document.getElementById('cart-count');
-const notificacaoEl = document.getElementById('notificacao');
+// Função para renderizar o menu na página
+function renderMenu(menu) {
+    const mainContent = document.querySelector('main');
+    mainContent.innerHTML = '';
 
-function adicionarAoCarrinho(itemId) {
-    fetch('cardapio.json')
-        .then(response => response.json())
-        .then(data => {
-            let itemEncontrado = null;
-            for (const categoria in data) {
-                const item = data[categoria].find(i => i.id == itemId);
-                if (item) {
-                    itemEncontrado = item;
-                    break;
-                }
-            }
-            if (itemEncontrado) {
-                const itemExistente = carrinho.find(item => item.id == itemId);
-                if (itemExistente) {
-                    itemExistente.quantidade++;
-                } else {
-                    carrinho.push({ ...itemEncontrado, quantidade: 1 });
-                }
-                salvarCarrinho();
-                atualizarCarrinhoModal();
-                mostrarNotificacao();
-            }
+    menu.categories.forEach(category => {
+        const section = document.createElement('section');
+        section.className = 'menu-section';
+        section.id = category.name.toLowerCase().replace(' ', '-');
+
+        const title = document.createElement('h2');
+        title.textContent = category.name;
+        section.appendChild(title);
+
+        const grid = document.createElement('div');
+        grid.className = 'item-grid';
+
+        category.items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'item-card';
+
+            const img = document.createElement('img');
+            img.src = item.image;
+            img.alt = item.name;
+
+            const content = document.createElement('div');
+            content.className = 'item-card-content';
+
+            const itemName = document.createElement('h3');
+            itemName.textContent = item.name;
+
+            const itemDescription = document.createElement('p');
+            itemDescription.textContent = item.description;
+
+            const itemPrice = document.createElement('span');
+            itemPrice.className = 'price';
+            itemPrice.textContent = `R$ ${item.price.toFixed(2).replace('.', ',')}`;
+
+            const addButton = document.createElement('button');
+            addButton.className = 'btn-add';
+            addButton.textContent = 'Adicionar';
+
+            // Amarração do botão "Adicionar"
+            addButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                addItemToCart(item);
+                showNotification(`${item.name} adicionado!`);
+            });
+
+            content.appendChild(itemName);
+            content.appendChild(itemDescription);
+            content.appendChild(itemPrice);
+            content.appendChild(addButton);
+            
+            card.appendChild(img);
+            card.appendChild(content);
+
+            grid.appendChild(card);
         });
-}
 
-function salvarCarrinho() {
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    atualizarContadorCarrinho();
-}
-
-function atualizarContadorCarrinho() {
-    const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
-    cartCountEl.textContent = totalItens;
-}
-
-function atualizarCarrinhoModal() {
-    carrinhoItensEl.innerHTML = '';
-    let total = 0;
-    carrinho.forEach(item => {
-        const itemEl = document.createElement('div');
-        itemEl.className = 'carrinho-item';
-        itemEl.innerHTML = `
-            <span>${item.nome} (${item.quantidade})</span>
-            <span>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</span>
-        `;
-        carrinhoItensEl.appendChild(itemEl);
-        total += item.preco * item.quantidade;
+        section.appendChild(grid);
+        mainContent.appendChild(section);
     });
-    carrinhoTotalEl.textContent = total.toFixed(2).replace('.', ',');
 }
 
-function abrirModal() {
-    carrinhoModal.style.display = 'block';
-    atualizarCarrinhoModal();
+// --- Funções do Carrinho de Compras ---
+function addItemToCart(item) {
+    const existingItem = cartItems.find(cartItem => cartItem.name === item.name);
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cartItems.push({...item, quantity: 1});
+    }
+    updateCartCount();
 }
 
-function fecharModal() {
-    carrinhoModal.style.display = 'none';
+function updateCartCount() {
+    const cartCountElement = document.getElementById('cart-count');
+    const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    cartCountElement.textContent = totalItems;
+    cartCountElement.style.display = totalItems > 0 ? 'block' : 'none';
 }
 
-function finalizarPedido() {
-    const nome = document.getElementById('nome-cliente').value;
-    const endereco = document.getElementById('endereco-cliente').value;
-    const telefone = document.getElementById('telefone-cliente').value;
-    
-    if (!nome || !endereco || !telefone) {
-        alert("Por favor, preencha todos os campos para finalizar o pedido.");
-        return;
+function showCartModal() {
+    const modal = document.getElementById('carrinho-modal');
+    const cartList = document.querySelector('.carrinho-itens');
+    const totalElement = document.getElementById('carrinho-total');
+
+    cartList.innerHTML = '';
+    let total = 0;
+
+    if (cartItems.length === 0) {
+        cartList.innerHTML = '<p>O carrinho está vazio.</p>';
+    } else {
+        cartItems.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'carrinho-item';
+            li.innerHTML = `
+                <span>${item.name} (${item.quantity}x)</span>
+                <span>R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
+            `;
+            cartList.appendChild(li);
+            total += item.price * item.quantity;
+        });
     }
 
-    let mensagem = `*Olá, JottaV Burguer! Meu pedido é:*%0A%0A`;
+    totalElement.textContent = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+    modal.style.display = 'block';
+}
+
+function hideCartModal() {
+    const modal = document.getElementById('carrinho-modal');
+    modal.style.display = 'none';
+}
+
+function showNotification(message) {
+    const notification = document.getElementById('notificacao');
+    notification.textContent = message;
+    notification.classList.add('show');
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 2000);
+}
+
+// NOVO: Função para finalizar o pedido e enviar via WhatsApp
+function finalizeOrder() {
+    // 1. Coletar os dados do cliente
+    const clientName = document.getElementById('nome-cliente').value;
+    const clientAddress = document.getElementById('endereco-cliente').value;
+    const clientPhone = document.getElementById('telefone-cliente').value;
+
+    // 2. Verificar se os campos foram preenchidos
+    if (!clientName || !clientAddress || !clientPhone) {
+        alert("Por favor, preencha todos os campos para finalizar o pedido.");
+        return; // Sai da função se algum campo estiver vazio
+    }
+    
+    // 3. Montar a mensagem do pedido
+    let orderMessage = `*Olá! Meu pedido é:*%0A%0A`;
     let total = 0;
     
-    carrinho.forEach(item => {
-        mensagem += `*${item.nome}* - Quantidade: ${item.quantidade}%0A`;
-        total += item.preco * item.quantidade;
+    cartItems.forEach(item => {
+        orderMessage += `${item.name} - Quantidade: ${item.quantity}%0A`;
+        total += item.price * item.quantity;
     });
 
-    mensagem += `%0A*Total: R$ ${total.toFixed(2).replace('.', ',')}*%0A%0A`;
-    mensagem += `*Dados para Entrega:*%0A`;
-    mensagem += `Nome: ${nome}%0A`;
-    mensagem += `Endereço: ${endereco}%0A`;
-    mensagem += `Telefone: ${telefone}%0A`;
+    orderMessage += `%0A*Total: R$ ${total.toFixed(2).replace('.', ',')}*%0A%0A`;
+    orderMessage += `*Dados para Entrega:*%0A`;
+    orderMessage += `Nome: ${clientName}%0A`;
+    orderMessage += `Endereço: ${clientAddress}%0A`;
+    orderMessage += `Telefone: ${clientPhone}%0A`;
 
-    const whatsappUrl = `https://wa.me/5586994793836?text=${mensagem}`;
+    // 4. Montar a URL do WhatsApp com a mensagem
+    // Substitua 'SEU_NUMERO' pelo número de telefone da empresa, incluindo o código do país (55) e o DDD.
+    const whatsappNumber = '5586994793836'; // Exemplo: 55 para Brasil, 86 para o DDD
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${orderMessage}`;
 
-    carrinho = [];
-    salvarCarrinho();
-    fecharModal();
-
+    // 5. Limpar o carrinho e fechar o modal
+    cartItems = [];
+    updateCartCount();
+    hideCartModal();
+    
+    // 6. Abrir o WhatsApp
     window.open(whatsappUrl, '_blank');
-}
-
-function mostrarNotificacao() {
-    notificacaoEl.classList.add('show');
-    setTimeout(() => {
-        notificacaoEl.classList.remove('show');
-    }, 3000);
-}
-
-function toggleMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    navLinks.classList.toggle('active');
 }

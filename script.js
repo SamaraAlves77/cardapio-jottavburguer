@@ -1,152 +1,182 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const carrinhoBtn = document.getElementById('carrinho-btn');
+    const cardapioUrl = 'cardapio.json';
+    const carrinhoItens = document.getElementById('carrinho-itens');
+    const carrinhoTotal = document.getElementById('carrinho-total');
+    const carrinhoCount = document.getElementById('cart-count');
     const carrinhoModal = document.getElementById('carrinho-modal');
-    const fecharModalBtn = document.querySelector('.fechar-modal');
-    const navLinks = document.querySelector('.nav-links');
-    const hamburgerBtn = document.getElementById('hamburger-menu-btn');
+    const carrinhoBtn = document.getElementById('carrinho-btn');
+    const fecharModal = document.querySelector('.fechar-modal');
+    const btnFinalizarPedido = document.getElementById('btn-finalizar-pedido');
+    const nomeCliente = document.getElementById('nome-cliente');
+    const enderecoCliente = document.getElementById('endereco-cliente');
+    const telefoneCliente = document.getElementById('telefone-cliente');
+    const notificacao = document.getElementById('notificacao');
 
     let carrinho = [];
+    let todosItens = {};
 
-    function abrirModal() {
-        carrinhoModal.classList.add('visivel');
-    }
+    function fetchCardapio() {
+        fetch(cardapioUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                todosItens = {};
+                for (const categoria in data) {
+                    const gridId = categoria.toLowerCase().replace(/á/g, 'a').replace(/é/g, 'e').replace(/ã/g, 'a').replace(/ú/g, 'u').replace(/ç/g, 'c').replace(/ /g, '-');
+                    const gridElement = document.getElementById(gridId);
 
-    function fecharModal() {
-        carrinhoModal.classList.remove('visivel');
-    }
-
-    carrinhoBtn.addEventListener('click', () => {
-        atualizarCarrinhoModal();
-        abrirModal();
-    });
-
-    fecharModalBtn.addEventListener('click', () => {
-        fecharModal();
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === carrinhoModal) {
-            fecharModal();
-        }
-    });
-
-    function adicionarEventosBotoes() {
-        document.querySelectorAll('.btn-add').forEach(button => {
-            button.addEventListener('click', (event) => {
-                const itemCard = event.target.closest('.item-card');
-                const item = {
-                    id: itemCard.getAttribute('data-id'),
-                    nome: itemCard.querySelector('h3').innerText,
-                    preco: parseFloat(itemCard.querySelector('.price').innerText.replace('R$ ', '').replace(',', '.'))
-                };
-                adicionarAoCarrinho(item);
+                    if (gridElement) {
+                        data[categoria].forEach(item => {
+                            todosItens[item.id] = item;
+                            renderizarItem(item, gridElement);
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
             });
-        });
     }
 
-    function adicionarAoCarrinho(item) {
-        const itemExistente = carrinho.find(cartItem => cartItem.id === item.id);
-        if (itemExistente) {
-            itemExistente.quantidade++;
+    function renderizarItem(item, container) {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'item-card';
+        itemDiv.innerHTML = `
+            <img src="imagem_cardapio/${item.imagem}" alt="${item.nome}">
+            <div class="item-info">
+                <h3>${item.nome}</h3>
+                <p>${item.descricao || ''}</p>
+                <div class="price-and-button">
+                    <div class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</div>
+                    <button class="btn-add" data-id="${item.id}">Adicionar</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(itemDiv);
+    }
+
+    function adicionarAoCarrinho(itemId) {
+        const item = todosItens[itemId];
+        const itemNoCarrinho = carrinho.find(cartItem => cartItem.id === itemId);
+
+        if (itemNoCarrinho) {
+            itemNoCarrinho.quantidade++;
         } else {
-            carrinho.push({ ...item, quantidade: 1 });
+            carrinho.push({ ...item,
+                quantidade: 1
+            });
         }
         atualizarCarrinho();
         mostrarNotificacao();
     }
 
-    function removerDoCarrinho(itemId) {
-        carrinho = carrinho.filter(item => item.id !== itemId);
-        atualizarCarrinho();
-    }
-
     function atualizarCarrinho() {
-        const cartCountElement = document.getElementById('cart-count');
-        const totalItems = carrinho.reduce((total, item) => total + item.quantidade, 0);
-        cartCountElement.innerText = totalItems;
-        atualizarCarrinhoModal();
-    }
-
-    function atualizarCarrinhoModal() {
-        const carrinhoItensDiv = document.getElementById('carrinho-itens');
-        const carrinhoTotalSpan = document.getElementById('carrinho-total');
+        carrinhoItens.innerHTML = '';
         let total = 0;
-        carrinhoItensDiv.innerHTML = '';
-        if (carrinho.length === 0) {
-            carrinhoItensDiv.innerHTML = '<p>Seu carrinho está vazio.</p>';
-        } else {
-            carrinho.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.classList.add('carrinho-item');
-                itemElement.innerHTML = `
-                    <p>${item.nome} (${item.quantidade})</p>
-                    <p>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</p>
-                    <button class="remover-item" data-id="${item.id}">×</button>
-                `;
-                carrinhoItensDiv.appendChild(itemElement);
-                total += item.preco * item.quantidade;
-            });
-        }
-        carrinhoTotalSpan.innerText = total.toFixed(2).replace('.', ',');
-    }
 
-    carrinhoModal.addEventListener('click', (event) => {
-        if (event.target.classList.contains('remover-item')) {
-            const itemId = event.target.getAttribute('data-id');
-            removerDoCarrinho(itemId);
-        }
-    });
+        carrinho.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'carrinho-item';
+            itemElement.innerHTML = `
+                <span>${item.nome} (${item.quantidade}x)</span>
+                <span>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</span>
+            `;
+            carrinhoItens.appendChild(itemElement);
+            total += item.preco * item.quantidade;
+        });
+
+        carrinhoTotal.textContent = total.toFixed(2).replace('.', ',');
+        carrinhoCount.textContent = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
+    }
 
     function mostrarNotificacao() {
-        const notificacao = document.getElementById('notificacao');
-        notificacao.classList.add('mostrar');
+        notificacao.classList.add('show');
         setTimeout(() => {
-            notificacao.classList.remove('mostrar');
+            notificacao.classList.remove('show');
         }, 2000);
     }
 
-    if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    }
-
-    fetch('cardapio.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao carregar o cardápio. Status: ' + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            renderizarItens(data["Hambúrgueres Artesanais"], 'hamburgueres-artesanais-grid');
-            renderizarItens(data["Combos e Família"], 'combos-e-familia-grid');
-            renderizarItens(data["Acompanhamentos"], 'acompanhamentos-grid');
-            renderizarItens(data["Bebidas"], 'bebidas-grid');
-            renderizarItens(data["Adicionais"], 'adicionais-grid');
-            adicionarEventosBotoes();
-        })
-        .catch(error => console.error('Erro ao carregar o cardápio:', error));
-
-    function renderizarItens(itens, gridId) {
-        const grid = document.getElementById(gridId);
-        if (!grid) {
-            console.error(`Elemento com o ID '${gridId}' não encontrado.`);
+    function finalizarPedido() {
+        if (carrinho.length === 0) {
+            alert('Seu carrinho está vazio!');
             return;
         }
-        grid.innerHTML = '';
-        itens.forEach(item => {
-            const itemCard = document.createElement('div');
-            itemCard.classList.add('item-card');
-            itemCard.setAttribute('data-id', item.id);
-            itemCard.innerHTML = `
-                <img src="imagem_cardapio/${item.imagem}" alt="${item.nome}">
-                <h3>${item.nome}</h3>
-                <p>${item.descricao || ''}</p>
-                <div class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</div>
-                <button class="btn-add">Adicionar</button>
-            `;
-            grid.appendChild(itemCard);
+
+        const nome = nomeCliente.value;
+        const endereco = enderecoCliente.value;
+        const telefone = telefoneCliente.value;
+
+        if (!nome || !endereco || !telefone) {
+            alert('Por favor, preencha todos os campos: nome, endereço e telefone.');
+            return;
+        }
+
+        let mensagem = `Olá, JottaV Burguer! Meu pedido é:\n\n`;
+        let total = 0;
+
+        carrinho.forEach(item => {
+            mensagem += `* ${item.quantidade}x ${item.nome} - R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}\n`;
+            total += item.preco * item.quantidade;
         });
+
+        mensagem += `\nTotal: R$ ${total.toFixed(2).replace('.', ',')}\n\n`;
+        mensagem += `Dados para entrega:\n`;
+        mensagem += `Nome: ${nome}\n`;
+        mensagem += `Endereço: ${endereco}\n`;
+        mensagem += `Telefone: ${telefone}`;
+
+        const numeroWhatsApp = '5586994793836';
+        const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+        window.open(urlWhatsApp, '_blank');
+        
+        carrinho = [];
+        atualizarCarrinho();
+        carrinhoModal.style.display = 'none';
+        nomeCliente.value = '';
+        enderecoCliente.value = '';
+        telefoneCliente.value = '';
     }
+
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-add')) {
+            const itemId = e.target.dataset.id;
+            adicionarAoCarrinho(itemId);
+        }
+    });
+
+    carrinhoBtn.addEventListener('click', () => {
+        carrinhoModal.style.display = 'block';
+    });
+
+    fecharModal.addEventListener('click', () => {
+        carrinhoModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === carrinhoModal) {
+            carrinhoModal.style.display = 'none';
+        }
+    });
+
+    btnFinalizarPedido.addEventListener('click', finalizarPedido);
+
+    const hamburgerMenuBtn = document.getElementById('hamburger-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburgerMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    navLinks.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+            navLinks.classList.remove('active');
+        }
+    });
+
+    fetchCardapio();
 });

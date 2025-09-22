@@ -451,7 +451,7 @@ footer {
     cursor: not-allowed;
 }
 
-/* Novo estilo para a listagem de adicionais */
+/* Estilo para a listagem de adicionais (agora mais moderno) */
 .adicionais-list {
     list-style: none;
     padding: 0;
@@ -462,50 +462,122 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: #fff; /* Fundo branco para os itens */
+    padding: 12px 15px; /* Ajusta o padding */
+    border-radius: 8px; /* Cantos mais suaves */
+    margin-bottom: 10px; /* Espaçamento entre itens */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* Sombra mais sutil */
+    transition: transform 0.2s ease-in-out;
+}
+
+.adicional-item:hover {
+    transform: translateY(-2px); /* Efeito de leve elevação ao passar o mouse */
 }
 
 .adicional-info {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    text-align: left; /* Alinha o texto à esquerda */
 }
 
 .adicional-info span:first-child {
-    font-weight: bold;
+    font-weight: 600; /* Mais negrito para o nome */
     font-size: 1.1em;
+    color: #333; /* Cor mais escura para o nome */
 }
 
 .adicional-info span:last-child {
-    color: #e53935;
-    font-size: 0.9em;
+    color: #e53935; /* Preço em destaque com a cor principal */
+    font-size: 0.95em; /* Levemente maior */
+    margin-top: 2px; /* Espaçamento entre nome e preço */
 }
 
 .adicional-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px; /* Espaçamento entre os botões e a quantidade */
 }
 
 .adicional-actions button {
-    background-color: #e53935;
+    background-color: #e53935; /* Cor principal para os botões */
     color: white;
     border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 1.2em;
+    border-radius: 50%; /* Botões redondos */
+    width: 28px; /* Tamanho menor para os botões */
+    height: 28px;
+    font-size: 1em; /* Tamanho da fonte dos botões */
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .adicional-actions button:hover {
     background-color: #c62828;
+    transform: scale(1.05); /* Pequeno zoom ao passar o mouse */
 }
+
+.adicional-quantidade {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #333;
+    min-width: 20px; /* Garante que o número não se comprima */
+    text-align: center;
+}
+
+
+/* Estilo do campo de observações */
+.observacao-item-container {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee; /* Separador sutil */
+}
+
+.observacao-item-container h3 {
+    font-size: 1.1em;
+    color: #444;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+#observacao-item {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    resize: vertical; /* Permite redimensionar verticalmente */
+    min-height: 70px; /* Altura mínima */
+    max-height: 120px; /* Altura máxima */
+}
+
+#observacao-item::placeholder {
+    color: #bbb;
+}
+
+/* Botão de confirmação dos adicionais */
+#confirmar-adicionais {
+    background-color: #4CAF50; /* Cor verde para destaque */
+    color: white;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 20px;
+    width: 100%; /* Botão em largura total */
+    box-sizing: border-box;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#confirmar-adicionais:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
 
 /* Responsividade - Ajustes para Mobile */
 @media (max-width: 768px) {
@@ -569,7 +641,7 @@ footer {
         padding: 8px 15px;
     }
 
-    /* Novos ajustes para o Modal de Opcionais em telas menores */
+    /* Ajustes para o Modal de Opcionais em telas menores */
     #adicionais-modal .modal-content {
         height: 90%;
         max-height: 90vh;
@@ -583,7 +655,7 @@ footer {
     .adicionais-list {
         flex-grow: 1;
         overflow-y: auto;
-        padding-right: 5px; /* Adiciona um pequeno espaçamento para a barra de rolagem */
+        padding-right: 5px;
     }
 
     .observacao-item-container {

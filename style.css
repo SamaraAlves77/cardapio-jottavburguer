@@ -118,10 +118,10 @@ main {
     padding-bottom: 5px;
 }
 
-/* --- Grid de Itens --- */
+/* --- Layout de Grade para Desktop (4 colunas) --- */
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Cria 4 colunas de largura igual */
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
 
@@ -359,15 +359,34 @@ footer {
     }
     
     .item-grid {
-        /* Muda para 2 colunas no mobile */
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* --- Estilos para Mobile (Telas de até 480px de largura) --- */
+/* --- ESTILOS ADICIONAIS PARA MÓBILE (TELAS ATÉ 480PX) --- */
 @media (max-width: 480px) {
     .item-grid {
-        /* Muda para 1 coluna em telas bem pequenas */
+        /* Layout de uma única coluna para telas bem pequenas */
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .item-card {
+        /* Estilo do card para mobile */
+        display: flex;
+        flex-direction: column; /* Alinha a imagem e o texto verticalmente */
+        align-items: center;
+    }
+
+    .item-card img {
+        /* A imagem ocupa a largura total do card */
+        width: 100%;
+        height: auto;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .item-card-content {
+        /* O conteúdo do card se ajusta à largura total */
+        width: 100%;
     }
 }

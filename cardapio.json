@@ -1,6 +1,3 @@
-// Array para armazenar os itens do carrinho
-let carrinho = [];
-
 // A função principal que carrega e exibe os dados do cardápio
 async function carregarCardapio() {
   try {
@@ -72,6 +69,7 @@ function criarItemCardapio(item) {
   divItem.className = 'item-card';
 
   const img = document.createElement('img');
+  // Ajusta o caminho da imagem, pois suas imagens estão na pasta 'imagem_cardapio'
   img.src = `imagem_cardapio/${item.imagem}`;
   img.alt = item.nome;
   divItem.appendChild(img);
@@ -95,34 +93,10 @@ function criarItemCardapio(item) {
   const btnAdicionar = document.createElement('button');
   btnAdicionar.className = 'btn-add';
   btnAdicionar.textContent = 'Adicionar';
-  
-  // AQUI ESTÁ A CORREÇÃO: Adiciona o item ao carrinho e atualiza o contador
-  btnAdicionar.addEventListener('click', () => {
-    adicionarAoCarrinho(item);
-  });
-  
   divItem.appendChild(btnAdicionar);
 
   return divItem;
 }
 
-// Função para adicionar o item ao carrinho e atualizar o contador
-function adicionarAoCarrinho(item) {
-  carrinho.push(item);
-  console.log('Item adicionado ao carrinho:', item);
-  atualizarContadorCarrinho();
-}
-
-// Função para atualizar o contador visual do carrinho (ícone)
-function atualizarContadorCarrinho() {
-  const contadorElemento = document.getElementById('cart-count');
-  if (contadorElemento) {
-    contadorElemento.textContent = carrinho.length;
-  }
-}
-
-// Inicia o carregamento do cardápio quando a página é completamente carregada
-document.addEventListener('DOMContentLoaded', () => {
-  carregarCardapio();
-  atualizarContadorCarrinho();
-});
+// Inicia o carregamento do cardápio quando a página é carregada
+document.addEventListener('DOMContentLoaded', carregarCardapio);

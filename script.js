@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const enderecoClienteInput = document.getElementById('endereco-cliente');
     const telefoneClienteInput = document.getElementById('telefone-cliente');
 
+    // Botão do carrinho agora tem um id para ser manipulado por JS
+    const carrinhoBtn = document.querySelector('.carrinho-btn');
+
     // Mapeamento de categorias que possuem adicionais
     const categoriasComAdicionais = ["Hambúrguer Artesanal", "Acompanhamentos"];
 
@@ -62,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         menuContainer.innerHTML = '';
         navLinks.innerHTML = '';
 
-        // Filtra as categorias para renderizar, excluindo "Opcionais"
         const categoriasParaRenderizar = Object.keys(cardapio).filter(cat => cat !== "Opcionais");
 
         categoriasParaRenderizar.forEach(categoria => {
@@ -299,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mensagem += `*Total do Pedido: R$ ${total.toFixed(2).replace('.', ',')}*\n\n`;
         mensagem += `*Forma de Pagamento:* ${formaPagamento}`;
 
-        const numeroWhatsapp = "5586994253258"; 
+        const numeroWhatsapp = "5586994253258";
         const linkWhatsapp = `https://api.whatsapp.com/send?phone=${numeroWhatsapp}&text=${encodeURIComponent(mensagem)}`;
         window.open(linkWhatsapp, '_blank');
         
@@ -360,6 +362,9 @@ document.addEventListener('DOMContentLoaded', () => {
         fecharModalAdicionais();
         mostrarNotificacao(`${itemSelecionado.nome} adicionado com sucesso!`);
     });
+
+    // Event listener para o botão de abrir o carrinho
+    carrinhoBtn.addEventListener('click', abrirModalCarrinho);
 
     // Inicia o carregamento do cardápio
     carregarCardapio();

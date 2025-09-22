@@ -7,23 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let carrinho = [];
 
-    // Função para abrir o modal do carrinho
     function abrirModal() {
         carrinhoModal.classList.add('visivel');
     }
 
-    // Função para fechar o modal do carrinho
     function fecharModal() {
         carrinhoModal.classList.remove('visivel');
     }
 
-    // Evento para abrir o modal do carrinho
     carrinhoBtn.addEventListener('click', () => {
         atualizarCarrinhoModal();
         abrirModal();
     });
 
-    // Evento para fechar o modal
     fecharModalBtn.addEventListener('click', () => {
         fecharModal();
     });
@@ -34,18 +30,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Adiciona evento de clique para cada botão "Adicionar"
-    document.querySelectorAll('.btn-add').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const itemCard = event.target.closest('.item-card');
-            const item = {
-                id: itemCard.getAttribute('data-id'),
-                nome: itemCard.querySelector('h3').innerText,
-                preco: parseFloat(itemCard.querySelector('.price').innerText.replace('R$ ', '').replace(',', '.'))
-            };
-            adicionarAoCarrinho(item);
+    function adicionarEventosBotoes() {
+        document.querySelectorAll('.btn-add').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const itemCard = event.target.closest('.item-card');
+                const item = {
+                    id: itemCard.getAttribute('data-id'),
+                    nome: itemCard.querySelector('h3').innerText,
+                    preco: parseFloat(itemCard.querySelector('.price').innerText.replace('R$ ', '').replace(',', '.'))
+                };
+                adicionarAoCarrinho(item);
+            });
         });
-    });
+    }
 
     function adicionarAoCarrinho(item) {
         const itemExistente = carrinho.find(cartItem => cartItem.id === item.id);
@@ -100,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Função para mostrar notificação de item adicionado
     function mostrarNotificacao() {
         const notificacao = document.getElementById('notificacao');
         notificacao.classList.add('mostrar');
@@ -109,36 +105,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     }
 
-    // Botão de menu hambúrguer para celular
     if (hamburgerBtn) {
         hamburgerBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
     }
 
-    // Carregar itens do cardápio do arquivo JSON
     fetch('cardapio.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao carregar o cardápio. Status: ' + response.status);
+            }
+            return response.json();
+        })
         .then(data => {
-            renderizarItens(data.hamburgueres, 'hamburgueres-artesanais-grid');
-            renderizarItens(data.combos, 'combos-e-familia-grid');
-            renderizarItens(data.acompanhamentos, 'acompanhamentos-grid');
-            renderizarItens(data.bebidas, 'bebidas-grid');
-            renderizarItens(data.adicionais, 'adicionais-grid');
+            renderizarItens(data["Hambúrgueres Artesanais"], 'hamburgueres-artesanais-grid');
+            renderizarItens(data["Combos e Família"], 'combos-e-familia-grid');
+            renderizarItens(data["Acompanhamentos"], 'acompanhamentos-grid');
+            renderizarItens(data["Bebidas"], 'bebidas-grid');
+            renderizarItens(data["Adicionais"], 'adicionais-grid');
+            adicionarEventosBotoes();
         })
         .catch(error => console.error('Erro ao carregar o cardápio:', error));
 
     function renderizarItens(itens, gridId) {
         const grid = document.getElementById(gridId);
+        if (!grid) {
+            console.error(`Elemento com o ID '${gridId}' não encontrado.`);
+            return;
+        }
         grid.innerHTML = '';
         itens.forEach(item => {
             const itemCard = document.createElement('div');
             itemCard.classList.add('item-card');
             itemCard.setAttribute('data-id', item.id);
             itemCard.innerHTML = `
-                <img src="${item.imagem}" alt="${item.nome}">
+                <img src="imagem_cardapio/${item.imagem}" alt="${item.nome}">
                 <h3>${item.nome}</h3>
-                <p>${item.descricao}</p>
+                <p>${item.descricao || ''}</p>
                 <div class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</div>
                 <button class="btn-add">Adicionar</button>
             `;

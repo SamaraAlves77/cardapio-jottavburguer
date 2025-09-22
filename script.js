@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     finalizarPedidoBtn.addEventListener('click', () => {
         const mensagem = gerarMensagemPedido();
-        const numeroWhatsapp = "+5586994253258"; // Substitua pelo seu número de telefone
+        const numeroWhatsapp = "55SEUNUMERODOTELEFONECOMDDD"; // Substitua pelo seu número de telefone
         const url = `https://api.whatsapp.com/send?phone=${numeroWhatsapp}&text=${mensagem}`;
         window.open(url, '_blank');
     });

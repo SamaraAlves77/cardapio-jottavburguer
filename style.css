@@ -121,7 +121,7 @@ main {
 /* --- Grid de Itens --- */
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* FORÇA 4 COLUNAS */
+    grid-template-columns: repeat(4, 1fr); /* Cria 4 colunas de largura igual */
     gap: 20px;
 }
 

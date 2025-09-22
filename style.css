@@ -530,5 +530,21 @@ footer {
 
     .item-card {
         padding: 15px;
+        width: 100%; /* Garante que o card ocupe a largura total */
+        box-sizing: border-box;
+    }
+    
+    .item-grid {
+        grid-template-columns: 1fr; /* Força os itens a ficarem em uma única coluna */
+    }
+
+    .item-card img {
+        width: 100%;
+        max-height: 200px; /* Ajusta a altura máxima da imagem */
+        object-fit: cover;
+    }
+
+    .item-card h3 {
+        font-size: 1.2em; /* Reduz o tamanho da fonte do título */
     }
 }

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderizarProdutos(secao) {
-        const gridElement = document.getElementById(secao.toLowerCase().replace(/\s/g, '-') + '-grid');
+        const gridElement = document.getElementById(secao.toLowerCase().replace(/[\s\u00C0-\u00FF]/g, '-') + '-grid');
         gridElement.innerHTML = '';
         if (produtos[secao]) {
             produtos[secao].forEach(produto => {
@@ -128,14 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             produtos = await response.json();
             
-            // Renderiza todas as seções dinamicamente a partir do JSON
             Object.keys(produtos).forEach(secao => {
                 renderizarProdutos(secao);
             });
 
         } catch (error) {
             console.error('Erro ao carregar os dados:', error);
-            // Exibir mensagem de erro na tela para o usuário
             document.querySelector('main').innerHTML = '<p style="text-align: center; margin-top: 50px; font-size: 1.2rem;">Erro ao carregar os produtos. Por favor, verifique se o arquivo cardapio.json está na pasta correta.</p>';
         }
     }

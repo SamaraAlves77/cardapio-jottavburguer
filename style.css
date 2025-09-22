@@ -225,20 +225,6 @@ footer {
     display: flex;
 }
 
-.nav-links {
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 0;
-}
-
-.nav-links li {
-    margin: 10px 0;
-}
-
-.nav-links a {
-    font-size: 1.2em;
-}
-
 .hamburger-menu-btn {
     display: none;
     font-size: 1.5em;

@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Carrega os dados do JSON e renderiza o cardápio
     carregarItens();
 
-    // Adiciona evento de clique para os botões "Adicionar"
     document.querySelector('main').addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-add')) {
             const card = e.target.closest('.item-card');
@@ -13,16 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Adiciona evento de clique para o botão "Finalizar Pedido" no modal
     document.getElementById('btn-finalizar-pedido').addEventListener('click', finalizarPedido);
 });
 
-// Função para buscar e renderizar os itens do JSON
 async function carregarItens() {
     try {
-        const response = await fetch('itens.json');
+        // CORRIGIDO: Agora o código busca por 'cardapio.json'
+        const response = await fetch('cardapio.json');
         
-        // Verifica se a resposta foi bem-sucedida
         if (!response.ok) {
             throw new Error(`Erro ao carregar o arquivo JSON: ${response.statusText}`);
         }
@@ -30,34 +26,27 @@ async function carregarItens() {
         const data = await response.json();
         const mainContent = document.querySelector('main');
         
-        // Limpa o conteúdo principal antes de adicionar os itens
         mainContent.innerHTML = '';
 
-        // Percorre todas as chaves (categorias) do JSON
         for (const categoriaNome in data) {
             if (Object.hasOwnProperty.call(data, categoriaNome)) {
                 const itensDaCategoria = data[categoriaNome];
 
-                // Cria a seção para a categoria
                 const section = document.createElement('section');
                 section.className = 'menu-section';
 
-                // Cria o título da seção com o nome da chave
                 const title = document.createElement('h2');
                 title.textContent = categoriaNome;
                 section.appendChild(title);
 
-                // Cria o contêiner da grade para os cards
                 const gridContainer = document.createElement('div');
                 gridContainer.className = 'item-grid';
 
-                // Cria os cards de cada item na categoria
                 itensDaCategoria.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'item-card';
                     card.dataset.id = item.id;
                     
-                    // Adiciona a descrição apenas se ela existir no JSON
                     const descricaoHTML = item.descricao ? `<p>${item.descricao}</p>` : '';
                     
                     card.innerHTML = `
@@ -81,9 +70,7 @@ async function carregarItens() {
     }
 }
 
-// Funções do carrinho (manter o restante do seu código JavaScript aqui)
-// ...
-
+// O restante das suas funções do carrinho permanecem as mesmas.
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 const carrinhoItensEl = document.getElementById('carrinho-itens');
 const carrinhoTotalEl = document.getElementById('carrinho-total-valor');
@@ -91,9 +78,8 @@ const carrinhoModal = document.getElementById('carrinho-modal');
 const cartCountEl = document.getElementById('cart-count');
 const notificacaoEl = document.getElementById('notificacao');
 
-// Funções do Carrinho
 function adicionarAoCarrinho(itemId) {
-    fetch('itens.json')
+    fetch('cardapio.json')
         .then(response => response.json())
         .then(data => {
             let itemEncontrado = null;
@@ -104,7 +90,6 @@ function adicionarAoCarrinho(itemId) {
                     break;
                 }
             }
-
             if (itemEncontrado) {
                 const itemExistente = carrinho.find(item => item.id == itemId);
                 if (itemExistente) {
@@ -180,7 +165,6 @@ function finalizarPedido() {
 
     const whatsappUrl = `https://wa.me/5586994793836?text=${mensagem}`;
 
-    // Limpar o carrinho e fechar o modal
     carrinho = [];
     salvarCarrinho();
     fecharModal();
@@ -195,7 +179,6 @@ function mostrarNotificacao() {
     }, 3000);
 }
 
-// Função para o menu hambúrguer (mobile)
 function toggleMenu() {
     const navLinks = document.querySelector('.nav-links');
     navLinks.classList.toggle('active');

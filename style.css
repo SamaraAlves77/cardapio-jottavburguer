@@ -134,7 +134,7 @@ nav a {
     font-size: 0.9em;
     color: #666;
     margin: 5px 0;
-    flex-grow: 1; /* Faz a descrição ocupar o espaço restante */
+    flex-grow: 1;
 }
 
 .price {
@@ -156,6 +156,48 @@ nav a {
 }
 
 .btn-add:hover {
+    background-color: #c9302c;
+}
+
+/* Estilos para a página de apresentação (index.html) */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 70vh;
+    background: url('imagem_cardapio/jottaV_burguer.png') no-repeat center center/cover;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero h1 {
+    font-size: 4em;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.btn-cta {
+    background-color: #d9534f;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: background-color 0.3s;
+}
+
+.btn-cta:hover {
     background-color: #c9302c;
 }
 

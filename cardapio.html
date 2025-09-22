@@ -1,164 +1,278 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JottaV Burguer - Cardápio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-
-    <header>
-        <div class="logo">
-            <a href="index.html">
-                <img src="imagem_cardapio/jottaV_burguer.png" alt="Logo JottaV Burguer">
-            </a>
-        </div>
-        <nav class="nav-menu">
-            <ul class="nav-links">
-                <li><a href="cardapio.html">Hambúrgueres</a></li>
-                <li><a href="#">Combos e Família</a></li>
-                <li><a href="#">Acompanhamentos</a></li>
-                <li><a href="#">Bebidas</a></li>
-                <li><a href="#">Adicionais</a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-            <button class="carrinho-btn" onclick="abrirModal()">
-                <i class="fas fa-shopping-cart"></i>
-                <span id="cart-count">0</span>
-            </button>
-            <button class="hamburger-menu-btn" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
-    <main>
-        <section class="menu-section">
-            <h2>Hambúrgueres Artesanais</h2>
-            <div class="item-grid">
-                
-                <div class="item-card" data-id="1">
-                    <img src="imagem_cardapio/smash_original.jpeg" alt="Smash Original">
-                    <div class="item-card-content">
-                        <h3>Smash Original</h3>
-                        <p>Pão, carne 80g prensada na chapa, queijo muçarela, cebola caramelizada, alface, tomate e molho da casa.</p>
-                        <span class="price">R$ 18,99</span>
-                        <button class="btn-add">Adicionar</button>
-                    </div>
-                </div>
-
-                <div class="item-card" data-id="2">
-                    <img src="imagem_cardapio/smash_duplo.jpeg" alt="Smash Duplo">
-                    <div class="item-card-content">
-                        <h3>Smash Duplo</h3>
-                        <p>Pão, 2 carnes 80g prensadas na chapa, 2 queijos muçarela, cebola caramelizada, alface, tomate e molho da casa.</p>
-                        <span class="price">R$ 24,99</span>
-                        <button class="btn-add">Adicionar</button>
-                    </div>
-                </div>
-
-                <div class="item-card" data-id="3">
-                    <img src="imagem_cardapio/jotta_basic.jpeg" alt="Jotta Básico">
-                    <div class="item-card-content">
-                        <h3>Jotta Básico</h3>
-                        <p>Pão, carne 120g prensada na chapa com cebola, queijo muçarela e molho da casa.</p>
-                        <span class="price">R$ 14,99</span>
-                        <button class="btn-add">Adicionar</button>
-                    </div>
-                </div>
-
-                <div class="item-card" data-id="4">
-                    <img src="imagem_cardapio/jotta_classic.jpeg" alt="Jotta Classic">
-                    <div class="item-card-content">
-                        <h3>Jotta Classic</h3>
-                        <p>Pão, carne 120g, molho barbecue, tomate, alface, bacon e queijo muçarela.</p>
-                        <span class="price">R$ 25,99</span>
-                        <button class="btn-add">Adicionar</button>
-                    </div>
-                </div>
-
-                <div class="item-card" data-id="5">
-                    <img src="imagem_cardapio/burguer_do_xerife.jpeg" alt="Burguer do Xerife">
-                    <div class="item-card-content">
-                        <h3>Burguer do Xerife</h3>
-                        <p>Pão, carne de 120g, do queijo muçarela ou requeijão e linguiça. </p>
-                        <span class="price">R$ 22,99</span>
-                        <button class="btn-add">Adicionar</button>
-                    </div>
-                </div>
-
-                <div class="item-card" data-id="6">
-                    <img src="imagem_cardapio/duplo_brutao.jpeg" alt="Duplo Brutão">
-                    <div class="item-card-content">
-                        <h3>Duplo Brutão</h3>
-                        <p>Pão, 2 carnes, queijo, bacon, alface, tomate, calabresa e batata palha.</p>
-                        <span class="price">R$ 37,99</span>
-                        <button class="btn-add">Adicionar</button>
-                    </div>
-                </div>
-                
-                <div class="item-card" data-id="7">
-                    <img src="imagem_cardapio/combo_economico_casal_smash.jpeg" alt="Combo Econômico Casal Smash">
-                    <div class="item-card-content">
-                        <h3>Combo Econômico Casal Smash</h3>
-                        <p>2x Smashs Originais + Batata + 2x Refrigerantes Lata.</p>
-                        <span class="price">R$ 26,99</span>
-                        <button class="btn-add">Adicionar</button>
-                    </div>
-                </div>
-
-                <div class="item-card" data-id="8">
-                    <img src="imagem_cardapio/calabresa_basico.jpeg" alt="Calabresa Básica">
-                    <div class="item-card-content">
-                        <h3>Calabresa Básica</h3>
-                        <p>Pão, carne 120g, calabresa, queijo muçarela e molho da casa.</p>
-                        <span class="price">R$ 28,99</span>
-                        <button class="btn-add">Adicionar</button>
-                    </div>
-                </div>
-                
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-            </div>
-            <div class="footer-info">
-                <p>&copy; 2024 JottaV Burguer. Todos os direitos reservados.</p>
-                <p>Desenvolvido com <i class="fas fa-heart" style="color: #e53935;"></i> por <a href="https://github.com/samaraalves77" target="_blank" style="color: #fff;">Samara Alves</a></p>
-            </div>
-        </div>
-    </footer>
-
-    <div id="carrinho-modal" class="modal">
-        <div class="modal-content">
-            <span class="fechar-modal" onclick="fecharModal()">&times;</span>
-            <h2>Seu Carrinho</h2>
-            <div class="carrinho-itens" id="carrinho-itens">
-                </div>
-            <div class="carrinho-total">
-                <p>Total: R$ <span id="carrinho-total-valor">0.00</span></p>
-            </div>
-            <div class="carrinho-finalizar">
-                <input type="text" id="nome-cliente" placeholder="Seu nome">
-                <input type="text" id="endereco-cliente" placeholder="Seu endereço">
-                <input type="text" id="telefone-cliente" placeholder="Seu telefone">
-                <button id="btn-finalizar-pedido">Finalizar Pedido</button>
-            </div>
-        </div>
-    </div>
-    
-    <div id="notificacao" class="notificacao">
-        <p>Item adicionado ao carrinho!</p>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+{
+  "categories": [
+    {
+      "name": "Hambúrgueres Artesanais",
+      "items": [
+        {
+          "id": 1,
+          "name": "Smash Original",
+          "description": "Pão, carne 80g prensada na chapa, queijo muçarela, cebola caramelizada, alface, tomate e molho da casa.",
+          "price": 18.99,
+          "image": "./assets/smash_original.jpeg"
+        },
+        {
+          "id": 2,
+          "name": "Smash Duplo",
+          "description": "Pão, 2 carnes 80g prensadas na chapa, 2 queijos muçarela, cebola caramelizada, alface, tomate e molho da casa.",
+          "price": 24.99,
+          "image": "./assets/smash_duplo.jpeg"
+        },
+        {
+          "id": 3,
+          "name": "Jotta Básico",
+          "description": "Pão, carne 120g prensada na chapa com cebola, queijo muçarela e molho da casa.",
+          "price": 14.99,
+          "image": "./assets/jotta_basico.jpeg"
+        },
+        {
+          "id": 4,
+          "name": "Jotta Classic",
+          "description": "Pão, carne 120g, molho barbecue, tomate, alface, bacon e queijo muçarela.",
+          "price": 25.99,
+          "image": "./assets/jotta_classic.jpeg"
+        },
+        {
+          "id": 5,
+          "name": "Burguer do Xerife",
+          "description": "Pão, carne de 120g, queijo muçarela ou requeijão e linguiça.",
+          "price": 22.99,
+          "image": "./assets/burguer_do_xerife.jpeg"
+        },
+        {
+          "id": 6,
+          "name": "Duplo Brutão",
+          "description": "Pão, 2 carnes de 120g, queijo muçarela ou requeijão, molho da casa, 2 fatias de bacon.",
+          "price": 37.99,
+          "image": "./assets/duplo_brutao.jpeg"
+        },
+        {
+          "id": 7,
+          "name": "Calabresa prime",
+          "description": "Pão, molho, alface, tomate, calabresa, queijo, cebola caramelizada, carne ou frango.",
+          "price": 26.99,
+          "image": "./assets/calabresa_prime.jpeg"
+        },
+        {
+          "id": 8,
+          "name": "Burguer salame",
+          "description": "Pão, requeijão, carne e salame.",
+          "price": 28.99,
+          "image": "./assets/burguer_salame.jpeg"
+        },
+        {
+          "id": 9,
+          "name": "Calabresa básico",
+          "description": "Pão, molho da casa, calabresa e queijo muçarela.",
+          "price": 15.00,
+          "image": "./assets/calabresa_basico.jpeg"
+        }
+      ]
+    },
+    {
+      "name": "Combos",
+      "items": [
+        {
+          "id": 10,
+          "name": "Combo Econômico",
+          "description": "1 Smash Original + batata frita + refrigerante lata.",
+          "price": 31.99,
+          "image": "./assets/combo_economico.jpeg"
+        },
+        {
+          "id": 11,
+          "name": "Combo do Chef",
+          "description": "1 Jotta Classic + batata frita + refrigerante lata.",
+          "price": 41.99,
+          "image": "./assets/combo_do_chef.jpeg"
+        },
+        {
+          "id": 12,
+          "name": "Combo Smash Duplo",
+          "description": "1 Smash Duplo + batata frita + refrigerante lata.",
+          "price": 37.99,
+          "image": "./assets/combo_smash_duplo.jpeg"
+        },
+        {
+          "id": 13,
+          "name": "Combo Premium",
+          "description": "1 Duplo Brutão + batata frita + refrigerante lata.",
+          "price": 53.99,
+          "image": "./assets/combo_premium.jpeg"
+        },
+        {
+          "id": 14,
+          "name": "Casal Smash Duplo",
+          "description": "2 Smash Original + batata frita + Guaraná 1L.",
+          "price": 49.99,
+          "image": "./assets/casal_smash_duplo.jpeg"
+        },
+        {
+          "id": 15,
+          "name": "Casal Classic",
+          "description": "2 Jotta Classic + batata frita + Guaraná 1L.",
+          "price": 63.99,
+          "image": "./assets/casal_classic.jpeg"
+        },
+        {
+          "id": 16,
+          "name": "Casal Smash",
+          "description": "2 Smash Duplo + batata frita + Guaraná 1L.",
+          "price": 61.99,
+          "image": "./assets/casal_smash.jpeg"
+        },
+        {
+          "id": 17,
+          "name": "Casal Premium",
+          "description": "2 Duplo Brutão + batata frita + Guaraná 1L.",
+          "price": 87.99,
+          "image": "./assets/casal_premium.jpeg"
+        },
+        {
+          "id": 18,
+          "name": "Família Smash Original",
+          "description": "4 Smash Original + batata frita + Guaraná 1L.",
+          "price": 87.99,
+          "image": "./assets/familia_smash_original.jpeg"
+        },
+        {
+          "id": 19,
+          "name": "Família Classic",
+          "description": "4 Jotta Classic + batata frita + Guaraná 1L.",
+          "price": 115.99,
+          "image": "./assets/familia_classic.jpeg"
+        },
+        {
+          "id": 20,
+          "name": "Família Smash Duplo",
+          "description": "4 Smash Duplo + batata frita + Guaraná 1L.",
+          "price": 111.99,
+          "image": "./assets/familia_smash_duplo.jpeg"
+        },
+        {
+          "id": 21,
+          "name": "Família Brutão",
+          "description": "4 Duplo Brutão + batata frita + Guaraná 1L.",
+          "price": 154.90,
+          "image": "./assets/familia_brutao.jpeg"
+        }
+      ]
+    },
+    {
+      "name": "Petiscos",
+      "items": [
+        {
+          "id": 22,
+          "name": "Batata Frita",
+          "description": "Batata frita com especiarias e molho especial.",
+          "price": 11.99,
+          "image": "./assets/batata_palito.jpeg"
+        },
+        {
+          "id": 23,
+          "name": "Batata Cheddar e Bacon",
+          "description": "Batata frita coberta com cheddar cremoso e bacon crocante.",
+          "price": 17.99,
+          "image": "./assets/batata_com_bacon.jpeg"
+        },
+        {
+          "id": 24,
+          "name": "Anéis de Cebola",
+          "description": "Anéis de cebola crocantes, empanados e fritos.",
+          "price": 15.00,
+          "image": "./assets/aneis_cebola.jpeg"
+        }
+      ]
+    },
+    {
+      "name": "Bebidas",
+      "items": [
+        {
+          "id": 25,
+          "name": "Coca-Cola lata",
+          "description": "Refrigerante lata de Coca-Cola.",
+          "price": 7.00,
+          "image": "./assets/coca_cola_lata.jpeg"
+        },
+        {
+          "id": 26,
+          "name": "Guaraná lata",
+          "description": "Refrigerante lata de Guaraná.",
+          "price": 6.00,
+          "image": "./assets/guarana_lata.jpeg"
+        },
+        {
+          "id": 27,
+          "name": "Guaraná 1L",
+          "description": "Refrigerante de Guaraná de 1 litro.",
+          "price": 9.00,
+          "image": "./assets/guarana_1l.jpeg"
+        }
+      ]
+    },
+    {
+      "name": "Adicionais",
+      "items": [
+        {
+          "id": 28,
+          "name": "Creme de Requeijão",
+          "price": 4.00,
+          "image": "./assets/creme_requeijao.jpeg"
+        },
+        {
+          "id": 29,
+          "name": "Queijo Muçarela",
+          "price": 4.00,
+          "image": "./assets/queijo_mucarela.jpeg"
+        },
+        {
+          "id": 30,
+          "name": "Bacon",
+          "price": 4.00,
+          "image": "./assets/bacon.jpeg"
+        },
+        {
+          "id": 31,
+          "name": "Farofa de bacon",
+          "price": 3.00,
+          "image": "./assets/farofa_bacon.jpeg"
+        },
+        {
+          "id": 32,
+          "name": "Farofa de alho",
+          "price": 3.00,
+          "image": "./assets/farofa_alho.jpeg"
+        },
+        {
+          "id": 33,
+          "name": "Molho barbecue",
+          "price": 2.00,
+          "image": "./assets/molho_barbecue.jpeg"
+        },
+        {
+          "id": 34,
+          "name": "Molho da casa",
+          "price": 2.00,
+          "image": "./assets/molho_da_casa.jpeg"
+        },
+        {
+          "id": 35,
+          "name": "Calabresa",
+          "price": 5.00,
+          "image": "./assets/calabresa.jpeg"
+        },
+        {
+          "id": 36,
+          "name": "Salame",
+          "price": 7.00,
+          "image": "./assets/salame.jpeg"
+        },
+        {
+          "id": 37,
+          "name": "Requeijão",
+          "price": 4.00,
+          "image": "./assets/requeijao.jpeg"
+        }
+      ]
+    }
+  ]
+}

@@ -2,142 +2,113 @@
     "Hambúrguer Artesanal": [
         {
             "id": 1,
-            "nome": "Smash Original",
-            "descricao": "Pão, blend da casa, queijo, picles e molho da casa.",
-            "preco": 18.99,
-            "imagem": "smash_original.jpeg"
+            "nome": "Hambúrguer do Xerife",
+            "descricao": "Blend de 180g, queijo, bacon, picles e molho barbecue.",
+            "preco": 35.99,
+            "imagem": "burguer_do_xerife.jpeg"
         },
         {
             "id": 2,
-            "nome": "Smash Duplo",
-            "descricao": "Pão, 2x blend da casa, 2x queijo, picles e molho da casa.",
-            "preco": 25.99,
-            "imagem": "smash_duplo.jpeg"
-        },
-        {
-            "id": 3,
-            "nome": "Jotta Classic",
-            "descricao": "Pão, blend de 160g, queijo, cebola caramelizada, alface, tomate e molho da casa.",
-            "preco": 34.99,
+            "nome": "Jotta V Classic",
+            "descricao": "Pão de brioche, carne artesanal 180g, queijo, salada e molho especial.",
+            "preco": 32.99,
             "imagem": "jotta_classic.jpeg"
         },
         {
+            "id": 3,
+            "nome": "Smash Original",
+            "descricao": "Pão de brioche, carne smash 90g, queijo prato, cebola grelhada e picles.",
+            "preco": 22.99,
+            "imagem": "smash_original.jpeg"
+        },
+        {
             "id": 4,
-            "nome": "Duplo Brutão",
-            "descricao": "Pão, 2x blends de 160g, 2x queijo, cebola caramelizada e molho de bacon.",
-            "preco": 40.99,
-            "imagem": "duplo_brutao.jpeg"
+            "nome": "Smash Duplo",
+            "descricao": "Pão de brioche, duas carnes smash 90g, queijo prato, bacon e barbecue.",
+            "preco": 28.99,
+            "imagem": "smash_duplo.jpeg"
         },
         {
             "id": 5,
-            "nome": "Burguer do Xerife",
-            "descricao": "Pão, blend de 160g, queijo, picles e molho defumado.",
-            "preco": 35.99,
-            "imagem": "burguer_do_xerife.jpeg"
+            "nome": "Duplo Brutão",
+            "descricao": "Pão de brioche, duas carnes artesanais 180g, queijo, cheddar, bacon e salada.",
+            "preco": 40.99,
+            "imagem": "duplo_brutao.jpeg"
         }
     ],
     "Combos": [
         {
             "id": 6,
             "nome": "Combo Econômico",
-            "descricao": "1x Smash Original + Batata Frita.",
+            "descricao": "Hambúrguer, batata frita média e refrigerante lata.",
             "preco": 24.99,
-            "imagem": "combo_economico_smash.jpeg"
+            "imagem": "combo_economico.jpeg"
         },
         {
             "id": 7,
             "nome": "Combo do Chef",
-            "descricao": "1x Jotta Classic + Batata Frita + Bebida.",
+            "descricao": "Hambúrguer da casa, batata frita e refrigerante 1L.",
             "preco": 40.99,
-            "imagem": "combo_economico_casal_smash.jpeg"
+            "imagem": "combo_do_chef.jpeg"
         }
     ],
     "Acompanhamentos": [
         {
             "id": 8,
             "nome": "Batata Frita",
-            "descricao": "Batata frita palito, crocante e sequinha.",
+            "descricao": "Batata frita com especiarias e molho especial.",
             "preco": 12.00,
             "imagem": "batata_frita.jpeg"
         },
         {
             "id": 9,
             "nome": "Batata Cheddar e Bacon",
-            "descricao": "Batata coberta com cheddar cremoso e bacon crocante.",
+            "descricao": "Batata frita coberta com cheddar cremoso e bacon crocante.",
             "preco": 18.00,
             "imagem": "batata_cheddar_bacon.jpeg"
+        },
+        {
+            "id": 10,
+            "nome": "Anéis de Cebola",
+            "descricao": "Anéis de cebola crocantes, empanados e fritos.",
+            "preco": 15.00,
+            "imagem": "aneis_cebola.jpeg"
         }
     ],
     "Bebidas": [
         {
-            "id": 10,
+            "id": 11,
             "nome": "Refrigerante Lata",
             "descricao": "Coca-Cola, Guaraná, Fanta.",
             "preco": 7.00,
             "imagem": "refrigerante_lata.jpeg"
         },
         {
-            "id": 11,
+            "id": 12,
             "nome": "Refrigerante 1L",
-            "descricao": "Coca-Cola, Guaraná, Fanta.",
+            "descricao": "Coca-Cola ou Guaraná.",
             "preco": 10.00,
             "imagem": "refrigerante_1l.jpeg"
         }
     ],
     "Opcionais": [
         {
-            "id": 12,
+            "id": 13,
             "nome": "Cheddar",
             "preco": 5.00,
             "imagem": "cheddar.jpeg"
         },
         {
-            "id": 13,
+            "id": 14,
             "nome": "Bacon",
-            "preco": 4.00,
+            "preco": 6.00,
             "imagem": "bacon.jpeg"
         },
         {
-            "id": 14,
-            "nome": "Ovo",
-            "preco": 3.00,
-            "imagem": "ovo.jpeg"
-        },
-        {
             "id": 15,
-            "nome": "Molho da Casa Extra",
-            "preco": 2.50,
-            "imagem": "molho_da_casa_extra.jpeg"
-        },
-        {
-            "id": 16,
-            "nome": "Catupiry",
-            "preco": 6.00,
-            "imagem": "catupiry.jpeg"
-        },
-        {
-            "id": 17,
-            "nome": "Salame",
-            "preco": 7.00,
-            "imagem": "salame.jpeg"
-        },
-        {
-            "id": 18,
-            "nome": "Requeijão Longá",
-            "preco": 5.00,
-            "imagem": "requeijao_longa.jpeg"
-        },
-        {
-            "id": 19,
-            "nome": "Queijo Muçarela",
-            "preco": 4.00,
-            "imagem": "queijo_mucarela.jpeg"
-        },
-        {
-            "id": 20,
-            "nome": "Calabresa",
-            "preco": 4.00,
-            "imagem": "calabresa_basico.jpeg"
+            "nome": "Molho",
+            "preco": 3.00,
+            "imagem": "molho.jpeg"
         }
     ]
 }

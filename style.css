@@ -451,47 +451,48 @@ footer {
     cursor: not-allowed;
 }
 
-.adicionais-opcoes-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    padding: 20px 0;
+/* Novo estilo para a listagem de adicionais */
+.adicionais-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.adicional-card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+.adicional-item {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-}
-
-.adicional-card img {
-    width: 100px;
-    height: 100px;
+    background-color: #f9f9f9;
+    padding: 15px;
     border-radius: 10px;
     margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .adicional-info {
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .adicional-info span:first-child {
     font-weight: bold;
+    font-size: 1.1em;
+}
+
+.adicional-info span:last-child {
+    color: #e53935;
+    font-size: 0.9em;
 }
 
 .adicional-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .adicional-actions button {
-    background-color: #ff5757;
+    background-color: #e53935;
     color: white;
     border: none;
     border-radius: 50%;
@@ -503,7 +504,7 @@ footer {
 }
 
 .adicional-actions button:hover {
-    background-color: #d63d3d;
+    background-color: #c62828;
 }
 
 /* Responsividade - Ajustes para Mobile */
@@ -570,18 +571,19 @@ footer {
 
     /* Novos ajustes para o Modal de Opcionais em telas menores */
     #adicionais-modal .modal-content {
-        height: 90%; /* Define a altura total da janela do modal */
-        max-height: 90vh; /* Garante que não ultrapasse a altura da tela */
-        width: 95%; /* Ajusta a largura */
-        padding: 15px; /* Reduz o padding para maximizar o espaço */
-        box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
+        height: 90%;
+        max-height: 90vh;
+        width: 95%;
+        padding: 15px;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
     }
     
-    .adicionais-opcoes-container {
-        flex-grow: 1; /* Permite que o container de opções cresça e ocupe o espaço disponível */
-        overflow-y: auto; /* Adiciona rolagem apenas nesta seção, se necessário */
+    .adicionais-list {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding-right: 5px; /* Adiciona um pequeno espaçamento para a barra de rolagem */
     }
 
     .observacao-item-container {

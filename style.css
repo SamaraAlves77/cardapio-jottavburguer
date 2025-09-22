@@ -43,7 +43,7 @@ nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Garante que os itens do menu fiquem em linha */
+    display: flex;
     gap: 25px;
 }
 
@@ -90,7 +90,7 @@ nav a:hover {
 }
 
 .hamburger-menu-btn {
-    display: none; /* Oculta o botão de hambúrguer por padrão em telas grandes */
+    display: none;
     font-size: 1.5em;
     cursor: pointer;
     background: none;

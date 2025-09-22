@@ -16,37 +16,34 @@ document.addEventListener('DOMContentLoaded', () => {
         "Combos": [
             { "id": 10, "nome": "Combo Smash individual", "descricao": "1x Smash Original + Batata Frita.", "preco": 31.99, "imagem": "combo_economico_smash.jpeg" },
             { "id": 11, "nome": "Combo Smash casal", "descricao": "2x Smash Original + Batata Frita + Refri 1L.", "preco": 49.99, "imagem": "casal_2x_smash.jpeg" },
-            { "id": 12, "nome: "Combo Smash família" "descricao": 4 Smash Original + batata Frita + Refri 1L.","preço": 87.99, "imagem":"combo_smash_familia"},
+            { "id": 12, "nome": "Combo Smash família", "descricao": "4 Smash Original + batata Frita + Refri 1L.", "preco": 87.99, "imagem": "combo_smash_familia" },
             { "id": 13, "nome": "Combo do Chef individual", "descricao": "1x Jotta Classic + Batata Frita + refrigerente em lata.", "preco": 41.99, "imagem": "combo_do_chef.jpeg" },
             { "id": 14, "nome": "Combo do Chef casal", "descricao": "2x Jotta Classic + Batata Frita + refrigerente de 1L.", "preco": 63.99, "imagem": "combo_do_chef.jpeg" },
-            { "id": 15, "nome": "Combo do Chef família", "descricao": "4x Jotta Classic + Batata Frita + refrigerente de 1L.", "preco": 115,99, "imagem": "combo_do_chef.jpeg" },
-            { "id": 16, "nome": "Combo Smash duplo individual", "descricao": "1x Smash Duplo + Batata Frita + refrigerante em lata.", "preco": 37.99, "imagem": "combo_smash_duplo.jpeg" },            
-            { "id": 17, "nome": "Combo Smash duplo casal", "descricao": "2x Smash Duplo + Batata Frita + refrigerante de 1L.", "preco": 61.99, "imagem": "combo_smash_duplo.jpeg" },            
+            { "id": 15, "nome": "Combo do Chef família", "descricao": "4x Jotta Classic + Batata Frita + refrigerente de 1L.", "preco": 115.99, "imagem": "combo_do_chef.jpeg" },
+            { "id": 16, "nome": "Combo Smash duplo individual", "descricao": "1x Smash Duplo + Batata Frita + refrigerante em lata.", "preco": 37.99, "imagem": "combo_smash_duplo.jpeg" },
+            { "id": 17, "nome": "Combo Smash duplo casal", "descricao": "2x Smash Duplo + Batata Frita + refrigerante de 1L.", "preco": 61.99, "imagem": "combo_smash_duplo.jpeg" },
             { "id": 18, "nome": "Combo Smash duplo família", "descricao": "4x Smash Duplo + Batata Frita + refrigerante de 1L.", "preco": 111.99, "imagem": "combo_smash_duplo.jpeg" },
             { "id": 19, "nome": "Combo Premium individual", "descricao": "1x Duplo Brutão + Batata Frita + refrigerante em lata.", "preco": 53.99, "imagem": "combo_premium.jpeg" },
-            { "id": 20, "nome": "Combo Premium casal", "descricao": "2x Duplo Brutão + Batata Frita + refrigerante de 1L.", "preco": 83,99, "imagem": "combo_premium.jpeg" },
-            { "id": 21, "nome": "Combo Premium família", "descricao": "4x Duplo Brutão + Batata Frita + refrigerante de 1L.", "preco": 154.99, "imagem": "combo_premium.jpeg" },
-            
-                    ],
+            { "id": 20, "nome": "Combo Premium casal", "descricao": "2x Duplo Brutão + Batata Frita + refrigerante de 1L.", "preco": 83.99, "imagem": "combo_premium.jpeg" },
+            { "id": 21, "nome": "Combo Premium família", "descricao": "4x Duplo Brutão + Batata Frita + refrigerante de 1L.", "preco": 154.99, "imagem": "combo_premium.jpeg" }
+        ],
         "Acompanhamentos": [
-            { "id": 22, "nome": "Batata frita", "descricao": "Batata frita palito, crocante e sequinha.", "preco": 11,99, "imagem": "batata_frita.jpeg" },
-            { "id": 23, "nome": "Batata frita, Molho Especial e Bacon", "descricao": "Batata coberta com molho especial e bacon crocante.", "preco": 17,99, "imagem": "batata_cheddar_bacon.jpeg" },
-            { "id": 24, "nome": "Batata frita, Queijo Muçarela e Bacon", "descricao": "Batata coberta com queijo muçarela gratinado no massarico e bacon crocante.", "preco": 19,99, "imagem": "batata_queijo_bacon_cebola.jpeg" },
-            
+            { "id": 22, "nome": "Batata frita", "descricao": "Batata frita palito, crocante e sequinha.", "preco": 11.99, "imagem": "batata_frita.jpeg" },
+            { "id": 23, "nome": "Batata frita, Molho Especial e Bacon", "descricao": "Batata coberta com molho especial e bacon crocante.", "preco": 17.99, "imagem": "batata_cheddar_bacon.jpeg" },
+            { "id": 24, "nome": "Batata frita, Queijo Muçarela e Bacon", "descricao": "Batata coberta com queijo muçarela gratinado no massarico e bacon crocante.", "preco": 19.99, "imagem": "batata_queijo_bacon_cebola.jpeg" }
         ],
         "Bebidas": [
             { "id": 25, "nome": "Refrigerante Lata", "descricao": "Coca-Cola.", "preco": 7.00, "imagem": "refrigerante_lata_coca.jpeg" },
             { "id": 26, "nome": "Refrigerante Lata", "descricao": "Guaraná.", "preco": 6.00, "imagem": "refrigerante_lata_guarana.jpeg" },
-            { "id": 27, "nome": "Refrigerante 1L", "descricao": "Guaraná.", "preco": 9.00, "imagem": "refrigerante_1l.jpeg" },
-                        
+            { "id": 27, "nome": "Refrigerante 1L", "descricao": "Guaraná.", "preco": 9.00, "imagem": "refrigerante_1l.jpeg" }
         ],
         "Opcionais": [
             { "id": 28, "nome": "Bacon", "preco": 4.00, "imagem": "bacon.jpeg" },
             { "id": 29, "nome": "Molho da Casa Extra", "preco": 2.50, "imagem": "molho_da_casa_extra.jpeg" },
             { "id": 30, "nome": "Queijo Muçarela", "preco": 4.00, "imagem": "queijo_mucarela.jpeg" },
             { "id": 31, "nome": "Salame", "preco": 6.00, "imagem": "salame.jpeg" },
-            { "id": 32, "nome": "Requeijão Longá", "preco": 5.00, "imagem": "requeijao_longa.jpeg" }
-            { "id": 33, "nome": "Calabresa", "preco": 4.00, "imagem": "calabresa.jpeg" },
+            { "id": 32, "nome": "Requeijão Longá", "preco": 5.00, "imagem": "requeijao_longa.jpeg" },
+            { "id": 33, "nome": "Calabresa", "preco": 4.00, "imagem": "calabresa.jpeg" }
         ]
     };
 
@@ -406,4 +403,3 @@ document.addEventListener('DOMContentLoaded', () => {
     renderizarCardapio();
     atualizarCarrinho();
 });
-

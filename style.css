@@ -532,39 +532,64 @@ footer {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
-    
+
     .item-card {
         padding: 10px;
-        height: 250px; /* Define uma altura fixa para os cards, para que fiquem mais quadrados */
+        height: 250px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* Alinha o conteúdo verticalmente */
+        justify-content: space-between;
     }
 
     .item-card img {
-        height: 80px; /* Reduz ainda mais o tamanho das imagens para caber melhor */
+        height: 80px;
         width: 100%;
         object-fit: cover;
     }
-    
+
     .item-card h3 {
-        font-size: 1em; /* Reduz o tamanho do título */
-        white-space: nowrap; /* Evita quebras de linha */
-        overflow: hidden; /* Esconde o excesso de texto */
-        text-overflow: ellipsis; /* Adiciona "..." ao final do texto longo */
+        font-size: 1em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
-    
+
     .item-card p {
-        font-size: 0.7em; /* Reduz o tamanho da descrição */
+        font-size: 0.7em;
     }
-    
+
     .price {
-        font-size: 1em; /* Reduz o tamanho do preço */
+        font-size: 1em;
         margin-bottom: 5px;
     }
-    
+
     .btn-add {
-        font-size: 0.9em; /* Reduz o tamanho do botão */
+        font-size: 0.9em;
         padding: 8px 15px;
+    }
+
+    /* Novos ajustes para o Modal de Opcionais em telas menores */
+    #adicionais-modal .modal-content {
+        height: 90%; /* Define a altura total da janela do modal */
+        max-height: 90vh; /* Garante que não ultrapasse a altura da tela */
+        width: 95%; /* Ajusta a largura */
+        padding: 15px; /* Reduz o padding para maximizar o espaço */
+        box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .adicionais-opcoes-container {
+        flex-grow: 1; /* Permite que o container de opções cresça e ocupe o espaço disponível */
+        overflow-y: auto; /* Adiciona rolagem apenas nesta seção, se necessário */
+    }
+
+    .observacao-item-container {
+        margin-top: 10px;
+    }
+
+    #confirmar-adicionais {
+        margin-top: 15px;
+        width: 100%;
     }
 }

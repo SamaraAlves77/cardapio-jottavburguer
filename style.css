@@ -6,9 +6,10 @@
     --card-background: #fff; /* Branco para os cards */
     --text-color: #333; /* Cor do texto */
     --shadow-color: rgba(0, 0, 0, 0.1);
+    --border-dashed: 1px dashed #ddd; /* Borda tracejada sutil */
 }
 
-/* Importação da fonte */
+/* Importação da fonte Poppins para um visual mais clean */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 * {
@@ -227,8 +228,9 @@ main {
     color: var(--primary-color);
     text-align: center;
     margin-bottom: 2rem;
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: var(--border-dashed);
     display: inline-block;
+    padding-bottom: 0.5rem;
 }
 
 .item-grid {
@@ -351,7 +353,7 @@ main {
 .carrinho-itens {
     max-height: 300px;
     overflow-y: auto;
-    border-bottom: 1px solid #ddd;
+    border-bottom: var(--border-dashed);
     padding-bottom: 1rem;
     margin-bottom: 1rem;
 }
@@ -437,6 +439,7 @@ footer {
     text-align: center;
     padding: 1.5rem;
     margin-top: 3rem;
+    border-top: var(--border-dashed);
 }
 
 /* --- MEDIA QUERIES (RESPONSIVIDADE) --- */
@@ -485,6 +488,7 @@ footer {
 
     .item-card img {
         height: 120px;
+        object-fit: cover;
     }
 
     .item-card-content p {

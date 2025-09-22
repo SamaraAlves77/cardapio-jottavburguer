@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderizarMenu() {
         if (!menuData) return;
-        mainContainer.innerHTML = '';
-        const sections = document.createElement('div');
+        
+        // Renderiza cada seção individualmente
         for (const categoria in menuData) {
             if (menuData.hasOwnProperty(categoria)) {
                 criarSecaoCardapio(categoria, menuData[categoria]);
@@ -30,17 +30,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function criarSecaoCardapio(titulo, itens) {
-        const section = document.createElement('section');
-        section.classList.add('menu-section');
-        section.id = titulo.toLowerCase().replace(/\s/g, '-');
+        let containerId = '';
+        switch(titulo) {
+            case 'Hambúrgueres Artesanais':
+                containerId = 'hamburgueres-artesanais-grid';
+                break;
+            case 'Combos e Família':
+                containerId = 'combos-e-familia-grid';
+                break;
+            case 'Acompanhamentos':
+                containerId = 'acompanhamentos-grid';
+                break;
+            case 'Bebidas':
+                containerId = 'bebidas-grid';
+                break;
+            case 'Adicionais':
+                containerId = 'adicionais-grid';
+                break;
+            default:
+                console.warn(`Categoria desconhecida: ${titulo}`);
+                return;
+        }
 
-        const title = document.createElement('h2');
-        title.textContent = titulo;
-        section.appendChild(title);
+        const container = document.getElementById(containerId);
+        if (!container) {
+            console.error(`Contêiner não encontrado para a categoria: ${titulo}`);
+            return;
+        }
 
-        const grid = document.createElement('div');
-        grid.classList.add('item-grid');
-
+        container.innerHTML = '';
         itens.forEach(item => {
             const card = document.createElement('div');
             card.classList.add('item-card');
@@ -78,11 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.appendChild(img);
             card.appendChild(content);
-            grid.appendChild(card);
+            container.appendChild(card);
         });
-
-        section.appendChild(grid);
-        mainContainer.appendChild(section);
     }
 
     async function carregarMenu() {
@@ -122,17 +137,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderizarCarrinho() {
         carrinhoItensContainer.innerHTML = '';
         let total = 0;
-        carrinho.forEach(item => {
-            total += item.preco * item.quantidade;
-            const li = document.createElement('li');
-            li.classList.add('carrinho-item');
-            li.innerHTML = `
-                <span>${item.nome} (${item.quantidade}x)</span>
-                <span>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</span>
-                <button class="btn-remove" data-id="${item.id}">&times;</button>
-            `;
-            carrinhoItensContainer.appendChild(li);
-        });
+        if (carrinho.length === 0) {
+            carrinhoItensContainer.innerHTML = '<p style="text-align: center;">Seu carrinho está vazio.</p>';
+        } else {
+            carrinho.forEach(item => {
+                total += item.preco * item.quantidade;
+                const li = document.createElement('li');
+                li.classList.add('carrinho-item');
+                li.innerHTML = `
+                    <span>${item.nome} (${item.quantidade}x)</span>
+                    <span>R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</span>
+                    <button class="btn-remove" data-id="${item.id}">&times;</button>
+                `;
+                carrinhoItensContainer.appendChild(li);
+            });
+        }
         carrinhoTotalElement.textContent = total.toFixed(2).replace('.', ',');
 
         document.querySelectorAll('.btn-remove').forEach(button => {

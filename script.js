@@ -69,7 +69,6 @@ function criarItemCardapio(item) {
   divItem.className = 'item-card';
 
   const img = document.createElement('img');
-  // Ajusta o caminho da imagem, pois suas imagens estão na pasta 'imagem_cardapio'
   img.src = `imagem_cardapio/${item.imagem}`;
   img.alt = item.nome;
   divItem.appendChild(img);
@@ -93,6 +92,15 @@ function criarItemCardapio(item) {
   const btnAdicionar = document.createElement('button');
   btnAdicionar.className = 'btn-add';
   btnAdicionar.textContent = 'Adicionar';
+  
+  // AQUI ESTÁ A CORREÇÃO: Adiciona o evento de clique ao botão
+  btnAdicionar.addEventListener('click', () => {
+    // A ação do botão. Por enquanto, vamos exibir um alerta simples
+    alert(`${item.nome} foi adicionado ao carrinho!`);
+    console.log('Item adicionado:', item);
+    // Aqui você adicionaria a lógica para adicionar o item a um carrinho de compras real
+  });
+  
   divItem.appendChild(btnAdicionar);
 
   return divItem;

@@ -245,7 +245,9 @@ footer {
 }
 /* Estilos para o modal do carrinho */
 .modal {
-    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     z-index: 2000;
     left: 0;
@@ -258,7 +260,7 @@ footer {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 10% auto;
+    margin: 0;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;

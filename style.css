@@ -112,6 +112,8 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #f0f0f0;
+    color: #333;
 }
 
 header {
@@ -273,7 +275,7 @@ header .logo img {
 }
 
 .btn-add {
-    background-color: #ff5252;
+    background-color: #e53935;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -458,7 +460,7 @@ footer {
     cursor: not-allowed;
 }
 
-/* Estilo para a listagem de adicionais (agora mais moderno) */
+/* Estilo para a listagem de adicionais */
 .adicionais-list {
     list-style: none;
     padding: 0;
@@ -507,7 +509,7 @@ footer {
 }
 
 .adicional-info span:last-child {
-    color: #e53935;
+    color: #ff5757;
     font-size: 0.95em;
     margin-top: 2px;
 }
@@ -520,7 +522,7 @@ footer {
 }
 
 .adicional-actions button {
-    background-color: #ff5252;
+    background-color: #e53935;
     color: white;
     border: none;
     border-radius: 50%;
@@ -534,8 +536,15 @@ footer {
     align-items: center;
 }
 
+.adicional-actions button.btn-decrease {
+    background-color: #e53935;
+}
+
+.adicional-actions button.btn-increase {
+    background-color: #25d366;
+}
+
 .adicional-actions button:hover {
-    background-color: #d62d2d;
     transform: scale(1.05);
 }
 

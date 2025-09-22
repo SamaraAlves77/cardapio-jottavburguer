@@ -5,85 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardápio - JottaV Burguer</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
     <header>
         <div class="logo">
-            <a href="index.html">
-                <img src="imagem_cardapio/jottaV_burguer.png" alt="Logo JottaV Burguer" id="jottav-burguer-logo">
-            </a>
+            <img src="imagem_cardapio/jottaV_burguer.png" alt="Logo JottaV Burguer" id="jottav-burguer-logo">
         </div>
-        <nav class="nav-links" id="nav-links">
+        <nav>
+            <ul class="nav-links" id="nav-links">
+                </ul>
         </nav>
         <div class="header-actions">
             <button class="carrinho-btn" id="carrinho-btn-js">
-                <i class="fas fa-shopping-cart"></i>
+                <span class="carrinho-icon">🛒</span>
                 <span id="contador-carrinho">0</span>
             </button>
-            <button class="hamburger-menu-btn" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
+            <button class="hamburger-menu-btn" id="hamburger-menu-btn">
+                <span>&#9776;</span>
             </button>
         </div>
     </header>
 
     <main id="main-content">
-    </main>
-    
+        </main>
+
     <footer>
         <p>&copy; 2024 JottaV Burguer. Todos os direitos reservados.</p>
     </footer>
 
     <div id="adicionais-modal" class="modal">
         <div class="modal-content">
-            <span class="fechar-modal" onclick="fecharModalAdicionais()">&times;</span>
-            <h2>Opcionais</h2>
-            
-            <ul id="adicionais-opcoes" class="adicionais-list">
-            </ul>
-
+            <span class="fechar-modal" id="fechar-adicionais-btn">&times;</span>
+            <h2>Adicionais</h2>
+            <ul class="adicionais-list" id="adicionais-opcoes">
+                </ul>
             <div class="observacao-item-container">
-                <h3>Observações sobre o item:</h3>
-                <textarea id="observacao-item" placeholder="Ex: sem picles, sem cebola, etc."></textarea>
+                <h3>Observação:</h3>
+                <textarea id="observacao-item" placeholder="Ex: Sem picles, cebola extra, etc..."></textarea>
             </div>
-            
-            <button id="confirmar-adicionais" class="btn-add">Confirmar</button>
+            <button id="confirmar-adicionais" class="btn-principal">Adicionar ao Carrinho</button>
         </div>
     </div>
 
     <div id="carrinho-modal" class="modal">
         <div class="modal-content">
-            <span class="fechar-modal" onclick="fecharModalCarrinho()">&times;</span>
-            <h2>Seu Pedido</h2>
+            <span class="fechar-modal" id="fechar-carrinho-btn">&times;</span>
+            <h2>Seu Carrinho</h2>
             <div id="carrinho-itens" class="carrinho-itens">
-                <p class="carrinho-vazio">Seu carrinho está vazio.</p>
-            </div>
+                </div>
             <div class="carrinho-total">
                 <p>Total: R$ <span id="valor-total">0,00</span></p>
             </div>
+
             <div class="carrinho-finalizar">
-                <h3>Dados para Entrega</h3>
-                <input type="text" id="nome-cliente" placeholder="Seu nome" required>
-                <input type="text" id="endereco-cliente" placeholder="Seu endereço" required>
-                <input type="text" id="telefone-cliente" placeholder="Seu telefone" required>
-                
-                <h3>Pagamento</h3>
+                <h3>Dados para o Pedido:</h3>
+                <input type="text" id="nome-cliente" placeholder="Seu nome completo" required>
+                <input type="text" id="endereco-cliente" placeholder="Seu endereço completo" required>
+                <input type="tel" id="telefone-cliente" placeholder="Seu WhatsApp (apenas números)" required>
                 <select id="forma-pagamento">
-                    <option value="pix">PIX</option>
-                    <option value="dinheiro">Dinheiro</option>
-                    <option value="cartao">Cartão</option>
+                    <option value="pix">Pagamento na Entrega (PIX/Dinheiro/Cartão)</option>
+                    <option value="online">Pagamento Online</option>
                 </select>
-                
-                <button class="btn-principal" onclick="finalizarPedido()" disabled>Finalizar Pedido</button>
+                <button class="btn-principal" id="finalizar-pedido-btn" disabled>Finalizar Pedido via WhatsApp</button>
             </div>
         </div>
     </div>
-
-    <script src="script.js"></script>
 
 </body>
 </html>

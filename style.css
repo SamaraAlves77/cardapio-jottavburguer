@@ -121,20 +121,24 @@ main {
 /* --- Grid de Itens --- */
 .item-grid {
     display: grid;
-    /* Ajusta automaticamente a quantidade de colunas */
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    justify-content: center;
 }
 
-/* --- Estilo dos Cards (Modelo Aiqfome) --- */
+/* --- Estilo dos Cards --- */
 .item-card {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 1 / 1; /* Força o formato quadrado */
-    border-radius: 15px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 15px; /* Bordas arredondadas */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
+    
+    max-width: 300px; /* Impede que o card cresça demais */
+    margin: 0 auto; /* Centraliza o card na célula da grade */
 }
 
 .item-card:hover {
@@ -144,68 +148,60 @@ main {
 
 .item-card img {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
-    transition: transform 0.3s ease;
+    height: 180px; /* Altura fixa da imagem */
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
-.item-card:hover img {
-    transform: scale(1.05); /* Efeito de zoom na imagem ao passar o mouse */
-}
-
-/* Camada de overlay semi-transparente para o texto */
 .item-card-content {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente preto */
-    color: #fff; /* Texto branco */
-    text-align: left;
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    z-index: 2; /* Garante que o conteúdo fique sobre a imagem */
+    align-items: center;
+    text-align: center;
 }
 
 .item-card-content h3 {
+    font-size: 1.2em;
+    margin: 0 0 5px 0;
+    color: #e53935;
+}
+
+.item-card-content p {
     font-size: 0.9em;
     margin: 0;
+    color: #666;
+    height: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
-.item-card-content .price {
-    font-size: 1.1em;
+.price {
+    font-size: 1.3em;
     font-weight: bold;
-    color: #fff;
-    margin: 5px 0;
+    color: #e53935;
+    margin: 10px 0;
 }
 
-.item-card-content p,
-.item-card-content .btn-add {
-    display: none; /* Oculta a descrição e o botão Add */
-}
-
-/* O botão "Adicionar" aparece apenas ao passar o mouse */
-.item-card:hover .btn-add {
-    display: block;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: #e53935;
+.btn-add {
+    background-color: #4caf50;
     color: #fff;
     border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
+    padding: 10px 15px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.8em;
+    font-weight: bold;
     transition: background-color 0.3s;
-    z-index: 3;
+    font-size: 0.9em;
+    width: 100%;
 }
 
-.item-card:hover .btn-add:hover {
-    background-color: #d32f2f;
+.btn-add:hover {
+    background-color: #43a047;
 }
 
 /* --- Modal do Carrinho --- */

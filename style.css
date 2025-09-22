@@ -1,107 +1,103 @@
-/* --- Variáveis de Estilo --- */
+/* --- Parâmetros de Design e Cores --- */
 :root {
-    --primary-color: #e53935; /* Vermelho JottaV Burguer */
-    --secondary-color: #212121; /* Preto */
-    --background-color: #f5f5f5; /* Cinza claro */
-    --card-background: #fff; /* Branco para os cards */
-    --text-color: #333; /* Cor do texto */
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --border-dashed: 1px dashed #ddd; /* Borda tracejada sutil */
+    --primary-color: #e53935; /* Vermelho vibrante JottaV Burguer */
+    --secondary-color: #333; /* Cinza escuro para textos principais */
+    --background-color: #f8f8f8; /* Fundo branco off-white */
+    --card-background: #fff; /* Branco puro para os cards */
+    --text-color-light: #666; /* Cinza claro para descrições */
+    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra mais suave e elegante */
+    --border-dashed: 1px dashed #e0e0e0; /* Borda tracejada quase invisível */
+    --spacing-lg: 3rem;
+    --spacing-md: 2rem;
+    --spacing-sm: 1rem;
 }
 
-/* Importação da fonte Poppins para um visual mais clean */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+/* Importação da fonte Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
 }
 
 body {
     background-color: var(--background-color);
-    color: var(--text-color);
+    color: var(--secondary-color);
     line-height: 1.6;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease;
 }
 
-/* --- ESTILOS PÁGINA DE ENTRADA (index.html) --- */
+/* --- Layout da Página de Entrada (index.html) --- */
 .landing-page-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 2rem;
+    padding: var(--spacing-md);
 }
 
 .landing-card {
     background-color: var(--card-background);
-    border-radius: 15px;
-    box-shadow: 0 10px 20px var(--shadow-color);
-    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-subtle);
+    padding: var(--spacing-lg);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    max-width: 800px;
+    gap: var(--spacing-md);
+    max-width: 900px;
+    width: 100%;
+}
+
+.card-left, .card-right {
     width: 100%;
     text-align: center;
-}
-
-.card-left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.card-divider {
-    display: none; /* Inicia oculto, será exibido apenas em telas maiores */
-}
-
-.card-right {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 1rem;
 }
 
 .logo-landing {
-    max-width: 200px;
+    max-width: 250px;
     height: auto;
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-sm);
+    animation: fadeIn 1s ease-in-out;
 }
 
 .slogan {
-    font-size: 1.2rem;
-    color: #666;
-    margin-top: 1rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-color-light);
+    margin-top: var(--spacing-sm);
+}
+
+.card-divider {
+    display: none;
 }
 
 .social-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
-    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1.1rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
 }
 
 .social-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .social-btn i {
-    margin-right: 0.5rem;
+    margin-right: 0.75rem;
 }
 
 .instagram {
-    background: #E1306C;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
     color: white;
 }
 
@@ -115,37 +111,35 @@ body {
     color: white;
 }
 
-/* Responsividade para a página de entrada (desktop) */
+/* Desktop: Layout de 2 colunas */
 @media (min-width: 768px) {
     .landing-card {
         flex-direction: row;
         justify-content: space-between;
-        padding: 3rem;
+        gap: var(--spacing-lg);
+    }
+
+    .card-left, .card-right {
+        width: 45%;
     }
 
     .card-left {
-        width: 45%;
         align-items: flex-start;
         text-align: left;
-    }
-
-    .card-right {
-        width: 45%;
     }
 
     .card-divider {
         display: block;
         width: 1px;
-        background-color: #ddd;
-        margin: 0 2rem;
+        background-color: var(--border-dashed);
     }
 }
 
-/* --- ESTILOS PÁGINA DO CARDÁPIO (cardapio.html) --- */
+/* --- Layout do Cardápio (cardapio.html) --- */
 header {
     background-color: var(--card-background);
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px var(--shadow-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    box-shadow: var(--shadow-subtle);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -155,31 +149,31 @@ header {
 }
 
 .logo img {
-    height: 60px;
+    height: 50px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 1.5rem;
+    gap: var(--spacing-md);
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--secondary-color);
-    font-weight: 700;
+    font-weight: 500;
     transition: color 0.3s ease;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
+.nav-links a:hover {
     color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: var(--spacing-sm);
 }
 
 .carrinho-btn {
@@ -195,8 +189,8 @@ header {
 #contador-carrinho {
     background-color: var(--primary-color);
     color: white;
-    font-size: 0.8rem;
-    font-weight: 700;
+    font-size: 0.7rem;
+    font-weight: 600;
     border-radius: 50%;
     padding: 0.2rem 0.5rem;
     position: absolute;
@@ -214,56 +208,58 @@ header {
 }
 
 main {
-    padding: 2rem;
+    padding: var(--spacing-md);
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .menu-section {
-    margin-bottom: 3rem;
+    margin-bottom: var(--spacing-lg);
 }
 
 .menu-section h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: var(--primary-color);
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-md);
     border-bottom: var(--border-dashed);
     display: inline-block;
     padding-bottom: 0.5rem;
+    width: 100%;
 }
 
 .item-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
+    gap: var(--spacing-md);
     justify-content: center;
 }
 
 .item-card {
     background-color: var(--card-background);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px var(--shadow-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtle);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    text-align: center;
-    transition: transform 0.3s ease;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .item-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .item-card img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
     object-position: center;
 }
 
 .item-card-content {
-    padding: 1rem;
+    padding: var(--spacing-sm);
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -271,24 +267,22 @@ main {
 
 .item-card-content h3 {
     font-size: 1.2rem;
-    margin: 0.5rem 0;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
     color: var(--primary-color);
-    text-align: left;
 }
 
 .item-card-content p {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--text-color-light);
     flex-grow: 1;
-    margin-bottom: 1rem;
-    text-align: left;
+    margin-bottom: var(--spacing-sm);
 }
 
 .item-card .price {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary-color);
-    text-align: left;
+    color: var(--secondary-color);
     margin-top: auto;
 }
 
@@ -298,10 +292,10 @@ main {
     border: none;
     padding: 0.8rem;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 1rem;
+    margin-top: var(--spacing-sm);
     border-radius: 8px;
     width: 100%;
 }
@@ -310,205 +304,89 @@ main {
     background-color: #388e3c;
 }
 
-/* --- Modais (Pop-ups) --- */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
-}
-
+/* --- Modais e Notificações --- */
 .modal-content {
     background-color: var(--card-background);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    position: relative;
-    max-width: 600px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
+    padding: var(--spacing-md);
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtle);
 }
 
 .fechar-modal {
-    color: #aaa;
-    position: absolute;
+    color: #999;
+    font-size: 2.5rem;
     top: 10px;
     right: 20px;
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.fechar-modal:hover {
-    color: var(--primary-color);
 }
 
 .carrinho-itens {
-    max-height: 300px;
-    overflow-y: auto;
     border-bottom: var(--border-dashed);
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
 }
 
 .carrinho-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0.5rem 0;
-    border-bottom: 1px dashed #eee;
+    padding: 0.75rem 0;
+    border-bottom: 1px dashed #f0f0f0;
 }
 
-.carrinho-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.btn-remove {
-    background: none;
-    border: none;
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.carrinho-total {
-    text-align: right;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-}
-
-.carrinho-finalizar input,
-.carrinho-finalizar select {
-    width: 100%;
+.carrinho-finalizar input {
+    border-radius: 8px;
     padding: 0.8rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.carrinho-finalizar button {
-    width: 100%;
-    padding: 1rem;
-    background-color: #25D366; /* Cor do WhatsApp para o botão */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.carrinho-finalizar button:hover {
-    background-color: #128C7E;
-}
-
-/* --- Notificação --- */
-.notificacao {
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%) translateY(150%);
-    background-color: #4caf50;
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.5s ease-in-out;
-    z-index: 3000;
-}
-
-.notificacao.show {
-    transform: translateX(-50%) translateY(0);
+    border: 1px solid #ddd;
 }
 
 /* --- Footer --- */
 footer {
     background-color: var(--secondary-color);
-    color: white;
+    color: #f0f0f0;
     text-align: center;
-    padding: 1.5rem;
-    margin-top: 3rem;
-    border-top: var(--border-dashed);
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-lg);
 }
 
-/* --- MEDIA QUERIES (RESPONSIVIDADE) --- */
+/* --- Responsividade Mobile (max-width: 768px) --- */
 @media (max-width: 768px) {
+    .landing-card {
+        padding: 2rem;
+    }
+
+    .logo-landing {
+        max-width: 180px;
+    }
+
     header {
-        padding: 1rem;
+        padding: var(--spacing-sm);
     }
-
+    
+    .logo img {
+        height: 40px;
+    }
+    
     .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 80px;
-        left: 0;
-        background-color: var(--card-background);
-        box-shadow: 0 2px 4px var(--shadow-color);
-        text-align: center;
+        gap: var(--spacing-sm);
     }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .hamburger-menu-btn {
-        display: block;
-    }
-
-    main {
-        padding: 1rem 0.5rem;
-    }
-
-    .menu-section h2 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
+    
+    .nav-links a {
+        font-size: 0.9rem;
     }
 
     .item-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.8rem;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
     }
 
-    .item-card {
-        padding: 0.5rem;
-    }
-
-    .item-card img {
-        height: 120px;
-        object-fit: cover;
+    .item-card-content h3 {
+        font-size: 1.1rem;
     }
 
     .item-card-content p {
         display: none;
     }
-
-    .item-card-content h3 {
-        font-size: 0.9rem;
-        margin: 0.5rem 0;
+    
+    .item-card .price {
+        font-size: 1.3rem;
     }
 
-    .item-card-content .price {
-        font-size: 0.9rem;
-        margin: 0.2rem 0;
-    }
-
-    .btn-add {
-        padding: 0.6rem;
-        font-size: 0.9rem;
-        margin: 0.5rem 0;
-        width: 100%;
+    .menu-section h2 {
+        font-size: 1.8rem;
     }
 }

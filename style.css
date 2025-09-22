@@ -47,6 +47,20 @@ body {
     text-align: center;
 }
 
+.card-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.card-right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+
 .logo-landing {
     max-width: 200px;
     height: auto;
@@ -94,6 +108,24 @@ body {
 .cardapio {
     background: var(--primary-color);
     color: white;
+}
+
+/* Responsividade para a página de entrada (desktop) */
+@media (min-width: 768px) {
+    .landing-card {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 3rem;
+    }
+
+    .card-left, .card-right {
+        width: 45%;
+    }
+
+    .card-left {
+        align-items: flex-start;
+        text-align: left;
+    }
 }
 
 /* --- ESTILOS PÁGINA DO CARDÁPIO (cardapio.html) --- */
@@ -431,16 +463,30 @@ footer {
     }
 
     .item-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
     }
 
+    .item-card {
+        padding: 0.5rem;
+    }
+
     .item-card img {
-        height: 200px;
+        height: 120px;
     }
 
     .item-card-content p {
-        display: block;
+        display: none;
+    }
+
+    .item-card-content h3 {
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+
+    .item-card-content .price {
+        font-size: 0.9rem;
+        margin: 0.2rem 0;
     }
 
     .btn-add {

@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
 async function carregarItens() {
     try {
         const response = await fetch('itens.json');
+        
+        // Verifica se a resposta foi bem-sucedida
+        if (!response.ok) {
+            throw new Error(`Erro ao carregar o arquivo JSON: ${response.statusText}`);
+        }
+        
         const data = await response.json();
         const mainContent = document.querySelector('main');
         
@@ -29,44 +35,46 @@ async function carregarItens() {
 
         // Percorre todas as chaves (categorias) do JSON
         for (const categoriaNome in data) {
-            const itensDaCategoria = data[categoriaNome];
+            if (Object.hasOwnProperty.call(data, categoriaNome)) {
+                const itensDaCategoria = data[categoriaNome];
 
-            // Cria a seção para a categoria
-            const section = document.createElement('section');
-            section.className = 'menu-section';
+                // Cria a seção para a categoria
+                const section = document.createElement('section');
+                section.className = 'menu-section';
 
-            // Cria o título da seção com o nome da chave
-            const title = document.createElement('h2');
-            title.textContent = categoriaNome;
-            section.appendChild(title);
+                // Cria o título da seção com o nome da chave
+                const title = document.createElement('h2');
+                title.textContent = categoriaNome;
+                section.appendChild(title);
 
-            // Cria o contêiner da grade para os cards
-            const gridContainer = document.createElement('div');
-            gridContainer.className = 'item-grid';
+                // Cria o contêiner da grade para os cards
+                const gridContainer = document.createElement('div');
+                gridContainer.className = 'item-grid';
 
-            // Cria os cards de cada item na categoria
-            itensDaCategoria.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'item-card';
-                card.dataset.id = item.id;
-                
-                // Adiciona a descrição apenas se ela existir no JSON
-                const descricaoHTML = item.descricao ? `<p>${item.descricao}</p>` : '';
-                
-                card.innerHTML = `
-                    <img src="imagem_cardapio/${item.imagem}" alt="${item.nome}">
-                    <div class="item-card-content">
-                        <h3>${item.nome}</h3>
-                        ${descricaoHTML}
-                        <span class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
-                        <button class="btn-add">Adicionar</button>
-                    </div>
-                `;
-                gridContainer.appendChild(card);
-            });
+                // Cria os cards de cada item na categoria
+                itensDaCategoria.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'item-card';
+                    card.dataset.id = item.id;
+                    
+                    // Adiciona a descrição apenas se ela existir no JSON
+                    const descricaoHTML = item.descricao ? `<p>${item.descricao}</p>` : '';
+                    
+                    card.innerHTML = `
+                        <img src="imagem_cardapio/${item.imagem}" alt="${item.nome}">
+                        <div class="item-card-content">
+                            <h3>${item.nome}</h3>
+                            ${descricaoHTML}
+                            <span class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
+                            <button class="btn-add">Adicionar</button>
+                        </div>
+                    `;
+                    gridContainer.appendChild(card);
+                });
 
-            section.appendChild(gridContainer);
-            mainContent.appendChild(section);
+                section.appendChild(gridContainer);
+                mainContent.appendChild(section);
+            }
         }
     } catch (error) {
         console.error('Erro ao carregar os itens:', error);
@@ -74,7 +82,7 @@ async function carregarItens() {
 }
 
 // Funções do carrinho (manter o restante do seu código JavaScript aqui)
-// ... (código para adicionarAoCarrinho, abrirModal, fecharModal, etc.)
+// ...
 
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 const carrinhoItensEl = document.getElementById('carrinho-itens');

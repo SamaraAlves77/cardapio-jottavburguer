@@ -152,20 +152,17 @@ function showNotification(message) {
     }, 2000);
 }
 
-// NOVO: Função para finalizar o pedido e enviar via WhatsApp
+// Função para finalizar o pedido e enviar via WhatsApp
 function finalizeOrder() {
-    // 1. Coletar os dados do cliente
     const clientName = document.getElementById('nome-cliente').value;
     const clientAddress = document.getElementById('endereco-cliente').value;
     const clientPhone = document.getElementById('telefone-cliente').value;
-
-    // 2. Verificar se os campos foram preenchidos
+    
     if (!clientName || !clientAddress || !clientPhone) {
         alert("Por favor, preencha todos os campos para finalizar o pedido.");
-        return; // Sai da função se algum campo estiver vazio
+        return;
     }
     
-    // 3. Montar a mensagem do pedido
     let orderMessage = `*Olá! Meu pedido é:*%0A%0A`;
     let total = 0;
     
@@ -180,16 +177,13 @@ function finalizeOrder() {
     orderMessage += `Endereço: ${clientAddress}%0A`;
     orderMessage += `Telefone: ${clientPhone}%0A`;
 
-    // 4. Montar a URL do WhatsApp com a mensagem
-    // Substitua 'SEU_NUMERO' pelo número de telefone da empresa, incluindo o código do país (55) e o DDD.
-    const whatsappNumber = '5586994793836'; // Exemplo: 55 para Brasil, 86 para o DDD
+    // Substitua 'SEU_NUMERO' pelo número de telefone da empresa
+    const whatsappNumber = '5586994793836';
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${orderMessage}`;
 
-    // 5. Limpar o carrinho e fechar o modal
     cartItems = [];
     updateCartCount();
     hideCartModal();
     
-    // 6. Abrir o WhatsApp
     window.open(whatsappUrl, '_blank');
 }

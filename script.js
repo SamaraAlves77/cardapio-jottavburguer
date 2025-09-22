@@ -20,7 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const enderecoClienteInput = document.getElementById('endereco-cliente');
     const telefoneClienteInput = document.getElementById('telefone-cliente');
 
-    // Botão do carrinho agora tem um id para ser manipulado por JS
+    // Botões de fechar os modais
+    const fecharAdicionaisBtn = adicionaisModal.querySelector('.fechar-modal');
+    const fecharCarrinhoBtn = carrinhoModal.querySelector('.fechar-modal');
+
+    // Botão do carrinho
     const carrinhoBtn = document.querySelector('.carrinho-btn');
 
     // Mapeamento de categorias que possuem adicionais
@@ -365,6 +369,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener para o botão de abrir o carrinho
     carrinhoBtn.addEventListener('click', abrirModalCarrinho);
+    
+    // Event listeners para fechar os modais
+    fecharAdicionaisBtn.addEventListener('click', fecharModalAdicionais);
+    fecharCarrinhoBtn.addEventListener('click', fecharModalCarrinho);
+
+    // Event Listener para fechar modais ao clicar fora
+    window.addEventListener('click', (event) => {
+        if (event.target === adicionaisModal) {
+            fecharModalAdicionais();
+        }
+        if (event.target === carrinhoModal) {
+            fecharModalCarrinho();
+        }
+    });
 
     // Inicia o carregamento do cardápio
     carregarCardapio();

@@ -400,33 +400,43 @@ footer {
         font-size: 2rem;
     }
 
+    /* Ajuste para que o cliente possa ver mais cards */
     .item-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1rem;
     }
 
     .item-card {
         padding-bottom: 0.5rem;
+        border-radius: 10px; /* Borda arredondada */
     }
     
     .item-card p {
         display: none; /* Esconde a descrição para economizar espaço em mobile */
     }
     
+    .item-card img {
+        height: 120px;
+    }
+
+    .item-card h3 {
+        font-size: 1rem;
+        margin: 0.5rem 0;
+    }
+
     .item-card .price {
-        font-size: 1.1rem;
+        font-size: 1rem;
+    }
+
+    .btn-add {
+        padding: 0.6rem;
+        font-size: 0.9rem;
     }
 
     .modal-content {
         padding: 1rem;
         width: 95%;
     }
-    
-    .item-card {
-        max-width: 180px;
-        margin: auto;
-    }
-
 }
 
 /* Telas de tablet (769px a 1024px) */

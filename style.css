@@ -316,11 +316,11 @@ footer {
     .nav-menu {
         display: none;
     }
-    
+
     .nav-menu.active {
         display: flex;
     }
-    
+
     .hamburger-menu-btn {
         display: block; /* Mostra o botão do menu hambúrguer */
     }
@@ -349,14 +349,14 @@ footer {
         gap: 15px; /* Espaço entre os cards */
         padding: 0 15px;
     }
-    
+
     /* Ajusta o estilo de cada card individualmente */
     .item-card {
+        display: flex;
         flex-direction: row; /* Coloca imagem e texto lado a lado */
         text-align: left;
         padding: 15px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        display: flex;
         align-items: center;
         width: auto;
     }
@@ -369,18 +369,33 @@ footer {
         border-radius: 8px;
     }
 
-    /* Diminui o tamanho da fonte para melhor visualização */
+    .item-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    
     .item-card h3 {
         font-size: 1.1em;
+        margin: 0 0 5px 0;
     }
 
     .item-card p {
-        font-size: 0.9em;
-        margin-bottom: 5px;
+        font-size: 0.8em;
+        margin: 0 0 5px 0;
     }
-    
-    .item-card .price {
+
+    .price-and-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .price {
         font-size: 1.1em;
+        font-weight: bold;
+        margin: 0;
     }
 
     .btn-add {

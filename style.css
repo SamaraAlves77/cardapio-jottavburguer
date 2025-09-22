@@ -686,3 +686,22 @@ footer {
         text-align: left;
     }
 }
+
+/* Novo Media Query para otimizar os Modais em telas muito pequenas */
+@media (max-width: 500px) {
+    .modal-content {
+        max-width: 95%; /* Ajusta a largura máxima */
+        padding: 15px; /* Reduz o padding */
+    }
+
+    .adicionais-list {
+        grid-template-columns: 1fr; /* Força os itens a ficarem um abaixo do outro */
+        gap: 10px;
+    }
+
+    .adicional-item {
+        flex-direction: column; /* Coloca os itens um embaixo do outro */
+        align-items: center;
+        text-align: center;
+    }
+}

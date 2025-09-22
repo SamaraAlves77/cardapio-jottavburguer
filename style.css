@@ -127,30 +127,30 @@ main {
 
 .item-card {
     background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 15px; /* Bordas arredondadas */
+    padding: 15px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra suave */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .item-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .item-card img {
     width: 100%;
     height: 150px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-bottom: 10px;
 }
 
 .item-card h3 {
     font-size: 1.2em;
-    margin: 10px 0;
+    margin: 10px 0 5px;
     color: #333;
 }
 
@@ -159,6 +159,7 @@ main {
     color: #666;
     height: 60px;
     overflow: hidden;
+    margin: 0 0 10px;
 }
 
 .price {
@@ -343,63 +344,42 @@ footer {
         display: flex;
     }
 
-    /* Faz com que o grid de itens tenha uma única coluna em mobile */
+    /* Faz com que o grid de itens tenha 2 colunas */
     .item-grid {
-        grid-template-columns: 1fr; /* 1 coluna */
-        gap: 15px; /* Espaço entre os cards */
-        padding: 0 15px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 0 10px;
     }
 
-    /* Ajusta o estilo de cada card individualmente */
+    /* Ajusta o estilo de cada card individualmente para ser mais quadrado */
     .item-card {
-        display: flex;
-        flex-direction: row; /* Coloca imagem e texto lado a lado */
-        text-align: left;
-        padding: 15px;
+        padding: 10px;
+        border-radius: 12px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        align-items: center;
-        width: auto;
-    }
-
-    .item-card img {
-        width: 100px; /* Reduz o tamanho da imagem */
-        height: 100px;
-        margin-right: 15px;
-        object-fit: cover;
-        border-radius: 8px;
-    }
-
-    .item-info {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
     }
     
+    .item-card img {
+        height: 100px; /* Mantém a imagem em um tamanho fixo */
+        border-radius: 8px;
+    }
+    
+    /* Diminui o tamanho da fonte para melhor visualização */
     .item-card h3 {
-        font-size: 1.1em;
-        margin: 0 0 5px 0;
+        font-size: 1em;
+        margin: 5px 0;
     }
 
     .item-card p {
-        font-size: 0.8em;
-        margin: 0 0 5px 0;
+        display: none; /* Oculta a descrição para economizar espaço */
     }
-
-    .price-and-button {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px;
-    }
-
+    
     .price {
-        font-size: 1.1em;
-        font-weight: bold;
-        margin: 0;
+        font-size: 1em;
+        margin-top: 5px;
     }
 
     .btn-add {
-        font-size: 0.9em;
-        padding: 8px 12px;
+        font-size: 0.8em;
+        padding: 6px 8px;
     }
 }

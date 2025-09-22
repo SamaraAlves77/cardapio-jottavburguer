@@ -19,7 +19,7 @@ body {
 /* Header */
 header {
     display: flex;
-    justify-content: space-between; /* Mantém o espaçamento entre os elementos */
+    justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
     background-color: #fff;
@@ -33,7 +33,7 @@ header {
     height: 50px;
 }
 
-/* Navegação e links (agora centralizados) */
+/* Navegação e links */
 .nav-menu {
     flex-grow: 1; /* Permite que o menu ocupe o espaço central */
     display: flex;
@@ -58,7 +58,7 @@ header {
 }
 
 .nav-links li a:hover {
-    background-color: #d9534f; /* Cor de destaque ao passar o mouse */
+    background-color: #d9534f;
     color: #fff;
 }
 
@@ -76,7 +76,7 @@ header {
     border: none;
     font-size: 1.5em;
     color: #333;
-    display: flex; /* Adicionado para alinhar o ícone e o contador */
+    display: flex;
     align-items: center;
 }
 

@@ -33,51 +33,31 @@ header {
     height: 50px;
 }
 
-/* Navegação e links */
-nav {
-    flex-grow: 1; /* Permite que o menu ocupe o espaço central */
-    display: flex;
-    justify-content: center; /* Centraliza os links */
-}
-
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 25px;
+}
+
+nav ul li {
+    margin-right: 20px;
 }
 
 nav a {
     text-decoration: none;
     color: #333;
     font-weight: 700;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-nav a:hover {
-    background-color: #d9534f;
-    color: #fff;
-}
-
-/* Ações do header (carrinho e menu hambúrguer) */
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.carrinho-btn {
+.cart {
     position: relative;
     cursor: pointer;
-    background: none;
-    border: none;
-    font-size: 1.5em;
-    color: #333;
-    display: flex;
-    align-items: center;
+}
+
+.cart-icon {
+    height: 30px;
+    color: #d9534f;
 }
 
 .cart-count {
@@ -90,7 +70,6 @@ nav a:hover {
     padding: 2px 6px;
     font-size: 12px;
 }
-
 
 /* Seções do cardápio */
 .menu-section {
@@ -225,65 +204,45 @@ nav a:hover {
 /* Footer */
 footer {
     text-align: center;
-    padding: 30px 20px;
+    padding: 20px;
     background-color: #222;
     color: #fff;
     margin-top: 40px;
 }
-
-.footer-content {
+/* Estilos para o menu hambúrguer em dispositivos móveis */
+.nav-menu {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.social-links {
+.nav-menu.active {
     display: flex;
-    gap: 15px;
+}
+
+.hamburger-menu-btn {
+    display: none;
     font-size: 1.5em;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #333;
 }
 
-.social-link {
-    color: #fff;
-    transition: color 0.2s;
-}
-
-.social-link:hover {
-    color: #d9534f;
-}
-
-.footer-info {
-    text-align: center;
-    font-size: 0.9em;
-}
-
-.footer-info p {
-    margin: 5px 0;
-}
-
-
-/* Estilos para o menu hambúrguer em dispositivos móveis */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
     }
+
     .hamburger-menu-btn {
         display: block;
     }
-    .nav-menu.active .nav-links {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        background-color: #fff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        z-index: 999;
-    }
 }
-
 /* Estilos para o modal do carrinho */
 .modal {
     display: flex;
@@ -296,7 +255,7 @@ footer {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.5);
-    visibility: hidden; /* Oculta o modal por padrão */
+    visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.4s;
 }

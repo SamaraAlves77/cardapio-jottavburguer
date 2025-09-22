@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderizarMenu() {
         if (!menuData) return;
         mainContainer.innerHTML = '';
+        const sections = document.createElement('div');
         for (const categoria in menuData) {
             if (menuData.hasOwnProperty(categoria)) {
                 criarSecaoCardapio(categoria, menuData[categoria]);
@@ -29,77 +30,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function criarSecaoCardapio(titulo, itens) {
-        let containerId = '';
-        switch(titulo) {
-            case 'Hambúrgueres Artesanais':
-                containerId = 'hamburgueres-artesanais-grid';
-                break;
-            case 'Combos e Família':
-                containerId = 'combos-e-familia-grid';
-                break;
-            case 'Acompanhamentos':
-                containerId = 'acompanhamentos-grid';
-                break;
-            case 'Bebidas':
-                containerId = 'bebidas-grid';
-                break;
-            case 'Adicionais':
-                containerId = 'adicionais-grid';
-                break;
-            default:
-                console.warn(`Categoria desconhecida: ${titulo}`);
-                return;
-        }
+        const section = document.createElement('section');
+        section.classList.add('menu-section');
+        section.id = titulo.toLowerCase().replace(/\s/g, '-');
 
-        const container = document.getElementById(containerId);
+        const title = document.createElement('h2');
+        title.textContent = titulo;
+        section.appendChild(title);
 
-        if (!container) {
-            console.error(`Contêiner não encontrado para a categoria: ${titulo}`);
-            return;
-        }
+        const grid = document.createElement('div');
+        grid.classList.add('item-grid');
 
         itens.forEach(item => {
-            const itemElemento = criarItemCardapio(item);
-            container.appendChild(itemElemento);
-        });
-    }
+            const card = document.createElement('div');
+            card.classList.add('item-card');
 
-    function criarItemCardapio(item) {
-        const divItem = document.createElement('div');
-        divItem.className = 'item-card';
+            const img = document.createElement('img');
+            img.src = `imagem_cardapio/${item.imagem}`;
+            img.alt = item.nome;
 
-        const img = document.createElement('img');
-        img.src = `imagem_cardapio/${item.imagem}`;
-        img.alt = item.nome;
+            const content = document.createElement('div');
+            content.classList.add('item-card-content');
 
-        const content = document.createElement('div');
-        content.classList.add('item-card-content');
+            const itemTitle = document.createElement('h3');
+            itemTitle.textContent = item.nome;
 
-        const itemTitle = document.createElement('h3');
-        itemTitle.textContent = item.nome;
-
-        const pPreco = document.createElement('p');
-        pPreco.className = 'price';
-        pPreco.textContent = `R$ ${item.preco.toFixed(2).replace('.', ',')}`;
-
-        const addButton = document.createElement('button');
-        addButton.className = 'btn-add';
-        addButton.textContent = 'Adicionar';
-        addButton.onclick = () => adicionarAoCarrinho(item);
-
-        content.appendChild(itemTitle);
-        if (item.descricao) {
             const itemDescription = document.createElement('p');
-            itemDescription.textContent = item.descricao;
+            if (item.descricao) {
+                itemDescription.textContent = item.descricao;
+            } else {
+                itemDescription.style.display = 'none';
+            }
+
+            const itemPrice = document.createElement('p');
+            itemPrice.classList.add('price');
+            itemPrice.textContent = `R$ ${item.preco.toFixed(2).replace('.', ',')}`;
+
+            const addButton = document.createElement('button');
+            addButton.classList.add('btn-add');
+            addButton.textContent = 'Adicionar';
+            addButton.onclick = () => adicionarAoCarrinho(item);
+
+            content.appendChild(itemTitle);
             content.appendChild(itemDescription);
-        }
-        content.appendChild(pPreco);
-        content.appendChild(addButton);
+            content.appendChild(itemPrice);
+            content.appendChild(addButton);
 
-        divItem.appendChild(img);
-        divItem.appendChild(content);
+            card.appendChild(img);
+            card.appendChild(content);
+            grid.appendChild(card);
+        });
 
-        return divItem;
+        section.appendChild(grid);
+        mainContainer.appendChild(section);
     }
 
     async function carregarMenu() {

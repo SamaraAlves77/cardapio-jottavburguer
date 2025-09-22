@@ -47,10 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
         itemDiv.className = 'item-card';
         itemDiv.innerHTML = `
             <img src="imagem_cardapio/${item.imagem}" alt="${item.nome}">
-            <h3>${item.nome}</h3>
-            <p>${item.descricao || ''}</p>
-            <div class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</div>
-            <button class="btn-add" data-id="${item.id}">Adicionar</button>
+            <div class="item-card-content">
+                <h3>${item.nome}</h3>
+                <div class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</div>
+                <button class="btn-add" data-id="${item.id}">Adicionar</button>
+            </div>
         `;
         container.appendChild(itemDiv);
     }

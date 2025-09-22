@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         try {
-            const response = await fetch('dados.json');
+            const response = await fetch('cardapio.json');
             if (!response.ok) {
                 throw new Error(`Erro ao carregar o cardápio: ${response.status} ${response.statusText}`);
             }
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderizarCardapio();
         } catch (error) {
             console.error('Erro ao carregar o cardápio:', error);
-            alert('Não foi possível carregar o cardápio. Verifique se o arquivo dados.json existe e está na pasta correta.');
+            alert('Não foi possível carregar o cardápio. Verifique se o arquivo cardapio.json existe e está na pasta correta.');
         }
     };
 
@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.add('item-card');
                 card.setAttribute('data-item-id', item.id);
                 
+                // Usa a imagem do item ou um placeholder se não existir
                 const imagemSrc = `imagens/${item.imagem}`; 
                 card.innerHTML = `
                     <img src="${imagemSrc}" alt="${item.nome}" onerror="this.onerror=null;this.src='https://via.placeholder.com/150';">
@@ -154,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         adicionaisOpcoesUl.innerHTML = '';
         observacaoItemTextarea.value = item.observacao;
 
-        const adicionaisMap = new Map(item.adicionais.map(a => [a.id, a.quantidade]));
+        const adicionaisMap = new Map((item.adicionais || []).map(a => [a.id, a.quantidade]));
 
         cardapio.Opcionais.forEach(adicional => {
             const quantidade = adicionaisMap.get(adicional.id) || 0;

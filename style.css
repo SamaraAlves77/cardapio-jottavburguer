@@ -172,7 +172,8 @@ main {
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 1rem;
+    margin: 1rem 1rem 0; /* Ajuste para margem */
+    border-radius: 8px; /* Bordas arredondadas */
 }
 
 .btn-add:hover {
@@ -450,7 +451,10 @@ footer {
     }
 
     .btn-add {
-        display: none; /* O botão de adicionar não precisa estar visível no card */
+        padding: 0.6rem;
+        font-size: 0.9rem;
+        margin: 0.8rem;
+        border-radius: 8px;
     }
 
     .modal-content {

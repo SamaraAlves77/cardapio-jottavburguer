@@ -529,29 +529,42 @@ footer {
     }
 
     .item-grid {
-        grid-template-columns: repeat(2, 1fr); /* Mantém duas colunas */
-        gap: 15px; /* Reduz o espaçamento entre os cards */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
-
+    
     .item-card {
         padding: 10px;
+        height: 250px; /* Define uma altura fixa para os cards, para que fiquem mais quadrados */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Alinha o conteúdo verticalmente */
     }
 
     .item-card img {
-        height: 100px; /* Define uma altura menor para as imagens */
-        width: 100%; /* Garante que a imagem preencha o espaço disponível */
-        object-fit: cover; /* Evita que a imagem seja distorcida */
+        height: 80px; /* Reduz ainda mais o tamanho das imagens para caber melhor */
+        width: 100%;
+        object-fit: cover;
     }
-
+    
     .item-card h3 {
-        font-size: 1.1em; /* Reduz o tamanho do título */
+        font-size: 1em; /* Reduz o tamanho do título */
+        white-space: nowrap; /* Evita quebras de linha */
+        overflow: hidden; /* Esconde o excesso de texto */
+        text-overflow: ellipsis; /* Adiciona "..." ao final do texto longo */
     }
-
+    
     .item-card p {
-        font-size: 0.8em; /* Reduz o tamanho da descrição */
+        font-size: 0.7em; /* Reduz o tamanho da descrição */
     }
-
+    
     .price {
-        font-size: 1.2em; /* Reduz o tamanho do preço */
+        font-size: 1em; /* Reduz o tamanho do preço */
+        margin-bottom: 5px;
+    }
+    
+    .btn-add {
+        font-size: 0.9em; /* Reduz o tamanho do botão */
+        padding: 8px 15px;
     }
 }

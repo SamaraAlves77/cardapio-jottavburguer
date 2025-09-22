@@ -440,7 +440,7 @@ footer {
     }
 
     .item-card-content p {
-        display: block; /* Mantém a descrição visível */
+        display: block;
     }
 
     .btn-add {

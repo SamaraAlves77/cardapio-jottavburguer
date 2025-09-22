@@ -26,13 +26,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Função para carregar o cardápio do arquivo JSON
     const carregarCardapio = async () => {
+        if (!menuContainer || !navLinks) {
+            console.error("Erro: Elementos principais do cardápio não encontrados. Verifique o cardapio.html.");
+            return;
+        }
+        
         try {
             const response = await fetch('dados.json');
+            if (!response.ok) {
+                throw new Error(`Erro ao carregar o cardápio: ${response.status} ${response.statusText}`);
+            }
             cardapio = await response.json();
             renderizarCardapio();
         } catch (error) {
             console.error('Erro ao carregar o cardápio:', error);
-            alert('Não foi possível carregar o cardápio. Tente novamente mais tarde.');
+            alert('Não foi possível carregar o cardápio. Verifique se o arquivo dados.json existe e está na pasta correta.');
         }
     };
 
@@ -70,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.add('item-card');
                 card.setAttribute('data-item-id', item.id);
                 
-                const imagemSrc = `Imagens/${item.imagem}`; 
+                const imagemSrc = `imagens/${item.imagem}`; 
                 card.innerHTML = `
-                    <img src="${imagemSrc}" alt="${item.nome}">
+                    <img src="${imagemSrc}" alt="${item.nome}" onerror="this.onerror=null;this.src='https://via.placeholder.com/150';">
                     <h3>${item.nome}</h3>
                     <p>${item.descricao}</p>
                     <span class="price">R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
@@ -114,13 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             carrinho.forEach((item, index) => {
                 let precoItem = item.preco;
-                let adicionaisTexto = '';
-
+                
                 if (item.adicionais && item.adicionais.length > 0) {
-                    adicionaisTexto = item.adicionais.map(adicional => {
+                    item.adicionais.forEach(adicional => {
                         precoItem += adicional.preco * adicional.quantidade;
-                        return `${adicional.nome} (${adicional.quantidade})`
-                    }).join(', ');
+                    });
                 }
 
                 total += precoItem;
@@ -158,8 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
             li.setAttribute('data-adicional-id', adicional.id);
             li.innerHTML = `
                 <div class="adicional-info">
-                    <span>${adicional.nome}</span>
-                    <span>R$ ${adicional.preco.toFixed(2).replace('.', ',')}</span>
+                    <img src="imagens/${adicional.imagem}" alt="${adicional.nome}" onerror="this.onerror=null;this.src='https://via.placeholder.com/50';">
+                    <div>
+                        <span>${adicional.nome}</span>
+                        <span>R$ ${adicional.preco.toFixed(2).replace('.', ',')}</span>
+                    </div>
                 </div>
                 <div class="adicional-actions">
                     <button class="btn-decrease">-</button>
@@ -216,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        let mensagem = `*Novo Pedido - [Seu Negócio]*\n\n`;
+        let mensagem = `*Novo Pedido - JottaV Burguer*\n\n`;
         mensagem += `*Dados do Cliente:*\n`;
         mensagem += `Nome: ${nome}\n`;
         mensagem += `Endereço: ${endereco}\n`;
@@ -244,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mensagem += `*Total do Pedido: R$ ${total.toFixed(2).replace('.', ',')}*\n\n`;
         mensagem += `*Forma de Pagamento:* ${formaPagamento}`;
 
-        const numeroWhatsapp = "SEU_NUMERO_AQUI"; 
+        const numeroWhatsapp = "5586994253258"; 
         const linkWhatsapp = `https://api.whatsapp.com/send?phone=${numeroWhatsapp}&text=${encodeURIComponent(mensagem)}`;
         window.open(linkWhatsapp, '_blank');
         

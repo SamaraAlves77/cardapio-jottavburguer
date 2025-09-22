@@ -3,14 +3,14 @@
     {
       "id": 1,
       "nome": "Smash Original",
-      "descricao": "Pão, carne artesanal 80g, queijo muçarela,cebola caramelizada e molho da casa.",
+      "descricao": "Pão, salada, carne artesanal 80g, queijo muçarela,cebola caramelizada e molho da casa.",
       "preco": 18.99,
       "imagem": "smash_original.jpeg"
     },
     {
       "id": 2,
       "nome": "Smash Duplo",
-      "descricao": "Pão, 2x carne artesanal  80g, 2x queijo, cebola caramelizada e molho da casa.",
+      "descricao": "Pão, salada, 2x carne artesanal  80g, 2x queijo, cebola caramelizada e molho da casa.",
       "preco": 24.99,
       "imagem": "smash_duplo.jpeg"
     },
@@ -199,39 +199,39 @@
   "Opcionais": [
     {
       "id": 28,
-      "nome": "Bacon",
+      "nome": "Bacon ",
       "preco": 4.00,
-      "imagem": "bacon.jpeg"
+      
     },
     {
       "id": 29,
-      "nome": "Molho da Casa Extra",
+      "nome": "Molho da Casa ",
       "preco": 2.50,
-      "imagem": "molho_da_casa_extra.jpeg"
+      
     },
     {
       "id": 30,
-      "nome": "Queijo Muçarela",
+      "nome": "Queijo Muçarela ",
       "preco": 4.00,
-      "imagem": "queijo_mucarela.jpeg"
+      
     },
     {
       "id": 31,
-      "nome": "Salame",
+      "nome": "Salame ",
       "preco": 6.00,
-      "imagem": "salame.jpeg"
+     
     },
     {
       "id": 32,
       "nome": "Requeijão Longá",
       "preco": 5.00,
-      "imagem": "requeijao_longa.jpeg"
+     
     },
     {
       "id": 33,
       "nome": "Calabresa",
       "preco": 4.00,
-      "imagem": "calabresa.jpeg"
+     
     }
   ]
 }

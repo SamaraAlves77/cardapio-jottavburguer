@@ -67,6 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'Bebidas':
                 containerId = 'bebidas-grid';
                 break;
+            case 'Adicionais':
+                // Os adicionais não precisam ser renderizados na página principal
+                return;
             default:
                 console.warn(`Categoria desconhecida: ${titulo}`);
                 return;

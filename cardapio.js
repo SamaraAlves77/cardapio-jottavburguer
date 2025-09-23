@@ -1,4 +1,4 @@
-export const cardapioData = {
+const cardapioData = {
     'Hambúrgueres Artesanais': [
         {
             id: 1,

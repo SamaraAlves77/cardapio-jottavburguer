@@ -428,6 +428,88 @@ main {
     text-align: center;
 }
 
+/* NOVOS ESTILOS PARA LISTA DE ADICIONAIS */
+.adicionais-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    max-height: 250px; /* Altura máxima para permitir rolagem */
+    overflow-y: auto; /* Adiciona barra de rolagem se a lista for grande */
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.adicional-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.adicional-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.adicional-item.selected {
+    border-color: var(--primary-color);
+    background-color: #fff8f8;
+    box-shadow: 0 0 10px rgba(229, 57, 53, 0.2);
+}
+
+.adicional-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.adicional-nome {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.adicional-preco {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+.adicional-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.adicional-btn-add {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.adicional-btn-add:hover {
+    background-color: #d32f2f;
+}
+
+/* Removendo os estilos dos cards antigos */
+.adicionais-grid, .adicional-card {
+    display: none;
+}
+
 #btn-adicionar-final {
     background-color: var(--primary-color);
     color: white;
@@ -446,58 +528,7 @@ main {
     background-color: #d32f2f;
 }
 
-/* Estilo para os cards de adicionais */
-.adicionais-grid {
-    padding-top: 1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 1rem;
-}
-
-.adicional-card {
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-}
-
-.adicional-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.adicional-card.selected {
-    border: 2px solid var(--primary-color);
-    box-shadow: 0 0 10px rgba(229, 57, 53, 0.5);
-    transform: translateY(-3px);
-}
-
-.adicional-card img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 0.5rem;
-}
-
-.adicional-card p {
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-align: center;
-    color: var(--secondary-color);
-}
-
-.adicional-card .price {
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-top: 0.2rem;
-}
-
-/* --- Estilo para o modal de carrinho --- */
+/* Estilo para o modal de carrinho */
 .carrinho-itens {
     padding-bottom: 1rem;
     margin-bottom: 1rem;
@@ -626,7 +657,10 @@ footer {
         font-size: 1.1rem;
     }
 
-    .menu-section h2 {
-        font-size: 1.8rem;
+    .btn-add {
+        padding: 0.4rem;
+        font-size: 0.8rem;
+        margin: 0.5rem 0;
+        width: 100%;
     }
 }

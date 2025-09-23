@@ -5,7 +5,6 @@ const hamburgueresGrid = document.getElementById('hamburgueres-artesanais-grid')
 const combosGrid = document.getElementById('combos-e-familia-grid');
 const acompanhamentosGrid = document.getElementById('acompanhamentos-grid');
 const bebidasGrid = document.getElementById('bebidas-grid');
-const adicionaisGrid = document.getElementById('adicionais-grid');
 
 const itemModal = document.getElementById('item-modal');
 const modalItemNome = document.getElementById('modal-item-nome');
@@ -16,7 +15,7 @@ const modalItemQuantidadeSpan = document.getElementById('modal-item-quantidade')
 const btnMenos = document.getElementById('btn-menos');
 const btnMais = document.getElementById('btn-mais');
 const btnAdicionarFinal = document.getElementById('btn-adicionar-final');
-const modalAdicionaisGrid = document.querySelector('.adicionais-grid');
+const modalAdicionaisGrid = document.getElementById('adicionais-grid');
 
 const carrinhoBtn = document.getElementById('carrinho-btn');
 const carrinhoModal = document.getElementById('carrinho-modal');
@@ -271,7 +270,7 @@ btnFinalizarPedido.addEventListener('click', () => {
 
     mensagem += `%0A*Total:* R$ ${totalPedido.toFixed(2).replace('.', ',')}`;
 
-    const numeroWhatsApp = "5586981147596"; // Substitua pelo seu número
+    const numeroWhatsApp = "5586981147596";
     const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
 
     window.open(linkWhatsApp, '_blank');

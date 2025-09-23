@@ -484,6 +484,7 @@ main {
 .adicional-actions {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
 }
 
 .adicional-btn-add {
@@ -503,11 +504,6 @@ main {
 
 .adicional-btn-add:hover {
     background-color: #d32f2f;
-}
-
-/* Removendo os estilos dos cards antigos */
-.adicionais-grid, .adicional-card {
-    display: none;
 }
 
 #btn-adicionar-final {

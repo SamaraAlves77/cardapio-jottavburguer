@@ -13,13 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelector('.nav-links');
     const notificacao = document.getElementById('notificacao');
     const adicionaisGrid = document.getElementById('adicionais-grid');
-    const btnAdicionarComAdicionais = document.getElementById('btn-adicionar-com-adicionais');
-    const btnCancelarAdicionais = document.getElementById('btn-cancelar-adicionais');
+
+    // Elementos da nova janela flutuante
+    const modalItemImg = document.getElementById('modal-item-img');
+    const modalItemNome = document.getElementById('modal-item-nome');
+    const modalItemDescricao = document.getElementById('modal-item-descricao');
+    const modalItemPreco = document.getElementById('modal-item-preco');
+    const btnMenos = document.getElementById('btn-menos');
+    const btnMais = document.getElementById('btn-mais');
+    const itemQuantidadeSpan = document.getElementById('item-quantidade');
+    const btnAdicionarFinal = document.getElementById('btn-adicionar-final');
 
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     let menuData = null;
     let adicionaisData = null;
     let itemAtualParaAdicionar = null;
+    let quantidadeItemAtual = 1;
 
     function atualizarContadorCarrinho() {
         cartCountElement.textContent = carrinho.reduce((total, item) => total + item.quantidade, 0);
@@ -29,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!menuData) return;
         
         for (const categoria in menuData) {
-            // Ignora a categoria "Adicionais" no menu principal
             if (menuData.hasOwnProperty(categoria) && categoria !== 'Adicionais') {
                 criarSecaoCardapio(categoria, menuData[categoria]);
             }
@@ -91,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const addButton = document.createElement('button');
             addButton.classList.add('btn-add');
             addButton.textContent = 'Adicionar';
-            // Novo evento de clique para abrir o modal
             addButton.onclick = () => abrirModalAdicionais(item);
 
             content.appendChild(itemTitle);
@@ -111,19 +118,20 @@ document.addEventListener('DOMContentLoaded', () => {
             menuData = await response.json();
             adicionaisData = menuData['Adicionais'];
             renderizarMenu();
-            renderizarAdicionaisModal();
+            renderizarAdicionaisGrid();
         } catch (error) {
             console.error('Erro ao carregar o menu:', error);
             mainContainer.innerHTML = '<p>Não foi possível carregar o cardápio. Tente novamente mais tarde.</p>';
         }
     }
 
-    function renderizarAdicionaisModal() {
+    function renderizarAdicionaisGrid() {
         adicionaisGrid.innerHTML = '';
         adicionaisData.forEach(item => {
             const adicionalCard = document.createElement('div');
             adicionalCard.classList.add('adicional-card');
             adicionalCard.dataset.id = item.id;
+            adicionalCard.dataset.preco = item.preco;
 
             const img = document.createElement('img');
             img.src = `imagem_cardapio/${item.imagem}`;
@@ -142,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             adicionalCard.onclick = () => {
                 adicionalCard.classList.toggle('selected');
+                atualizarPrecoModal();
             };
 
             adicionaisGrid.appendChild(adicionalCard);
@@ -150,19 +159,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function abrirModalAdicionais(item) {
         itemAtualParaAdicionar = item;
+        quantidadeItemAtual = 1;
+        itemQuantidadeSpan.textContent = quantidadeItemAtual;
+        
+        modalItemImg.src = `imagem_cardapio/${item.imagem}`;
+        modalItemNome.textContent = item.nome;
+        modalItemDescricao.textContent = item.descricao;
+
+        document.querySelectorAll('.adicional-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        
+        atualizarPrecoModal();
         adicionaisModal.style.display = 'flex';
+    }
+
+    function atualizarPrecoModal() {
+        let precoBase = itemAtualParaAdicionar.preco * quantidadeItemAtual;
+        const adicionaisSelecionados = document.querySelectorAll('.adicional-card.selected');
+        let precoAdicionais = 0;
+        adicionaisSelecionados.forEach(card => {
+            precoAdicionais += parseFloat(card.dataset.preco);
+        });
+        const precoTotal = precoBase + precoAdicionais;
+        modalItemPreco.textContent = `R$ ${precoTotal.toFixed(2).replace('.', ',')}`;
+        btnAdicionarFinal.textContent = `Adicionar ${quantidadeItemAtual} Item(s) por R$ ${precoTotal.toFixed(2).replace('.', ',')}`;
     }
 
     function fecharModalAdicionais() {
         adicionaisModal.style.display = 'none';
         itemAtualParaAdicionar = null;
-        // Limpa a seleção dos cards
-        document.querySelectorAll('.adicional-card').forEach(card => {
-            card.classList.remove('selected');
-        });
     }
 
-    function adicionarComAdicionais() {
+    function adicionarAoCarrinhoFinal() {
         const adicionaisSelecionados = [];
         document.querySelectorAll('.adicional-card.selected').forEach(card => {
             const id = parseInt(card.dataset.id);
@@ -173,11 +202,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Adiciona o item principal
-        adicionarAoCarrinho(itemAtualParaAdicionar, 1);
+        adicionarItemPrincipal(itemAtualParaAdicionar, quantidadeItemAtual);
 
         // Adiciona os adicionais
         adicionaisSelecionados.forEach(adicional => {
-            adicionarAoCarrinho(adicional, 1, `(adicional de ${itemAtualParaAdicionar.nome})`);
+            adicionarAdicional(adicional, quantidadeItemAtual, `(adicional de ${itemAtualParaAdicionar.nome})`);
         });
 
         fecharModalAdicionais();
@@ -185,10 +214,20 @@ document.addEventListener('DOMContentLoaded', () => {
         exibirNotificacao(`${itemAtualParaAdicionar.nome} adicionado(s)!`);
     }
 
-    function adicionarAoCarrinho(item, quantidade, nota = '') {
+    function adicionarItemPrincipal(item, quantidade) {
+        const itemExistente = carrinho.find(c => c.id === item.id && c.nota === '');
+        if (itemExistente) {
+            itemExistente.quantidade += quantidade;
+        } else {
+            carrinho.push({ ...item, quantidade: quantidade, nota: '' });
+        }
+        salvarCarrinho();
+    }
+
+    function adicionarAdicional(item, quantidade, nota = '') {
         const itemExistente = carrinho.find(c => c.id === item.id && c.nota === nota);
         if (itemExistente) {
-            itemExistente.quantidade++;
+            itemExistente.quantidade += quantidade;
         } else {
             carrinho.push({ ...item, quantidade: quantidade, nota: nota });
         }
@@ -286,8 +325,21 @@ document.addEventListener('DOMContentLoaded', () => {
         fecharModalAdicionais();
     };
 
-    btnAdicionarComAdicionais.onclick = adicionarComAdicionais;
-    btnCancelarAdicionais.onclick = fecharModalAdicionais;
+    btnAdicionarFinal.onclick = adicionarAoCarrinhoFinal;
+
+    btnMais.onclick = () => {
+        quantidadeItemAtual++;
+        itemQuantidadeSpan.textContent = quantidadeItemAtual;
+        atualizarPrecoModal();
+    };
+
+    btnMenos.onclick = () => {
+        if (quantidadeItemAtual > 1) {
+            quantidadeItemAtual--;
+            itemQuantidadeSpan.textContent = quantidadeItemAtual;
+            atualizarPrecoModal();
+        }
+    };
 
     window.onclick = (event) => {
         if (event.target === carrinhoModal) {

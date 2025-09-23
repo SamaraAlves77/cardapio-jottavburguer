@@ -58,7 +58,6 @@ body {
 }
 
 .logo-landing {
-    /* Diminuindo a largura da logo para um visual mais proporcional */
     max-width: 180px; 
     height: auto;
     margin-bottom: var(--spacing-sm);
@@ -233,10 +232,8 @@ main {
     width: 100%;
 }
 
-/* Reduzindo o tamanho dos cards */
 .item-grid {
     display: grid;
-    /* Adapta a largura dos cartões para que caibam mais por linha */
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1rem;
     justify-content: center;
@@ -261,7 +258,6 @@ main {
 
 .item-card img {
     width: 100%;
-    /* Altura da imagem para manter a proporção */
     height: 120px;
     object-fit: cover;
     object-position: center;
@@ -508,12 +504,13 @@ main {
     display: block;
 }
 
+/* Mudando o tracejado para uma linha sólida */
 .carrinho-item {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 0.5rem 0;
-    border-bottom: 1px dashed #eee;
+    border-bottom: 1px solid #ddd;
 }
 
 .carrinho-finalizar input,
@@ -597,7 +594,6 @@ footer {
     }
 
     .item-grid {
-        /* Garante 2 colunas em telas menores */
         grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
     }
@@ -634,4 +630,3 @@ footer {
         font-size: 1.8rem;
     }
 }
-

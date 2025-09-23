@@ -1,4 +1,4 @@
-import { menuData } from './cardapio.js';
+import { cardapioData } from './cardapio.js';
 
 // Constantes e variáveis globais
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,14 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Função que cria as seções do cardápio (hamburgueres, combos, etc.)
     function renderizarMenu() {
-        if (!menuData) return;
-        for (const categoria in menuData) {
-            if (menuData.hasOwnProperty(categoria)) {
+        if (!cardapioData) return;
+        for (const categoria in cardapioData) {
+            if (cardapioData.hasOwnProperty(categoria)) {
                 // A lista de adicionais só é exibida no modal, não na página principal
                 if (categoria === 'Adicionais') {
                     continue; 
                 }
-                criarSecaoCardapio(categoria, menuData[categoria]);
+                criarSecaoCardapio(categoria, cardapioData[categoria]);
             }
         }
     }
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Função para renderizar os adicionais dentro do modal
     function renderizarAdicionais() {
-        const adicionais = menuData['Adicionais'] || []; // Garante que a lista não é nula
+        const adicionais = cardapioData['Adicionais'] || []; // Garante que a lista não é nula
         adicionaisContainer.innerHTML = ''; // Limpa o conteúdo anterior
         
         if (adicionais.length === 0) {
@@ -164,10 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             itemElement.appendChild(adicionalInfo);
             
-            const actionsDiv = document.createElement('div');
-            actionsDiv.className = 'adicional-actions';
-            
-            // Botão para adicionar
+            // Adiciona o botão de adicionar
             const btnAdicionar = document.createElement('button');
             btnAdicionar.className = 'adicional-btn-add';
             btnAdicionar.innerHTML = '<i class="fas fa-plus"></i>';
@@ -175,9 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.stopPropagation();
                 adicionarAdicional(adicional);
             };
-            actionsDiv.appendChild(btnAdicionar);
-            
-            itemElement.appendChild(actionsDiv);
+            itemElement.appendChild(btnAdicionar);
 
             itemElement.addEventListener('click', () => {
                 adicionarAdicional(adicional);

@@ -47,6 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!menuData) return;
         for (const categoria in menuData) {
             if (menuData.hasOwnProperty(categoria)) {
+                // A lista de adicionais só é exibida no modal, não na página principal
+                if (categoria === 'Adicionais') {
+                    continue; 
+                }
                 criarSecaoCardapio(categoria, menuData[categoria]);
             }
         }
@@ -67,9 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'Bebidas':
                 containerId = 'bebidas-grid';
                 break;
-            case 'Adicionais':
-                // Os adicionais não precisam ser renderizados na página principal
-                return;
             default:
                 console.warn(`Categoria desconhecida: ${titulo}`);
                 return;

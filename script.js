@@ -1,6 +1,6 @@
 // Função para renderizar os itens do cardápio
 function renderizarCardapio() {
-    // Verifica se os dados do cardápio existem
+    // Verifica se os dados do cardapio existem
     if (typeof cardapioData === 'undefined' || !cardapioData) {
         console.error('Erro: A variável cardapioData não foi encontrada. Verifique se o arquivo cardapio.js está linkado corretamente.');
         return;

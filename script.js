@@ -50,6 +50,7 @@ function renderizarCardapio() {
 
     for (const categoria in grids) {
         if (cardapioData.hasOwnProperty(categoria) && grids[categoria]) {
+            grids[categoria].innerHTML = ''; // Limpa o conteúdo antes de renderizar
             cardapioData[categoria].forEach(item => {
                 const itemCard = document.createElement('div');
                 itemCard.className = 'item-card';
@@ -68,7 +69,7 @@ function renderizarCardapio() {
     }
 
     // Renderizar adicionais no modal
-    if (cardapioData['Adicionais']) {
+    if (cardapioData['Adicionais'] && modalAdicionaisGrid) {
         modalAdicionaisGrid.innerHTML = '';
         cardapioData['Adicionais'].forEach(adicional => {
             const adicionalItem = document.createElement('div');

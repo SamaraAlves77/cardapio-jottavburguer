@@ -32,7 +32,8 @@ const cardapioData = {
             id: 5,
             nome: 'Burguer do Xerife',
             descricao: 'Pão, requeijão, carne e salame',
-    imagem: 'imagem_cardapio/burguer_do_xerife.jpeg'
+            preco: 25.99,
+            imagem: 'imagem_cardapio/burguer_do_xerife.jpeg'
         },
         {
             id: 6,

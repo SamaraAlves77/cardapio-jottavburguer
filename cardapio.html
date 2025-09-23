@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -60,10 +60,26 @@
     <div id="adicionais-modal" class="modal">
         <div class="modal-content">
             <span class="fechar-modal fechar-adicionais">&times;</span>
-            <h3>Adicionais (Opcional)</h3>
+            <div id="item-info-modal">
+                <img id="modal-item-img" src="" alt="Imagem do Item">
+                <h3 id="modal-item-nome"></h3>
+                <p id="modal-item-descricao"></p>
+                <div class="modal-contador-preco">
+                    <div class="contador">
+                        <button id="btn-menos" class="contador-btn">-</button>
+                        <span id="item-quantidade">1</span>
+                        <button id="btn-mais" class="contador-btn">+</button>
+                    </div>
+                    <span id="modal-item-preco"></span>
+                </div>
+            </div>
+            
+            <hr>
+
+            <h4 class="modal-adicionais-titulo">Adicionais (Opcional)</h4>
             <div class="adicionais-grid" id="adicionais-grid"></div>
-            <button id="btn-adicionar-com-adicionais">Adicionar ao Carrinho</button>
-            <button id="btn-cancelar-adicionais">Cancelar</button>
+
+            <button id="btn-adicionar-final">Adicionar 1 Item por R$ 0,00</button>
         </div>
     </div>
     <div id="carrinho-modal" class="modal">

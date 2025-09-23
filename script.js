@@ -1,3 +1,5 @@
+import { menuData } from './cardapio.js';
+
 // Constantes e variáveis globais
 document.addEventListener('DOMContentLoaded', () => {
     const mainContainer = document.querySelector('main');
@@ -23,24 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const adicionaisContainer = document.getElementById('adicionais-container');
     const btnAdicionarFinal = document.getElementById('btn-adicionar-final');
 
-    let menuData = null;
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     let itemSelecionado = {};
-
-    // Função para buscar os dados do cardápio e renderizar a página
-    async function carregarCardapio() {
-        try {
-            const response = await fetch('./cardapio.json');
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
-            }
-            menuData = await response.json();
-            renderizarMenu();
-        } catch (error) {
-            console.error('Erro ao carregar o cardápio:', error);
-            document.body.innerHTML = `<h1>Erro ao carregar o cardápio. Tente novamente mais tarde.</h1>`;
-        }
-    }
 
     // Função que cria as seções do cardápio (hamburgueres, combos, etc.)
     function renderizarMenu() {
@@ -350,6 +336,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Inicia o carregamento quando a página é carregada
-    carregarCardapio();
+    renderizarMenu();
     atualizarContadorCarrinho();
 });

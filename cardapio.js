@@ -1,4 +1,4 @@
-{
+export const cardapioData = {
     "Hambúrgueres Artesanais": [
         {
             "id": 1,
@@ -258,4 +258,4 @@
             "imagem": "requeijao.jpeg"
         }
     ]
-}
+};

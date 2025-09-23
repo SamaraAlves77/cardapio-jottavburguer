@@ -9,8 +9,9 @@ function renderizarCardapio() {
     // Itera sobre cada categoria no objeto cardapioData
     for (const categoria in cardapioData) {
         if (cardapioData.hasOwnProperty(categoria)) {
+            // Acessa os elementos HTML com os IDs corretos do cardapio.html
             const gridId = categoria.toLowerCase().replace(/á/g, 'a').replace(/é/g, 'e').replace(/ /g, '-');
-            const gridElement = document.getElementById(gridId);
+            const gridElement = document.getElementById(gridId + '-grid'); // Adicionado '-grid' para corresponder ao HTML
 
             if (gridElement) {
                 // Itera sobre cada item na categoria e cria o elemento HTML
@@ -49,7 +50,7 @@ function renderizarCardapio() {
                     gridElement.appendChild(itemCard);
                 });
             } else {
-                console.warn(`Elemento com ID "${gridId}" não encontrado.`);
+                console.warn(`Elemento com ID "${gridId}-grid" não encontrado.`);
             }
         }
     }

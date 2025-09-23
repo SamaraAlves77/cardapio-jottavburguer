@@ -335,7 +335,7 @@ main {
     position: relative;
     max-width: 600px;
     width: 90%;
-    max-height: 90vh;
+    max-height: 90vh; /* Permite rolar se o conteúdo for grande */
     overflow-y: auto;
     text-align: center;
 }
@@ -361,49 +361,100 @@ main {
     color: var(--primary-color);
 }
 
-.carrinho-itens, .adicionais-grid {
-    padding-bottom: 1rem;
+/* Novos estilos para a janela de item consolidado */
+#item-info-modal {
+    text-align: left;
     margin-bottom: 1rem;
+}
+
+#modal-item-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+#modal-item-nome {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+#modal-item-descricao {
+    font-size: 1rem;
+    color: var(--text-color-light);
+    margin-bottom: 1rem;
+}
+
+.modal-contador-preco {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contador {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contador-btn {
+    background-color: #eee;
+    color: var(--secondary-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#item-quantidade {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#modal-item-preco {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.modal-adicionais-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+#btn-adicionar-final {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 2rem;
+}
+
+#btn-adicionar-final:hover {
+    background-color: #d32f2f;
+}
+
+/* Estilo para os cards de adicionais */
+.adicionais-grid {
+    padding-top: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 1rem;
 }
 
-.carrinho-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0.5rem 0;
-    border-bottom: 1px dashed #eee;
-}
-
-.carrinho-finalizar input,
-.carrinho-finalizar select {
-    width: 100%;
-    padding: 0.8rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.carrinho-finalizar button {
-    width: 100%;
-    padding: 1rem;
-    background-color: #25D366; /* Cor do WhatsApp para o botão */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.carrinho-finalizar button:hover {
-    background-color: #128C7E;
-}
-
-/* Estilo para os cards de adicionais */
 .adicional-card {
     background-color: #f0f0f0;
     border-radius: 8px;
@@ -447,33 +498,45 @@ main {
     margin-top: 0.2rem;
 }
 
-#btn-adicionar-com-adicionais, #btn-cancelar-adicionais {
-    width: 48%;
+/* --- Estilo para o modal de carrinho --- */
+.carrinho-itens {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.carrinho-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.carrinho-finalizar input,
+.carrinho-finalizar select {
+    width: 100%;
     padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.carrinho-finalizar button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #25D366; /* Cor do WhatsApp para o botão */
+    color: white;
     border: none;
     border-radius: 8px;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 700;
     cursor: pointer;
-    margin-top: 1rem;
     transition: background-color 0.3s ease;
 }
 
-#btn-adicionar-com-adicionais {
-    background-color: #4caf50;
-    color: white;
-}
-
-#btn-adicionar-com-adicionais:hover {
-    background-color: #388e3c;
-}
-
-#btn-cancelar-adicionais {
-    background-color: #f44336;
-    color: white;
-}
-
-#btn-cancelar-adicionais:hover {
-    background-color: #d32f2f;
+.carrinho-finalizar button:hover {
+    background-color: #128C7E;
 }
 
 /* --- Notificação --- */

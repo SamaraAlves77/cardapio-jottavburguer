@@ -67,9 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'Bebidas':
                 containerId = 'bebidas-grid';
                 break;
-            case 'Adicionais':
-                containerId = 'adicionais-grid';
-                break;
             default:
                 console.warn(`Categoria desconhecida: ${titulo}`);
                 return;
@@ -136,26 +133,31 @@ document.addEventListener('DOMContentLoaded', () => {
         modalItemNome.textContent = item.nome;
         modalItemDescricao.textContent = item.descricao;
         itemQuantidade.textContent = itemSelecionado.quantidade;
-        modalItemPreco.textContent = `R$ ${itemSelecionado.precoFinal.toFixed(2).replace('.', ',')}`;
-
+        
         // Limpa e renderiza a lista de adicionais no modal
         renderizarAdicionais();
+        atualizarPrecoModal();
 
         itemInfoModal.style.display = 'flex';
     }
     
     // Função para renderizar os adicionais dentro do modal
     function renderizarAdicionais() {
-        const adicionais = menuData['Adicionais'];
-        adicionaisContainer.innerHTML = '';
+        const adicionais = menuData['Adicionais'] || []; // Garante que a lista não é nula
+        adicionaisContainer.innerHTML = ''; // Limpa o conteúdo anterior
         
-        const ul = document.createElement('div');
-        ul.className = 'adicionais-list';
+        if (adicionais.length === 0) {
+            adicionaisContainer.innerHTML = '<p style="text-align: center; color: #999;">Sem adicionais disponíveis.</p>';
+            return;
+        }
+
+        const listContainer = document.createElement('div');
+        listContainer.className = 'adicionais-list';
 
         adicionais.forEach(adicional => {
-            const li = document.createElement('div');
-            li.className = 'adicional-item';
-            li.dataset.id = adicional.id;
+            const itemElement = document.createElement('div');
+            itemElement.className = 'adicional-item';
+            itemElement.dataset.id = adicional.id;
 
             const adicionalInfo = document.createElement('div');
             adicionalInfo.className = 'adicional-info';
@@ -170,25 +172,31 @@ document.addEventListener('DOMContentLoaded', () => {
             precoSpan.textContent = `+R$ ${adicional.preco.toFixed(2).replace('.', ',')}`;
             adicionalInfo.appendChild(precoSpan);
             
-            li.appendChild(adicionalInfo);
-
+            itemElement.appendChild(adicionalInfo);
+            
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'adicional-actions';
+            
+            // Botão para adicionar
             const btnAdicionar = document.createElement('button');
             btnAdicionar.className = 'adicional-btn-add';
             btnAdicionar.innerHTML = '<i class="fas fa-plus"></i>';
-            btnAdicionar.onclick = () => {
+            btnAdicionar.onclick = (e) => {
+                e.stopPropagation();
                 adicionarAdicional(adicional);
             };
+            actionsDiv.appendChild(btnAdicionar);
             
-            li.appendChild(btnAdicionar);
+            itemElement.appendChild(actionsDiv);
 
-            li.addEventListener('click', () => {
+            itemElement.addEventListener('click', () => {
                 adicionarAdicional(adicional);
             });
             
-            ul.appendChild(li);
+            listContainer.appendChild(itemElement);
         });
 
-        adicionaisContainer.appendChild(ul);
+        adicionaisContainer.appendChild(listContainer);
     }
     
     // Função para adicionar um adicional ao item selecionado

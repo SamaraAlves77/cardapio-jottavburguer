@@ -24,51 +24,36 @@
                 <li><a href="#bebidas">Bebidas</a></li>
             </ul>
         </nav>
-        <div class="nav-icons">
-            <a href="#" id="carrinho-btn"><i class="fas fa-shopping-cart"></i></a>
+        <div class="header-actions">
+            <button class="carrinho-btn" id="carrinho-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="contador-carrinho">0</span>
+            </button>
         </div>
     </header>
 
-    <main class="container">
-        <section id="hamburgueres-artesanais">
-            <h2 class="section-title">Hambúrgueres Artesanais</h2>
-            <hr class="section-divider">
-            <div class="item-grid" id="hamburgueres-artesanais-grid">
-                </div>
+    <main>
+        <section id="hamburgueres-artesanais" class="menu-section">
+            <h2>Hambúrgueres Artesanais</h2>
+            <div class="item-grid" id="hamburgueres-artesanais-grid"></div>
         </section>
 
-        <section id="combos-e-familia">
-            <h2 class="section-title">Combos e Família</h2>
-            <hr class="section-divider">
-            <div class="item-grid" id="combos-e-familia-grid">
-                </div>
+        <section id="combos-e-familia" class="menu-section">
+            <h2>Combos e Família</h2>
+            <div class="item-grid" id="combos-e-familia-grid"></div>
         </section>
 
-        <section id="acompanhamentos">
-            <h2 class="section-title">Acompanhamentos</h2>
-            <hr class="section-divider">
-            <div class="item-grid" id="acompanhamentos-grid">
-                </div>
+        <section id="acompanhamentos" class="menu-section">
+            <h2>Acompanhamentos</h2>
+            <div class="item-grid" id="acompanhamentos-grid"></div>
         </section>
 
-        <section id="bebidas">
-            <h2 class="section-title">Bebidas</h2>
-            <hr class="section-divider">
-            <div class="item-grid" id="bebidas-grid">
-                </div>
-        </section>
-
-        <section id="adicionais">
-            <h2 class="section-title">Adicionais</h2>
-            <hr class="section-divider">
-            <div class="item-grid" id="adicionais-grid">
-                </div>
+        <section id="bebidas" class="menu-section">
+            <h2>Bebidas</h2>
+            <div class="item-grid" id="bebidas-grid"></div>
         </section>
     </main>
-
-    <script src="cardapio.js"></script>
-    <script src="script.js"></script>
-
+    
     <div id="item-modal" class="modal">
         <div class="modal-content">
             <span class="fechar-modal fechar-item">&times;</span>
@@ -94,6 +79,7 @@
             <button id="btn-adicionar-final">Adicionar 1 Item por R$ 0,00</button>
         </div>
     </div>
+
     <div id="carrinho-modal" class="modal">
         <div class="modal-content">
             <span class="fechar-modal fechar-carrinho">&times;</span>
@@ -118,6 +104,9 @@
     <footer>
         <p>&copy; 2024 JottaV Burguer. Todos os direitos reservados.</p>
     </footer>
+
+    <script src="cardapio.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>

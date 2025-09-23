@@ -58,10 +58,16 @@ body {
 }
 
 .logo-landing {
-    max-width: 250px;
+    /* Diminuindo a largura da logo para um visual mais proporcional */
+    max-width: 180px; 
     height: auto;
     margin-bottom: var(--spacing-sm);
     animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .slogan {
@@ -571,7 +577,7 @@ footer {
     }
 
     .logo-landing {
-        max-width: 180px;
+        max-width: 150px;
     }
 
     header {

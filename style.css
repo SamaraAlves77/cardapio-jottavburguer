@@ -124,11 +124,6 @@ body {
         width: 45%;
     }
 
-    .card-left {
-        align-items: flex-start;
-        text-align: left;
-    }
-
     .card-divider {
         display: block;
         width: 1px;
@@ -220,7 +215,7 @@ main {
 
 .menu-section h2 {
     font-size: 2.5rem;
-    font-family: 'Bebas Neue', sans-serif; /* Nova fonte */
+    font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--primary-color);
@@ -232,10 +227,12 @@ main {
     width: 100%;
 }
 
+/* Reduzindo o tamanho dos cards */
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--spacing-md);
+    /* Adapta a largura dos cartões para que caibam mais por linha */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
     justify-content: center;
 }
 
@@ -248,7 +245,7 @@ main {
     flex-direction: column;
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: auto; /* Revertido para altura automática */
+    height: auto;
 }
 
 .item-card:hover {
@@ -258,38 +255,38 @@ main {
 
 .item-card img {
     width: 100%;
-    height: 220px; /* Revertido para a altura original */
+    /* Altura da imagem para manter a proporção */
+    height: 120px;
     object-fit: cover;
     object-position: center;
 }
 
 .item-card-content {
-    padding: var(--spacing-sm);
+    padding: 0.8rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
 .item-card-content h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.2rem;
     color: var(--primary-color);
 }
 
 .item-card-content p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--text-color-light);
     flex-grow: 1;
     margin-bottom: var(--spacing-sm);
     overflow: hidden;
     text-overflow: ellipsis;
-    /* Revertido para exibir a descrição completa, se necessário */
-    white-space: normal; 
+    white-space: normal;
 }
 
 .item-card .price {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--secondary-color);
     margin-top: auto;
@@ -335,7 +332,7 @@ main {
     position: relative;
     max-width: 600px;
     width: 90%;
-    max-height: 90vh; /* Permite rolar se o conteúdo for grande */
+    max-height: 90vh;
     overflow-y: auto;
     text-align: center;
 }
@@ -525,7 +522,7 @@ main {
 .carrinho-finalizar button {
     width: 100%;
     padding: 1rem;
-    background-color: #25D366; /* Cor do WhatsApp para o botão */
+    background-color: #25D366;
     color: white;
     border: none;
     border-radius: 8px;
@@ -594,25 +591,37 @@ footer {
     }
 
     .item-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-sm);
+        /* Garante 2 colunas em telas menores */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
     }
 
     .item-card {
         height: auto;
     }
 
+    .item-card img {
+        height: 100px;
+    }
+
+    .item-card-content {
+        padding: 0.6rem;
+    }
+    
     .item-card-content h3 {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .item-card-content p {
-        display: block;
-        white-space: normal;
+        font-size: 0.75rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
     
     .item-card .price {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
 
     .menu-section h2 {

@@ -17,22 +17,22 @@ const cardapioData = {
         {
             id: 3,
             nome: 'Jotta Básico',
-            descricao: 'Pão, carne 120g prensada na chapa com cebola, queijo muçarela e molho de casa',
+            descricao: 'Pão, carne 80g prensada na chapa com cebola, queijo muçarela e molho de casa',
             preco: 14.99,
             imagem: 'imagem_cardapio/jotta_basico.jpeg'
         },
         {
             id: 4,
             nome: 'Jotta Classic',
-            descricao: 'Pão, molho barbecue, tomate, alface e queijo muçarela',
-            preco: 22.99,
+            descricao: 'Pão, carne de 120g, molho barbecue, tomate, alface e queijo muçarela',
+            preco: 25.99,
             imagem: 'imagem_cardapio/jotta_classic.jpeg'
         },
         {
             id: 5,
             nome: 'Burguer do Xerife',
-            descricao: 'Pão, requeijão, carne e salame',
-            preco: 25.99,
+            descricao: 'Pão, carne de 120g, requeijão, e farofa de bacon',
+            preco: 22.99,
             imagem: 'imagem_cardapio/burguer_do_xerife.jpeg'
         },
         {
@@ -45,26 +45,26 @@ const cardapioData = {
         {
             id: 7,
             nome: 'Calabresa Prime',
-            descricao: 'Pão, calabresa, queijo, cebola caramelizada, carne ou salame',
-            preco: 29.99,
+            descricao: 'Pão, 2 carnes de 120g, requeijão cremoso, 2 fatias de bacon e molho da casa.',
+            preco: 37.99,
             imagem: 'imagem_cardapio/calabresa_prime.jpeg'
         },
         {
             id: 8,
-            nome: 'Jotta Salame',
-            descricao: 'Pão, molho da casa, calabresa, queijo muçarela, salame',
+            nome: 'Burguer Salame',
+            descricao: 'Pão, requeijão, carne de 120g e salame',
             preco: 28.99,
             imagem: 'imagem_cardapio/jotta_salame.jpeg'
         },
         {
             id: 9,
             nome: 'Calabresa Básico',
-            descricao: 'Pão, requeijão, carne e salame',
-            preco: 21.99,
+            descricao: 'Pão, molho da casa, calabresa e queijo muçarela.',
+            preco: 15.00,
             imagem: 'imagem_cardapio/calabresa_basico.jpeg'
         }
     ],
-    'Combos e Família': [
+    'Combos': [
         {
             id: 10,
             nome: 'Combo Família',

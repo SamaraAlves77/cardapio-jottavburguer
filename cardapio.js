@@ -72,85 +72,78 @@ const cardapioData = {
             preco: 31.99,
             imagem: 'imagem_cardapio/combo_familia.jpeg'
         },
-         {
-            id: 11,
-            nome: 'Combo Smash Individual',
-            descricao: '1 smash original, batata-frita e refrigerante em lata.',
-            preco: 31.99,
-            imagem: 'imagem_cardapio/combo_familia.jpeg'
-        },
         {
-            id: 12,
+            id: 11,
             nome: 'Combo Smash Casal',
             descricao: '2 smash original, batata-frita, 1 Refrigerante de 1L.',
             preco: 49.99,
             imagem: 'imagem_cardapio/combo_duplo.jpeg'
         },
         {
-            id: 13,
+            id: 12,
             nome: 'Combo Smash Família',
             descricao: '4 smash original, batata-frita, 1 Refrigerante de 1L.',
             preco: 87.99,
             imagem: 'imagem_cardapio/combo_duplo.jpeg'
         },
        {
-            id: 14,
+            id: 13,
             nome: 'Combo do chef individual',
             descricao: '1 Jotta Classic, batata-frita, 1 Refrigerante em lata.',
             preco: 41.99,
             imagem: 'imagem_cardapio/combo_duplo.jpeg'
         },
          {
-            id: 15,
+            id: 14,
             nome: 'Combo do chef Casal',
             descricao: '2 Jotta Classic, batata-frita, 1 Refrigerante de 1L.',
             preco: 63.99,
             imagem: 'imagem_cardapio/combo_duplo.jpeg'
         },
          {
-            id: 14,
+            id: 15,
             nome: 'Combo do chef Família',
             descricao: '4 Jotta Classic, batata-frita, 1 Refrigerante de 1L.',
             preco: 115.99,
             imagem: 'imagem_cardapio/combo_duplo.jpeg'
         },
         {
-            id: 15,
+            id: 16,
             nome: 'Combo Smash Duplo Individual',
             descricao: '1 smash duplo, batata-frita, 1 refrigerante em lata.',
             preco: 37.99,
             imagem: 'imagem_cardapio/combo_duplo.jpeg'
         },
          {
-            id: 16,
+            id: 17,
             nome: 'Combo Smash Duplo Casal',
             descricao: '2 smash duplo, batata-frita, 1 refrigerante de 1L.',
             preco: 61.99,
             imagem: 'imagem_cardapio/combo_duplo.jpeg'
         },
         {
-            id: 17,
+            id: 18,
             nome: 'Combo Smash Duplo Família',
             descricao: '4 smash duplo, batata-frita, 1 refrigerante de 1L.',
             preco: 111.99,
             imagem: 'imagem_cardapio/combo_duplo.jpeg'
         },
          {
-            id: 18,
+            id: 19,
             nome: 'Combo Premium Individual',
             descricao: '1 Duplo brutão, batata-frita, 1 refrigerante em lata.',
             preco: 53.99,
             imagem: 'imagem_cardapio/combo_duplo.jpeg'
         },
          {
-            id: 19,
+            id: 20,
             nome: 'Combo Premium Casal',
             descricao: '2 Duplo brutão, batata-frita, 1 refrigerante de 1L.',
             preco: 87.99,
             imagem: 'imagem_cardapio/combo_duplo.jpeg'
         },
         {
-            id: 20,
+            id: 21,
             nome: 'Combo Premium Família',
             descricao: '4 Duplo brutão, batata-frita, 1 refrigerante de 1L.',
             preco: 154.99,

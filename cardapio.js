@@ -45,8 +45,8 @@ const cardapioData = {
         {
             id: 7,
             nome: 'Calabresa Prime',
-            descricao: 'Pão, 2 carnes de 120g, requeijão cremoso, 2 fatias de bacon e molho da casa.',
-            preco: 37.99,
+            descricao: 'Pão, molho da casa, carne de 120g, alface, tomate, calabresa, queijo muçarela, e cebola caramelizada.',
+            preco: 26.99,
             imagem: 'imagem_cardapio/calabresa_prime.jpeg'
         },
         {

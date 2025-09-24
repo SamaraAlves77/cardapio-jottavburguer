@@ -2,7 +2,7 @@ let carrinho = [];
 
 // Seletores do DOM
 const hamburgueresGrid = document.getElementById('hamburgueres-artesanais-grid');
-const combosGrid = document.getElementById('combos-e-familia-grid');
+const combosGrid = document.getElementById('combos-grid');
 const acompanhamentosGrid = document.getElementById('acompanhamentos-grid');
 const bebidasGrid = document.getElementById('bebidas-grid');
 
@@ -43,7 +43,7 @@ function renderizarCardapio() {
 
     const grids = {
         'Hambúrgueres Artesanais': hamburgueresGrid,
-        'Combos e Família': combosGrid,
+        'Combos': combosGrid,
         'Acompanhamentos': acompanhamentosGrid,
         'Bebidas': bebidasGrid
     };
@@ -271,7 +271,7 @@ btnFinalizarPedido.addEventListener('click', () => {
 
     mensagem += `%0A*Total:* R$ ${totalPedido.toFixed(2).replace('.', ',')}`;
 
-    const numeroWhatsApp = "5586981147596";
+    const numeroWhatsApp = "5586994253258";
     const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
 
     window.open(linkWhatsApp, '_blank');
@@ -280,3 +280,4 @@ btnFinalizarPedido.addEventListener('click', () => {
 
 // Chamada inicial para renderizar o cardápio
 document.addEventListener('DOMContentLoaded', renderizarCardapio);
+

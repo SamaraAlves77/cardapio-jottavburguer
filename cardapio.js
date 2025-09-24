@@ -50,13 +50,6 @@ const cardapioData = {
             imagem: 'imagem_cardapio/calabresa_prime.jpeg'
         },
         {
-            id: 8,
-            nome: 'Burguer Salame',
-            descricao: 'Pão, requeijão, carne de 120g e salame',
-            preco: 28.99,
-            imagem: 'imagem_cardapio/jotta_salame.jpeg'
-        },
-        {
             id: 9,
             nome: 'Calabresa Básico',
             descricao: 'Pão, molho da casa, calabresa e queijo muçarela.',
@@ -153,15 +146,15 @@ const cardapioData = {
     'Acompanhamentos': [
         {
             id: 12,
-            nome: 'Batata Frita',
+            nome: 'Batata Frita palito',
             descricao: 'Batata frita com molho da casa.',
             preco: 15.00,
             imagem: 'imagem_cardapio/batata_frita.jpeg'
         },
         {
             id: 13,
-            nome: 'Onion Rings',
-            descricao: 'Anéis de cebola empanados com molho da casa.',
+            nome: 'Batata com queijo muçarela',
+            descricao: 'Batata palito frita coberta por queijo muçarala derretido.',
             preco: 18.00,
             imagem: 'imagem_cardapio/onion_rings.jpeg'
         }
@@ -176,17 +169,10 @@ const cardapioData = {
         },
         {
             id: 15,
-            nome: 'Guaraná Antarctica',
+            nome: 'Guaraná',
             descricao: 'Lata 350ml.',
-            preco: 7.00,
+            preco: 6.00,
             imagem: 'imagem_cardapio/guarana_antarctica.jpeg'
-        },
-        {
-            id: 16,
-            nome: 'Suco de Laranja',
-            descricao: '300ml.',
-            preco: 8.00,
-            imagem: 'imagem_cardapio/suco_laranja.jpeg'
         }
     ],
     'Adicionais': [
@@ -210,14 +196,8 @@ const cardapioData = {
         },
         {
             id: 20,
-            nome: 'Farofa de Bacon',
-            preco: 3.00,
-            imagem: ''
-        },
-        {
-            id: 21,
-            nome: 'Farofa de Alho',
-            preco: 3.00,
+            nome: 'Bacon em cubos',
+            preco: 4.00,
             imagem: ''
         },
         {
@@ -236,12 +216,6 @@ const cardapioData = {
             id: 24,
             nome: 'Calabresa',
             preco: 5.00,
-            imagem: ''
-        },
-        {
-            id: 25,
-            nome: 'Salame',
-            preco: 7.00,
             imagem: ''
         }
     ]

@@ -38,8 +38,8 @@ const cardapioData = {
         {
             id: 6,
             nome: 'Duplo Brutão',
-            descricao: 'Pão, 2 carnes de 100g, molho, muçarela ou maionese, molho da casa, 2 fatias de bacon, muçarela, ovo.',
-            preco: 35.99,
+            descricao: 'Pão, 2 carnes de 120g, molho, muçarela ou maionese, molho da casa, 2 fatias de bacon, muçarela, ovo.',
+            preco: 37.99,
             imagem: 'imagem_cardapio/duplo_brutao.jpeg'
         },
         {

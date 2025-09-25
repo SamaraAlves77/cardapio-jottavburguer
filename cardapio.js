@@ -165,14 +165,28 @@ const cardapioData = {
             nome: 'Coca-Cola',
             descricao: 'Lata 350ml.',
             preco: 7.00,
-            imagem: 'imagem_cardapio/coca_cola.jpeg'
+            imagem: 'imagem_cardapio/cocalata.jpeg'
         },
         {
             id: 15,
             nome: 'Guaraná',
             descricao: 'Lata 350ml.',
             preco: 6.00,
-            imagem: 'imagem_cardapio/guarana_antarctica.jpeg'
+            imagem: 'imagem_cardapio/guaranalata.jpeg'
+        },
+         {
+            id: 15,
+            nome: 'Guaraná 1L',
+            descricao: '1L.',
+            preco: 8.00,
+            imagem: 'imagem_cardapio/guarana1l.jpeg'
+        }
+        {
+            id: 16,
+            nome: 'Pespi 1L',
+            descricao: '1L.',
+            preco: 8.00,
+            imagem: 'imagem_cardapio/pepsi1l.jpeg'
         }
     ],
     'Adicionais': [

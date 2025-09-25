@@ -24,7 +24,7 @@ const cardapioData = {
         {
             id: 4,
             nome: 'Jotta Classic',
-            descricao: 'Pão, carne de 120g, molho barbecue, tomate, alface e queijo muçarela',
+            descricao: 'Pão, carne de 120g,bacon, molho barbecue, tomate, alface e queijo muçarela',
             preco: 25.99,
             imagem: 'imagem_cardapio/jotta_classic.jpeg'
         },
@@ -38,7 +38,7 @@ const cardapioData = {
         {
             id: 6,
             nome: 'Duplo Brutão',
-            descricao: 'Pão, 2 carnes de 120g, molho, muçarela ou maionese, molho da casa, 2 fatias de bacon, muçarela, ovo.',
+            descricao: 'Pão, 2 carnes de 120g, requeijão, molho da casa, 2 fatias de bacon.',
             preco: 37.99,
             imagem: 'imagem_cardapio/duplo_brutao.jpeg'
         },
@@ -53,7 +53,7 @@ const cardapioData = {
             id: 9,
             nome: 'Calabresa Básico',
             descricao: 'Pão, molho da casa, calabresa e queijo muçarela.',
-            preco: 15.00,
+            preco: 15.99,
             imagem: 'imagem_cardapio/calabresa_basico.jpeg'
         }
     ],
@@ -178,7 +178,7 @@ const cardapioData = {
     'Adicionais': [
         {
             id: 17,
-            nome: 'Creme de Requeijão',
+            nome: 'Requeijão cremoso',
             preco: 4.00,
             imagem: ''
         },

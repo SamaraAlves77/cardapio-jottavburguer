@@ -1,8 +1,8 @@
 /* --- Parâmetros de Design e Cores --- */
 :root {
-    --primary-color: #e53935; /* Vermelho vibrante JottaV Burguer */
+    --primary-color:  #f6a700; /* Vermelho vibrante JottaV Burguer */
     --secondary-color: #333; /* Cinza escuro para textos principais */
-    --background-color: #2C5F34; /* Fundo branco verde */
+    --background-color: #2C5F34; /*verde */
     --card-background: #fff; /* Branco puro para os cards */
     --text-color-light: #666; /* Cinza claro para descrições */
     --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra mais suave e elegante */
@@ -723,5 +723,6 @@ footer {
         height: 200px;
     }
 }
+
 
 

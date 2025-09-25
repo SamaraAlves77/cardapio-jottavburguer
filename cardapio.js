@@ -180,7 +180,7 @@ const cardapioData = {
             descricao: '1L.',
             preco: 8.00,
             imagem: 'imagem_cardapio/guarana1l.jpeg'
-        }
+        },
         {
             id: 16,
             nome: 'Pespi 1L',

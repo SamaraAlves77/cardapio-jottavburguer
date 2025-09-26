@@ -1,15 +1,15 @@
 /* --- Parâmetros de Design e Cores --- */
 :root {
-    --primary-color:  #f6a700; /* Mostarda JottaV Burguer */
-    --secondary-color: #333; /* Cinza escuro para textos principais */
-    --background-color: #2C5F34; /*verde */
-    --card-background:#FDFBD4 ; /* Creme para os cards */
-    --text-color-light: #666; /* Cinza claro para descrições */
-    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra mais suave e elegante */
-    --border-dashed: 1px dashed #e0e0e0; /* Borda tracejada quase invisível */
-    --spacing-lg: 3rem;
-    --spacing-md: 2rem;
-    --spacing-sm: 1rem;
+    --primary-color:  #f6a700; /* Mostarda JottaV Burguer */
+    --secondary-color: #333; /* Cinza escuro para textos principais */
+    --background-color: #2C5F34; /*verde */
+    --card-background:#FDFBD4 ; /* Creme para os cards */
+    --text-color-light: #666; /* Cinza claro para descrições */
+    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra mais suave e elegante */
+    --border-dashed: 1px dashed #e0e0e0; /* Borda tracejada quase invisível */
+    --spacing-lg: 3rem;
+    --spacing-md: 2rem;
+    --spacing-sm: 1rem;
 }
 
 /* Importação das fontes */
@@ -18,131 +18,716 @@
 
 /* Reset Básico */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--background-color);
-    color: var(--secondary-color);
-    line-height: 1.6;
-    font-family: 'Poppins', sans-serif;
-    transition: background-color 0.3s ease;
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+    line-height: 1.6;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease;
 }
 
 /* --- Layout da Página de Entrada (index.html) --- */
 .landing-page-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: var(--spacing-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: var(--spacing-md);
 }
 
 .landing-card {
-    background-color: var(--card-background);
-    border-radius: 15px;
-    box-shadow: var(--shadow-subtle);
-    padding: var(--spacing-lg);
-    max-width: 900px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--spacing-md);
+    background-color: var(--card-background);
+    border-radius: 15px;
+    box-shadow: var(--shadow-subtle);
+    padding: var(--spacing-lg);
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-md);
 }
 
 .card-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.logo-landing {
-    max-width: 150px;
-}
-
-.landing-card h1 {
-    font-size: 2.5em;
-    color: var(--secondary-color);
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 2px;
-    margin: 0.5rem 0 0.2rem;
-}
-
-.landing-card p {
-    font-size: 1.1em;
-    color: var(--text-color-light);
-    margin-bottom: var(--spacing-md);
-}
-
-.card-divider {
-    /* Manter o estilo original da div, mas será invisível em desktop */
-    background-color: transparent; /* Alterado para transparente ou remova se for apenas um div vazio */
-    color: transparent; /* Alterado para transparente */
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    font-size: 0;
-    cursor: default;
-    /* Adicionado para responsividade se a div for usada como separador em mobile */
-    width: 80%; /* Para ser um separador horizontal em telas menores */
-    height: 1px;
-    background-color: #E0E0E0; /* Cor sutil para o separador */
-    margin: var(--spacing-md) auto;
-}
-
-/* Os estilos .social-buttons e .social-button foram removidos para evitar conflito com .social-btn */
-
-/* Novo estilo para os botões sociais */
-.card-right {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 30px; /* Mantém o padding para espaçamento interno */
-    gap: 20px; /* Espaçamento entre os botões */
 }
 
-.social-btn { /* Alterado de .social-button para .social-btn para seu HTML */
+.logo-landing {
+    max-width: 150px;
+}
+
+.landing-card h1 {
+    font-size: 2.5em;
+    color: var(--secondary-color);
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    margin: 0.5rem 0 0.2rem;
+}
+
+.landing-card p {
+    font-size: 1.1em;
+    color: var(--text-color-light);
+    margin-bottom: var(--spacing-md);
+}
+
+.card-divider {
+  background-color: #007bff; /* Cor de fundo azul */
+  color: white; /* Cor do texto branca */
+  padding: 10px 20px; /* Preenchimento interno (vertical, horizontal) */
+  border: none; /* Remove a borda padrão */
+  border-radius: 5px; /* Cantos levemente arredondados */
+  font-size: 16px; /* Tamanho da fonte */
+  cursor: pointer; /* Altera o cursor para uma mão */
+  transition: background-color 0.3s ease; /* Transição suave para o efeito hover */;
+}
+
+.social-buttons {
+  background-color: #007bff; /* Cor de fundo azul */
+  color: white; /* Cor do texto branca */
+  padding: 10px 20px; /* Preenchimento interno (vertical, horizontal) */
+  border: none; /* Remove a borda padrão */
+  border-radius: 5px; /* Cantos levemente arredondados */
+  font-size: 16px; /* Tamanho da fonte */
+  cursor: pointer; /* Altera o cursor para uma mão */
+  transition: background-color 0.3s ease; /* Transição suave para o efeito hover */;
+}
+
+.social-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 250px; /* Largura fixa para os botões */
-    padding: 15px 25px;
-    border-radius: 30px; /* Botões arredondados */
-    text-decoration: none;
-    color: #FFFFFF;
-    font-size: 1.2em;
+    padding: 10px 20px;
+    font-size: 16px;
     font-weight: bold;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.social-btn i {
+.social-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.social-button i {
     margin-right: 10px;
-    font-size: 1.4em;
 }
 
-.social-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+.instagram {
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d, #f56040, #ffdc80);
 }
 
-/* Estilos para o botão do Instagram */
-.social-btn.instagram { /* Use .social-btn.instagram para aplicar o estilo específico */
-    background: linear-gradient(45deg, #FCAF45, #FD1D1D, #833AB4); /* Gradiente de cores do Instagram */
+.whatsapp {
+    background-color: #25D366;
 }
 
-/* Estilos para o botão do WhatsApp */
-.social-btn.whatsapp { /* Use .social-btn.whatsapp */
-    background: linear-gradient(45deg, #25D366, #128C7E); /* Gradiente verde do WhatsApp */
+.cardapio-btn-landing {
+    background-color: var(--primary-color);
+    color: white;
 }
 
-/* Estilos para o botão do Cardápio */
-.social-btn.cardapio { /* Use .social-btn.cardapio */
-    background: linear-
+/* Desktop: Layout de 2 colunas */
+@media (min-width: 768px) {
+    .landing-card {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: var(--spacing-lg);
+    }
+    .card-left, .card-right {
+        width: 45%;
+    }
+    .card-divider {
+        display: none;
+    }
+    .vertical-divider {
+        display: block;
+        width: 1px;
+        background-color: #ddd;
+    }
+}
+
+/* --- Layout do Cardápio (cardapio.html) --- */
+header {
+    background-color: var(--card-background);
+    padding: var(--spacing-sm) var(--spacing-md);
+    box-shadow: var(--shadow-subtle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 1rem 0.5rem;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.carrinho-btn {
+    background: none;
+    color: var(--primary-color);
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.carrinho-btn:hover {
+    transform: scale(1.05);
+}
+
+.carrinho-btn:active {
+    transform: scale(0.95);
+}
+
+#contador-carrinho {
+    background-color: #ffc107;
+    color: #333;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+}
+
+.hamburger-menu-btn {
+    display: none;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* --- Seções e Cards do Cardápio --- */
+main {
+    padding: var(--spacing-lg) var(--spacing-md);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.menu-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.menu-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    border-bottom: var(--border-dashed);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    width: 100%;
+    position: relative;
+}
+
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.item-card {
+    background-color: var(--card-background);
+    border-radius: 15px;
+    box-shadow: var(--shadow-subtle);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.item-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.item-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.item-card-content {
+    padding: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.item-card-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.2rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.item-card-content p {
+    font-size: 0.9rem;
+    color: var(--text-color-light);
+    flex-grow: 1;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin: 0.5rem 0 1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.btn-add {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    width: 100%;
+    margin-top: auto;
+}
+
+.btn-add:hover {
+    background-color: #c0392b;
+}
+
+/* --- Estilo para as janelas flutuantes (modais) --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--card-background);
+    position: relative;
+    max-width: 600px;
+    border-radius: 15px;
+    padding: var(--spacing-lg);
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.fechar-modal {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.fechar-modal:hover {
+    color: #666;
+}
+
+/* Estilos do carrinho */
+.carrinho-itens {
+    max-height: 400px;
+    overflow-y: auto;
+    border-bottom: 1px dashed #e0e0e0;
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.carrinho-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+}
+
+.carrinho-item-info {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    gap: 1rem;
+}
+
+.carrinho-item-quantidade {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.carrinho-item-nome {
+    flex-grow: 1;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.carrinho-item-preco {
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+.btn-remove {
+    background: none;
+    border: none;
+    color: #d9534f;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.carrinho-total {
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: var(--secondary-color);
+}
+
+.carrinho-total span {
+    color: var(--primary-color);
+}
+
+#btn-finalizar-pedido {
+    width: 100%;
+    padding: 1rem;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#btn-finalizar-pedido:hover {
+    background-color: #1DA851;
+}
+
+/* Estilos do Modal de Item */
+#item-info-modal {
+    text-align: left;
+}
+
+#modal-item-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+#modal-item-nome {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin: 0;
+    margin-bottom: var(--spacing-sm);
+}
+
+#modal-item-descricao {
+    font-size: 1rem;
+    text-align: center;
+    color: var(--text-color-light);
+    margin-bottom: var(--spacing-md);
+}
+
+.modal-contador-preco {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.contador {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contador-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#item-quantidade {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#modal-item-preco {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.modal-adicionais-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+    border-bottom: var(--border-dashed);
+    padding-bottom: 0.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.adicionais-container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: var(--spacing-md);
+}
+
+.adicional-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.25rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.adicional-item:hover, .adicional-item.selected {
+    background-color: #f0f0f0;
+}
+
+.adicional-info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.adicional-nome {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.adicional-preco {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+.adicional-btn-add {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.adicional-btn-add:hover {
+    transform: scale(1.1);
+}
+
+#btn-adicionar-final {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 2rem;
+}
+
+#btn-adicionar-final:hover {
+    background-color: #d32f2f;
+}
+
+/* --- Notificação --- */
+.notificacao {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: var(--shadow-subtle);
+    z-index: 1002;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.notificacao.show {
+    opacity: 1;
+}
+
+/* --- Rodapé --- */
+footer {
+    background-color: var(--secondary-color);
+    color: var(--text-color-light);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+/* --- Media Queries --- */
+@media (max-width: 768px) {
+    header {
+        padding: 0 var(--spacing-sm);
+    }
+    .logo img {
+        height: 40px;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--card-background);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        box-shadow: var(--shadow-subtle);
+        z-index: 999;
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .nav-links li {
+        text-align: center;
+        width: 100%;
+        border-bottom: 1px solid #eee;
+    }
+    .nav-links li:last-child {
+        border-bottom: none;
+    }
+    .nav-links a {
+        padding: 1rem 0;
+        display: block;
+    }
+    .hamburger-menu-btn {
+        display: block;
+    }
+    .item-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+    .item-card img {
+        height: 150px;
+    }
+    .item-card-content {
+        padding: 0.6rem;
+    }
+    .item-card-content h3 {
+        font-size: 1.1rem;
+    }
+    .item-card-content p {
+        font-size: 0.8rem;
+    }
+    .price {
+        font-size: 1.5rem;
+    }
+    .btn-add {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+    .modal-content {
+        padding: var(--spacing-md);
+    }
+    .adicionais-container {
+        max-height: 150px;
+    }
+    #modal-item-img {
+        height: 200px;
+    }
+}
